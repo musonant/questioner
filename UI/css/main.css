@@ -1,0 +1,273 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* -- GENERAL STYLES -- */
+.col-sm-12 {
+  width: 100%;
+}
+.col-sm-11 {
+  width: 91.67%;
+}
+.col-sm-10 {
+  width: 83.33%;
+}
+.col-sm-9 {
+  width: 75%;
+}
+.col-sm-8 {
+  width: 66.67%;
+}
+.col-sm-7 {
+  width: 58.33%;
+}
+.col-sm-6 {
+  width: 50%;
+}
+.col-sm-5 {
+  width: 41.67%;
+}
+.col-sm-4 {
+  width: 33.33%;
+}
+.col-sm-3 {
+  width: 25%;
+}
+.col-sm-2 {
+  width: 16.67%;
+}
+.col-sm-1 {
+  width: 8.33%;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: 1px solid #000;
+}
+
+input {
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid #efeeee;
+  border-bottom-width: 4px;
+  margin-bottom: 20px;
+  width: 100%;
+  font-size: 20px;
+  outline: none;
+}
+
+input:focus {
+  transition: all 300ms ease;
+  border-bottom: 4px solid #93d0d0;
+}
+
+input[type="submit"] {
+  margin: 0px;
+  border: none;
+  color: #fff;
+  text-transform: uppercase;
+  background: #3b8888;
+}
+
+input[type="submit"]:hover {
+  background: #2d6565;
+  cursor: pointer;
+}
+
+input[type="submit"]:active {
+  background: linear-gradient(90deg, #2d6565, #264444, #2d6565);
+}
+
+  /* ----------------------- */
+ /* -- LOGIN PAGE STYLES -- */
+/* ----------------------- */
+#sign-page .page-background {
+  background-image: url('../img/background-img.png');
+  background: #61dada;
+}
+
+.page-background {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -50;
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #00000045;  
+  z-index: -40;
+}
+
+.sign-container {
+  max-width: 500px;
+  margin: auto;
+  margin-top: 70px;
+}
+.sign-toggle {
+  height: 40px;
+  margin-top: 20px;
+  position: relative;
+  padding: 0px 5px;
+}
+
+.sign-toggle .bar {
+  border: 1px solid #ddd;
+  padding: 10px 30px;
+  background: #93d0d0;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  position: absolute;
+  z-index: 10;
+  height: 40px;
+  border-bottom: none;
+  transition: background 300ms ease;
+}
+
+.sign-toggle .bar:hover {
+  background: #74bdbd;
+  cursor: pointer;
+}
+
+.sign-toggle .bar:active {
+  background: linear-gradient(90deg, #74bdbd, #72e2e2, #74bdbd);
+}
+
+.sign-toggle .bar.active {
+  background: #fff;
+  height: 46px;
+  top: -5px;
+  z-index: 20;
+  padding-top: 15px;
+}
+
+.sign-toggle .bar.in.active {
+  left: 0;
+}
+.sign-toggle .bar.up.active {
+  right: 0;
+}
+
+.sign-toggle .up {
+  right: 5px;
+}
+
+.form-area {
+  position: relative;
+  background: #fff;
+  padding: 30px;
+  border: 1px solid #ddd;
+}
+
+.form-area .form {
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  transition: all 300ms ease-in-out;
+}
+
+.form-area .form.active {
+  height: fit-content;
+  opacity: 1;
+}
+
+
+  /* -------------------------- */
+ /* -- MEDIUM SCREEN STYLES -- */
+/* -------------------------- */
+@media only screen and (min-width: 40em) {
+  .col-md-12 {
+    width: 100%;
+  }
+  .col-md-11 {
+    width: 91.67%;
+  }
+  .col-md-10 {
+    width: 83.33%;
+  }
+  .col-md-9 {
+    width: 75%;
+  }
+  .col-md-8 {
+    width: 66.67%;
+  }
+  .col-md-7 {
+    width: 58.33%;
+  }
+  .col-md-6 {
+    width: 50%;
+  }
+  .col-md-5 {
+    width: 41.67%;
+  }
+  .col-md-4 {
+    width: 33.33%;
+  }
+  .col-md-3 {
+    width: 25%;
+  }
+  .col-md-2 {
+    width: 16.67%;
+  }
+  .col-md-1 {
+    width: 8.33%;
+  }
+}
+
+
+
+  /* ------------------------- */
+ /* -- LARGE SCREEN STYLES -- */
+/* ------------------------- */
+@media only screen and (min-width: 60em) {
+  .col-lg-12 {
+    width: 100%;
+  }
+  .col-lg-11 {
+    width: 91.67%;
+  }
+  .col-lg-10 {
+    width: 83.33%;
+  }
+  .col-lg-9 {
+    width: 75%;
+  }
+  .col-lg-8 {
+    width: 66.67%;
+  }
+  .col-lg-7 {
+    width: 58.33%;
+  }
+  .col-lg-6 {
+    width: 50%;
+  }
+  .col-lg-5 {
+    width: 41.67%;
+  }
+  .col-lg-4 {
+    width: 33.33%;
+  }
+  .col-lg-3 {
+    width: 25%;
+  }
+  .col-lg-2 {
+    width: 16.67%;
+  }
+  .col-lg-1 {
+    width: 8.33%;
+  }
+}
+
