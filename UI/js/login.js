@@ -5,19 +5,17 @@ let signupForm = document.getElementById('signup-form');
 
 loginToggle.addEventListener('click', (e) => {
   if (e.target.className.indexOf('active') === -1) {
-    signupToggle.className = 'bar up col-sm-6';
-    
-    e.target.className = 'bar in col-sm-6 active';
+    signupToggle.classList.remove('active');
+    e.target.classList.add('active')
 
-    signupForm.className = 'form';
-    loginForm.className = 'form active';
+    signupForm.classList.remove('active');
+    loginForm.classList.add('active');
   }
 });
 
 signupToggle.addEventListener('click', (e) => {
   if (e.target.className.indexOf('active') === -1) {
     loginToggle.className = 'bar in col-sm-6';
-    
     e.target.className = 'bar up col-sm-6 active';
     
     loginForm.className = 'form';
