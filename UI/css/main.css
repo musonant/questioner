@@ -42,6 +42,11 @@
   width: 8.33%;
 }
 
+hr {
+  margin: 30px 0px;
+  border-color: #d4d4d4b8;
+}
+
 a {
   text-decoration: none;
   color: inherit;
@@ -65,6 +70,10 @@ a {
   height: auto;
 }
 
+.underline {
+  text-decoration: underline;
+}
+
 .grey-color {
   color: grey;
 }
@@ -81,12 +90,20 @@ input {
   outline: none;
 }
 
+.submit-btn {
+  padding: 10px 20px;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 20px;
+  display: block;
+}
+
 input:focus {
   transition: all 300ms ease;
   border-bottom: 4px solid #93d0d0;
 }
 
-input[type="submit"] {
+input[type="submit"], .submit-btn {
   margin: 0px;
   border: none;
   color: #fff;
@@ -94,12 +111,12 @@ input[type="submit"] {
   background: #3b8888;
 }
 
-input[type="submit"]:hover {
+input[type="submit"]:hover, .submit-btn:hover {
   background: #2d6565;
   cursor: pointer;
 }
 
-input[type="submit"]:active {
+input[type="submit"]:active, .submit-btn:active {
   background: linear-gradient(90deg, #2d6565, #264444, #2d6565);
 }
 
@@ -163,6 +180,19 @@ textarea:focus {
   outline-color: #7aadad;
 }
 
+.fine-text {
+  /* padding: 20px 0px; */
+  font-family: arial;
+  word-spacing: 1px;
+  line-height: 22px;
+  font-size: 17px;
+  color: #3a3a3a;
+}
+.fine-text p {
+  margin-bottom: 15px;
+}
+
+
 
 
 
@@ -199,6 +229,12 @@ textarea:focus {
   display: flex;
   /* background: #fff; */
   padding: 10px;
+}
+.menu-arrow {
+  transition: all 300ms ease;
+}
+.menu-toggle.with-arrow.show .menu-arrow {
+  transform: rotate(180deg);
 }
 .menu-content {
   position: absolute;
@@ -333,7 +369,8 @@ textarea:focus {
   overflow: hidden;
   height: 0;
   opacity: 0;
-  transition: height 300ms ease-in-out;
+  transition: all 600ms cubic-bezier(0.42, 0, 0.58, 1.1);
+  /* transition-delay: 300ms; */
 }
 
 .form-area .form.active {
@@ -348,9 +385,9 @@ textarea:focus {
 }
 
 
-  /* ------------------------ */
- /* -- MEETUP PAGE STYLES -- */
-/* ------------------------ */
+  /* ----------------------------- */
+ /* -- ALL MEETUPS PAGE STYLES -- */
+/* ----------------------------- */
 
 .all-meetups {
   padding: 20px;
@@ -436,11 +473,11 @@ textarea:focus {
 
 .meetup-card .cta-btn {
   position: absolute;
-  bottom: -50px;
+  bottom: 20px;
   opacity: 0;
   left: 35%;
   font-size: 14px;
-  transition: all 300ms ease-in-out;
+  transition: all 700ms ease-in-out;
   border-radius: 3px;
   border: none;
   background: #fff;
@@ -448,6 +485,7 @@ textarea:focus {
   font-weight: bold;
   padding: 10px 30px;
   box-shadow: 0px 0px 1px 1px #d4d4d485;
+  transition-delay: 300ms;
 }
 
 .meetup-card .cta-btn:hover {
@@ -510,10 +548,6 @@ textarea:focus {
   flex-direction: column;
   overflow: hidden;
 }
-.preview-meetup {
-  /* border-bottom: 1px solid #aaa; */
-}
-
 .img-uploader {
   padding: 20px;
   height: 100%;
@@ -523,12 +557,10 @@ textarea:focus {
 .img-placeholder {
   width: 100%;
   height: 100%;
-  /* border: 2px dashed #fff; */
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
-  /* box-shadow: 0px 0px 0px #ffffff; */
 }
 .img-placeholder label {
   color: #fff;
@@ -565,6 +597,183 @@ textarea:focus {
 }
 #account-page .info {
   padding: 0px 30px;
+}
+
+
+
+  /* ------------------------ */
+ /* -- MEETUP PAGE STYLES -- */
+/* ------------------------ */
+.meetup-banner {
+  padding: 30px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+.meetup-banner .info {
+  padding-right: 20px;
+}
+
+.action-btn {
+  font-size: 20px;
+  padding: 7px 0px;
+  background: #7aadad;
+  color: #fff;
+  border: 1px solid #7aadad;
+  width: 100%;
+}
+#meetup-page .actions {
+  text-align: center;
+  margin-top: 30px;
+}
+#meetup-page .main-body {
+  padding: 30px;
+  padding-top: 50px;
+  background: #f5f5f5;
+}
+#meetup-page .page-body .container {
+  margin-top: 50px;
+}
+#meetup-page .featured-image {
+  height: 400px;
+}
+#meetup-page .description {
+  margin-top: 30px;
+}
+
+.question-card {
+  margin-bottom: 40px;
+  margin-left: -20px;
+}
+
+.question-card .counter {
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  position: sticky;
+  top: 0;
+}
+.question-card .body {
+  /* background: #fff; */
+  /* padding: 20px; */
+  height: fit-content;
+  align-self: center;
+  /* border-right: 4px solid #ccc; */
+}
+
+.voter-btn {
+  font-size: 50px;
+  border: none;
+  background: none;
+  height: 29px;
+  overflow: hidden;
+  padding: 5px;
+}
+.voter-btn .icon {
+  margin-top: -18px;
+  display: block;
+}
+
+.voter-btn.upvote {
+  color: #31927c;
+}
+.voter-btn.upvote:hover {
+  color: #26705f;
+}
+.voter-btn.downvote {
+  color: #ab3742;
+}
+.voter-btn.downvote:hover {
+  color: #862b34;
+}
+.question-card .divide {
+  height: 1px;
+  background: #828282;
+  width: 20px;
+  margin: 15px 0px;
+}
+.question-card p {
+  margin: 0;
+}
+
+.voter-btn:hover {
+  color: green;
+  cursor: pointer;
+}
+.question-card .vote-num {
+  font-size: 18px;
+  font-family: sans-serif;
+}
+.downvotes {
+  color: #ab3742;
+  font-size: 16px !important;
+}
+.upvotes {
+  color: #31927c;
+}
+
+.question-form input {
+  background: #fff;
+  font-size: 17px;
+  margin-bottom: 0px;
+}
+
+.question-card .comment {
+  padding: 10px;
+  border-left: 4px solid #ccc;
+  margin-bottom: 20px;
+  background: #fff;
+}
+.question-card .comment-list {
+  margin-left: 20px;
+}
+.main-question {
+  padding: 20px;
+  background: #fff;
+  border-left: 4px solid #ccc;
+  margin-bottom: 20px;
+}
+
+
+  /* ------------------- */
+ /* -- FOOTER STYLES -- */
+/* ------------------- */
+footer {
+  background: #d5e6e6;
+  font-size: 17px;
+  font-family: sans-serif;
+}
+footer .top {
+  padding: 40px 30px;
+}
+footer .first-link {
+  padding: 30px 0px;
+  border-bottom: 1px solid #2f2f2f2b;
+}
+footer .content {
+  margin-bottom: 20px;
+}
+footer li {
+  list-style-type: none;
+  padding: 10px 0px;
+  color: #616161;
+}
+footer .links {
+  padding-top: 30px;
+}
+footer .key {
+  color: black;
+}
+.copyright {
+  padding: 20px 30px;
+  background-color: #4a7f804d;
+  color: #616161;
+}
+footer input {
+  font-size: 17px;
+  border-color: #afafaf82;
 }
 
 
@@ -630,6 +839,20 @@ textarea:focus {
   
   .meetup-card.for-preview {
     height: 200px;
+  }
+
+  footer {
+    /* padding: 40px 30px; */
+  }
+  footer .top {
+    padding: 40px 30px;
+  }
+  .copyright {
+    padding: 20px 30px;
+  }
+
+  .question-card {
+    margin-left: 0px;
   }
 }
 
@@ -698,5 +921,26 @@ textarea:focus {
   #meetup-form {
     padding: 0px 60px;
   }
-  
+
+  #meetup-page .actions {
+    margin-top: 0px;
+  }
+
+  #meetup-page .description {
+    margin-top: 0;
+    padding: 0px 50px;
+    position: sticky;
+    top: 50px;
+  }
+  .sticky {
+    position: sticky;
+    top: 50px;
+  }
+
+  footer .top {
+    padding: 50px 90px;
+  }
+  .copyright {
+    padding: 20px 90px;
+  }
 }

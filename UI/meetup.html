@@ -26,9 +26,9 @@
             <a href="create-meetup.html">
               <li class="menu-option">Create Meetup</li>
             </a>
-            <div class="menu-toggle">
+            <div class="menu-toggle with-arrow">
               <li class="menu-btn menu-option">Account Settings
-                <i class="fa fa-caret-down"></i>
+                <i class="fa fa-caret-down menu-arrow"></i>
               </li>
               <div class="menu-content">
                 <ul class="menu-list">
@@ -48,140 +48,185 @@
         </div>
       </div>
     </header>
-    <div class="main-title">
-      <h1 class="title">All Meetups</h1>
+    
+    <div class="meetup-banner row">
+      <div class="col-sm-12 col-lg-8 info">
+        <div class="title">
+          <label>January 01, 2018</label>
+          <h1>Javascript Developers Worldwide Hangout, 2019</h1>
+        </div>
+      </div>
+      <div class="col-sm-12 col-lg-4 attend">
+        <div class="actions">
+          <label>Are you attending?</label>
+          <div class="row" style="justify-content: center;">
+            <span class="col-sm-6" style="padding-right: 5px;">
+              <button class="fa fa-check action-btn"></button>
+            </span>
+            <span class="col-sm-6" style="padding-left: 5px;">
+              <button class="fa fa-close action-btn"></button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <label style="margin-top: 20px; color: #7aadad;">25 questions</label>
     </div>
-    <div class="search-box">
-      <i class="fa fa-search icon"></i>
-      <input type="text" class="search" placeholder="Search by tag">
+
+    <div class="page-body">
+      <div class="row main-body">
+        <div class="col-sm-12 col-lg-7 with-back-img featured-image" style="background-color: #d9e6e0; background-image: url('img/one-event.jpg')">
+        </div>
+        <div class="col-sm-12 col-lg-5 description">
+          <div class="fine-text sticky">
+            <label>description</label>
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut odio obcaecati veniam unde magnam nisi rem quod doloremque molestiae. Explicabo dicta ratione minima perspiciatis laboriosam eum tenetur accusamus, deleniti maxime?
+            </p>
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut odio obcaecati veniam unde magnam nisi rem quod doloremque molestiae. Explicabo dicta ratione minima perspiciatis laboriosam eum tenetur accusamus, deleniti maxime?
+            </p>
+            <label>Author</label>
+            <p>
+              <a href="" class="underline">Emmanuel Osuh</a>
+            </p>
+            <button class="action-btn">
+              <label style="color: #fff;">Ask a question</label>
+            </button>
+          </div>
+        </div>
+        <div class="col-sm-12 col-lg-7 container">
+          <div class="question-list">
+            <div class="row question-card">
+              <div class="counter">
+                <p class="vote-num upvotes">97</p>
+                  <button class="voter-btn upvote">
+                    <i class="fa fa-caret-up icon"></i>
+                  </button>
+
+                <div class="divide"></div>
+
+                <button class="voter-btn downvote">
+                  <i class="fa fa-caret-down icon"></i>
+                </button>
+                <p class="vote-num downvotes">14</p>
+              </div>
+              <div class="body flex-1">
+                <div class="fine-text main-question">
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequuntur nostrum eos obcaecati praesentium temporibus quidem, sit tenetur sapiente ipsa! Voluptatem praesentium earum officia quam itaque voluptas explicabo similique quod et!
+                  </p>
+                </div>
+                <div class="comment-list">
+                  <div class="comment">
+                    <div class="fine-text">
+                      <p>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequuntur nostrum eos obcaecati praesentium temporibus quidem, sit tenetur sapiente ipsa! Voluptatem praesentium earum officia quam itaque voluptas explicabo similique quod et!
+                      </p>
+                    </div>
+                  </div>
+                  <form action="" class="question-form">
+                    <input type="text" placeholder="Enter your comment">
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="row question-card">
+              <div class="counter">
+                <p class="vote-num upvotes">82</p>
+                  <button class="voter-btn upvote">
+                    <i class="fa fa-caret-up icon"></i>
+                  </button>
+
+                <div class="divide"></div>
+
+                <button class="voter-btn downvote">
+                  <i class="fa fa-caret-down icon"></i>
+                </button>
+                <p class="vote-num downvotes">9</p>
+              </div>
+              <div class="body flex-1">
+                <div class="fine-text main-question">
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequuntur nostrum eos obcaecati praesentium temporibus quidem, sit tenetur sapiente ipsa!
+                  </p>
+                </div>
+                <div class="comment-list">
+                  <!-- <div class="comment">
+                    
+                  </div> -->
+                  <form action="" class="question-form">
+                    <input type="text" placeholder="Enter your comment">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+          
+          <form action="" class="question-form">
+            <input type="text" placeholder="Enter your question">
+            <!-- <input type="submit" value="POST"> -->
+            <button class="action-btn">
+              <a href="">
+                <label style="color: #fff;">POST</label>
+              </a>
+            </button>
+          </form>
+        </div>
+      </div>
+
     </div>
-    <div class="row all-meetups">
-      <div class="col-sm-12 col-md-6 col-lg-4 container">
-        <div class="meetup-card">
-          <aside class="display">
-            <a href="" class="">
-              <div class="question-count">
-                <span class="count">20</span>
-                <span>Questions</span>
-              </div>
-              <div class="with-back-img meetup-display-img" style="background-color: #b0e6ce; background-image: url('./img/event.jpg');"></div>
-              <div class="cta-btn">VIEW</div>
-            </a>
-          </aside>
-          <main class="info">
-            <div class="date-thumbnail">
-              <p class="month">JAN</p>
-              <p class="day grey-color">30</p>
+    
+    <footer>
+      <div class="top">
+        <div class="first-link">
+          <a href="meetups.html">All Meetups</a>
+        </div>
+        <div class="links row">
+          <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="content">
+              <ul>
+                <li class="key">Your Account</li>
+                <li><a href="account.html#account-info">Account Information</a></li>
+                <li><a href="account.html#account-log">Account Log</a></li>
+                <li><a href="account.html#schedulled-meetups">Schedulled Meetups</a></li>
+                <li><a href="">Logout</a></li>
+              </ul>
             </div>
-            <div class="details row flex-1">
-              <h3 class="title">
-                <a href="">
-                  The Musonant Poetry Conference, 2019
-                </a>
-              </h3>
-              <div class="more grey-color">
-                <p class="detail-text" name="date">Sat, Jul 20, 10:00am</p>
-                <p class="detail-text" name="venue">Plot 2&3 Water Corporation Road Victoria Island</p>
-              </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="content">
+              <ul>
+                <li class="key">Tags</li>
+                <li><a href="">javascript</a></li>
+                <li><a href="">Node</a></li>
+                <li><a href="">ES6</a></li>
+              </ul>
             </div>
-          </main>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="content">
+              <ul>
+                <li class="key">Meetup</li>
+                <li><a href="create-meetup.html">Create Meetup</a></li>
+                <li><a href=""></a></li>
+                <li><a href=""></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="content">
+              <input type="text" placeholder="Find a Meetup">
+              <input type="text" placeholder="Search a tag">
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-sm-12 col-md-6 col-lg-4 container">
-        <div class="meetup-card">
-          <aside class="display">
-            <a href="" class="">
-              <div class="question-count">
-                <span class="count">20</span>
-                <span>Questions</span>
-              </div>
-              <div class="with-back-img meetup-display-img" style="background-color: #b0e6ce; background-image: url('./img/event.jpg');"></div>
-              <div class="cta-btn">VIEW</div>
-            </a>
-          </aside>
-          <main class="info">
-            <div class="date-thumbnail">
-              <p class="month">JAN</p>
-              <p class="day grey-color">30</p>
-            </div>
-            <div class="details row flex-1">
-              <h3 class="title">
-                <a href="">
-                  The Musonant Poetry Conference, 2019
-                </a>
-              </h3>
-              <div class="more grey-color">
-                <p class="detail-text" name="date">Sat, Jul 20, 10:00am</p>
-                <p class="detail-text" name="venue">Plot 2&3 Water Corporation Road Victoria Island</p>
-              </div>
-            </div>
-          </main>
-        </div>
+      <div class="copyright">
+        <p>© Questioner 2018 - Developed by Emmanuel Osuh</p>
       </div>
-      <div class="col-sm-12 col-md-6 col-lg-4 container">
-        <div class="meetup-card">
-          <aside class="display">
-            <a href="" class="">
-              <div class="question-count">
-                <span class="count">20</span>
-                <span>Questions</span>
-              </div>
-              <div class="with-back-img meetup-display-img" style="background-color: #b0e6ce; background-image: url('./img/event.jpg');"></div>
-              <div class="cta-btn">VIEW</div>
-            </a>
-          </aside>
-          <main class="info">
-            <div class="date-thumbnail">
-              <p class="month">JAN</p>
-              <p class="day grey-color">30</p>
-            </div>
-            <div class="details row flex-1">
-              <h3 class="title">
-                <a href="">
-                  The Musonant Poetry Conference, 2019
-                </a>
-              </h3>
-              <div class="more grey-color">
-                <p class="detail-text" name="date">Sat, Jul 20, 10:00am</p>
-                <p class="detail-text" name="venue">Plot 2&3 Water Corporation Road Victoria Island</p>
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>
-      <div class="col-sm-12 col-md-6 col-lg-4 container">
-        <div class="meetup-card">
-          <aside class="display">
-            <a href="" class="">
-              <div class="question-count">
-                <span class="count">20</span>
-                <span>Questions</span>
-              </div>
-              <div class="with-back-img meetup-display-img" style="background-color: #b0e6ce; background-image: url('./img/event.jpg');"></div>
-              <div class="cta-btn">VIEW</div>
-            </a>
-          </aside>
-          <main class="info">
-            <div class="date-thumbnail">
-              <p class="month">JAN</p>
-              <p class="day grey-color">30</p>
-            </div>
-            <div class="details row flex-1">
-              <h3 class="title">
-                <a href="">
-                  The Musonant Poetry Conference, 2019
-                </a>
-              </h3>
-              <div class="more grey-color">
-                <p class="detail-text" name="date">Sat, Jul 20, 10:00am</p>
-                <p class="detail-text" name="venue">Plot 2&3 Water Corporation Road Victoria Island</p>
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>
-    </div>
-  </div>
+    </footer>
 
     <!-- <div class="page-background">
       <div class="overlay"></div>
