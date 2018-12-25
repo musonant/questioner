@@ -1,0 +1,40 @@
+const users = [
+  {
+    id: 1,
+    firstname: 'Jack',
+    lastname: 'Sparrow',
+    othername: '',
+    email: 'jacksparrow@user.com',
+    phoneNumber: '',
+    username: '',
+    registered: new Date(),
+    isAdmin: true,
+    password: 'jack',
+  },
+  {
+    id: 2,
+    firstname: 'James',
+    lastname: 'Taylor',
+    othername: '',
+    email: 'jacksparrow@user.com',
+    phoneNumber: '',
+    username: '',
+    registered: new Date(),
+    isAdmin: true,
+    password: 'james',
+  },
+  {
+    id: 3,
+    firstname: 'Philip',
+    lastname: 'Catridge',
+    othername: '',
+    email: 'jacksparrow@user.com',
+    phoneNumber: '',
+    username: '',
+    registered: new Date(),
+    isAdmin: true,
+    password: 'philip',
+  },
+];
+
+export default users;
