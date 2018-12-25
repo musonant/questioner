@@ -1,0 +1,46 @@
+{
+  "name": "questioner",
+  "version": "1.0.0",
+  "description": "Crowd-source questions for a meetup. Questioner helps the meetup organizer prioritize questions to be answered. Other users can vote on asked questions and they bubble to the top or bottom of the log.",
+  "main": "app.js",
+  "scripts": {
+    "start": "babel-node app.js",
+    "start:dev": "nodemon --exec babel-node app.js",
+    "lint": "eslint app.js",
+    "test": "set PORT=4000&& set NODE_ENV=test&& nyc mocha ./server/tests/test --require babel-register --timeout 300000 --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/musonant/questioner.git"
+  },
+  "author": "Emmanuel Osuh <mrmusonant@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/musonant/questioner/issues"
+  },
+  "homepage": "https://github.com/musonant/questioner#readme",
+  "dependencies": {
+    "body-parser": "1.18.3",
+    "cors": "2.8.5",
+    "dotenv": "6.2.0",
+    "express": "4.16.4"
+  },
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-preset-env": "1.7.0",
+    "babel-register": "6.26.0",
+    "chai": "4.1.2",
+    "chai-http": "4.2.0",
+    "coveralls": "3.0.2",
+    "eslint": "5.1.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-plugin-import": "2.13.0",
+    "mocha": "5.0.4",
+    "nodemon": "1.18.7",
+    "nyc": "13.1.0"
+  },
+  "engines": {
+    "node": "8.9.4"
+  }
+}
