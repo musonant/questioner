@@ -3,6 +3,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import { describe, it } from 'mocha';
+import testMeetup from './meetups-test';
 import app from '../../app';
 
 chai.use(chaiHttp);
@@ -40,5 +41,7 @@ describe('Test cases for Questioner API', () => {
         });
     });
   });
+
+  testMeetup();
 
 });
