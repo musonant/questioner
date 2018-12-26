@@ -5,20 +5,19 @@ node_js:
 cache:
   directories:
     - "node_modules"
-services:
-  - postgresql
 env:
   global:
-  - CC_TEST_REPORTER_ID=224126bc19770cba700e18d4c02d83a0a85fd31d74ff7edcc81d3a90692448b1
+  - CC_TEST_REPORTER_ID=4498156eda3a3eebe0c4166608b5b3ce698bc321a434b4117a79dfb4b61b32d8
   - NODE_ENV=test
 before_script:
   - npm install
+  - npm install -g nyc
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
-  - npm run test
+  - nyc --reporter=lcov npm run test
 
 after_success:
   - npm run coverage
-  - ./cc-test-reporter after-build --exit code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
