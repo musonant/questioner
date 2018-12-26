@@ -11,11 +11,12 @@ env:
   - NODE_ENV=test
 before_script:
   - npm install
+  - npm install -g nyc
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
-  - npm run test
+  - nyc --reporter=lcov npm run test
 
 after_success:
   - npm run coverage
