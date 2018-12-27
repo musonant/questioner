@@ -9,6 +9,7 @@ apiRouter.get('/', (req, res) => {
     message: 'Questioner API',
   });
 });
+
 apiRouter.use('/meetups', meetupRouter);
 
 export default apiRouter;

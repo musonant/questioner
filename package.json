@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/musonant/questioner#readme",
   "dependencies": {
+    "babel-plugin-istanbul": "^5.1.0",
     "body-parser": "1.18.3",
     "cors": "2.8.5",
     "dotenv": "6.2.0",

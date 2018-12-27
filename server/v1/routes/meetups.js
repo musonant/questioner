@@ -1,9 +1,8 @@
 import { Router } from 'express';
-import meetupController from '../Controllers/meetup';
+import MeetupController from '../Controllers/MeetupController';
 
 const meetupRouter = Router();
 
-meetupRouter.get('/', meetupController.list);
-meetupRouter.get('/:id', meetupController.retrieve);
+meetupRouter.get('/', MeetupController.list);
 
 export default meetupRouter;
