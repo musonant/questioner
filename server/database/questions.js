@@ -1,3 +1,16 @@
+export const defaultRecord = {
+  id: undefined,
+  createdOn: undefined,
+  createdBy: undefined,
+  meetup: undefined,
+  authorName: undefined,
+  title: null,
+  body: undefined,
+  upVoters: null,
+  downVoters: null,
+  updatedOn: null,
+};
+
 const questions = [
   {
     id: 1,
@@ -7,7 +20,8 @@ const questions = [
     authorName: 'James Taylor',
     title: '',
     body: 'Is there a justifiable reason why global warming is no longer mentioned even with its obviously terrible consequences?',
-    votes: 20,
+    upVoters: [],
+    downVoters: [2, 3],
     updatedOn: null,
   },
   {
@@ -18,7 +32,8 @@ const questions = [
     authorName: 'James Taylor',
     title: '',
     body: 'Beyond syntax, are there any major differences between the interfaces of the chai assertion library: should, expect and assert?',
-    votes: 40,
+    upVoters: [2, 3],
+    downVoters: [],
     updatedOn: null,
   },
   {
@@ -29,7 +44,8 @@ const questions = [
     authorName: 'Philip Catridge',
     title: '',
     body: 'I believe Global warming is still as dangerous as it always was. What are the first steps we have to take?',
-    votes: 40,
+    upVoters: [2, 3],
+    downVoters: [],
     updatedOn: null,
   },
 ];
