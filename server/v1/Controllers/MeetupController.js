@@ -31,6 +31,22 @@ class MeetupController {
       data,
     });
   }
+
+  /**
+   * Retrieve a single resource from the table
+   * @param {Object} req - request made
+   * @param {Object} res - response to be given
+   * @returns {Object} - response
+   */
+  static retrieve(req, res) {
+    const id = parseInt(req.params.id, 10);
+    const resource = Meetup.getOne(id);
+    res.status(200).send({
+      status: 200,
+      data: resource,
+    });
+  }
+
 }
 
 export default MeetupController;

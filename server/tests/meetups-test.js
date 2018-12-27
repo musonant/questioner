@@ -19,6 +19,16 @@ const testMeetup = () => {
           done();
         });
     });
+    
+    it('GET /meetups/:id should return a single meetup record', (done) => {
+      chai.request(app)
+        .get('/api/v1/meetups/1')
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.data.should.be.a('object');
+          done();
+        });
+    });
   });
 }
 
