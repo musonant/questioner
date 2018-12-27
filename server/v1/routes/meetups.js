@@ -5,5 +5,6 @@ const meetupRouter = Router();
 
 meetupRouter.get('/', MeetupController.list);
 meetupRouter.get('/:id', MeetupController.retrieve);
+meetupRouter.post('/', MeetupController.create);
 
 export default meetupRouter;

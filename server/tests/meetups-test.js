@@ -29,6 +29,21 @@ const testMeetup = () => {
           done();
         });
     });
+    it('POST /meetups/', (done) => {
+      chai.request(app)
+        .post('/api/v1/meetups/')
+        .type('form')
+        .send({
+          'topic': 'Some title',
+          'createdBy': 1
+        })
+        .end((err, res) => {
+          res.should.have.status(201);
+          res.body.data.should.be.a('array');
+          res.body.data[0].should.be.a('object');
+          done();
+        });
+    });
   });
 }
 
