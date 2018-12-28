@@ -72,6 +72,15 @@ const questionTest = () => {
           done();
         });
     });
+    it('GET /questions/:id should return a single question', (done) => {
+      chai.request(app)
+        .get('/api/v1/questions/1')
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.data.should.be.a('object');
+          done();
+        });
+    });
   });
 }
 

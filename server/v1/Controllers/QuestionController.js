@@ -21,6 +21,21 @@ class QuestionController {
   }
 
   /**
+   * Retrieve a single resource from the table
+   * @param {Object} req - request made
+   * @param {Object} res - response to be given
+   * @returns {Object} - response
+   */
+  static retrieve(req, res) {
+    const id = parseInt(req.params.id, 10);
+    const resource = Question.getOne(id);
+    res.status(200).send({
+      status: 200,
+      data: resource,
+    });
+  }
+
+  /**
    * Create a resource
    * @param {Object} req - request made
    * @param {Object} res - response to be given
