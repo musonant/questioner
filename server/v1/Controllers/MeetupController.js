@@ -69,6 +69,30 @@ class MeetupController {
       });
     }
   }
+
+  /**
+   * Respond to a meetup invitation
+   * @param {Object} req - request made
+   * @param {Object} res - response to be given
+   * @returns {Object} - response
+   */
+  static replyInvite(req, res) {
+    const data = req.body;
+    data.meetup = parseInt(req.params.id, 10);
+
+    try {
+      const createdResponse = Meetup.replyInvite(req.body);
+      res.status(201).send({
+        status: 201,
+        data: [createdResponse],
+      });
+    } catch (err) {
+      res.status(400).send({
+        status: 400,
+        error: err.message,
+      });
+    }
+  }
 }
 
 export default MeetupController;
