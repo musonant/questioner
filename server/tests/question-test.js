@@ -27,6 +27,21 @@ const questionTest = () => {
           done();
         });
     });
+    it('PATCH /questions/:id/upvote', (done) => {
+      chai.request(app)
+        .patch('/api/v1/questions/1/upvote')
+        .type('form')
+        .send({
+          '_method': 'patch',
+          'userId': 2
+        })
+        .end((req, res) => {
+          res.should.have.status(200);
+          res.body.data.should.be.a('array');
+          res.body.data[0].should.be.a('object');
+          done();
+        });
+    });
   });
 }
 
