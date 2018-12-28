@@ -44,6 +44,16 @@ const testMeetup = () => {
           done();
         });
     });
+    it('GET /meetups?scope=upcoming', (done) => {
+      chai.request(app)
+        .get('/api/v1/meetups?scope=upcoming')
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.data.should.be.a('array');
+          res.body.data[0].should.be.a('object');
+          done();
+        });
+    });
   });
 }
 
