@@ -55,6 +55,65 @@ class Question {
 
     return newResource;
   }
+
+  /**
+   *
+   * @param {Object} questionId -
+   * @param {Object} userId -
+   * @returns {Object} - updated question object
+   */
+  static upVote(questionId, userId) {
+    const specifiedQuestion = Question.getOne(questionId);
+    const { upVoteStatus, downVoteStatus } = Question.voteExists(questionId, userId);
+
+    if (upVoteStatus === true) {
+      throw new Error('multiple voting is not possible');
+    }
+    if (downVoteStatus === true) {
+      specifiedQuestion.downVoters = Question.removeVote(specifiedQuestion.downVoters, userId);
+    }
+
+    specifiedQuestion.upVoters.push(userId);
+    return specifiedQuestion;
+  }
+
+  /**
+   * Remove specified voter from an array of voters
+   * @param {Array} voters -
+   * @param {Number} userId -
+   * @returns {Array} - modified array of voters
+   */
+  static removeVote(voters, userId) {
+    return voters.filter(item => item !== userId);
+  }
+
+  /**
+   *
+   * @param {Object} questionId -
+   * @param {Object} userId -
+   * @returns {Boolean} -
+   */
+  static voteExists(questionId, userId) {
+    const specifiedQuestion = Question.getOne(questionId);
+    let upVoteStatus = false;
+    let downVoteStatus = false;
+
+    specifiedQuestion.upVoters.forEach((item) => {
+      if (userId === item) {
+        upVoteStatus = true;
+      }
+    });
+    specifiedQuestion.downVoters.forEach((item) => {
+      if (userId === item) {
+        downVoteStatus = true;
+      }
+    });
+
+    return {
+      upVoteStatus,
+      downVoteStatus
+    };
+  }
 }
 
 export default Question;
