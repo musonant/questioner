@@ -78,6 +78,27 @@ class Question {
   }
 
   /**
+   *
+   * @param {Object} questionId -
+   * @param {Object} userId -
+   * @returns {Object} - updated question object
+   */
+  static downVote(questionId, userId) {
+    const specifiedQuestion = Question.getOne(questionId);
+    const { upVoteStatus, downVoteStatus } = Question.voteExists(questionId, userId);
+
+    if (downVoteStatus === true) {
+      throw new Error('multiple voting is not possible');
+    }
+    if (upVoteStatus === true) {
+      specifiedQuestion.upVoters = Question.removeVote(specifiedQuestion.upVoters, userId);
+    }
+
+    specifiedQuestion.downVoters.push(userId);
+    return specifiedQuestion;
+  }
+
+  /**
    * Remove specified voter from an array of voters
    * @param {Array} voters -
    * @param {Number} userId -
