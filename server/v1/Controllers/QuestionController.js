@@ -6,6 +6,21 @@ import Question from '../../Models/Question';
  */
 class QuestionController {
   /**
+   * List all the resources on the table
+   * @param {Object} req - request made
+   * @param {Object} res - response to be given
+   * @returns {Object} - response
+   */
+  static list(req, res) {
+    const data = Question.getAll();
+
+    res.status(200).send({
+      status: 200,
+      data,
+    });
+  }
+
+  /**
    * Create a resource
    * @param {Object} req - request made
    * @param {Object} res - response to be given

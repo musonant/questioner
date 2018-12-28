@@ -63,6 +63,15 @@ const questionTest = () => {
           done();
         });
     });
+    it('GET /questions/ should return an array of all questions', (done) => {
+      chai.request(app)
+        .get('/api/v1/questions/')
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.data.should.be.a('array');
+          done();
+        });
+    });
   });
 }
 
