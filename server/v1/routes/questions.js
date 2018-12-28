@@ -5,5 +5,6 @@ const questionRouter = Router();
 
 questionRouter.post('/', QuestionController.create);
 questionRouter.patch('/:id/upvote', QuestionController.upVote);
+questionRouter.patch('/:id/downvote', QuestionController.downVote);
 
 export default questionRouter;
