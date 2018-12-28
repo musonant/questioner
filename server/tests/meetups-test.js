@@ -54,6 +54,21 @@ const testMeetup = () => {
           done();
         });
     });
+    it('POST /meetups/:id/rsvps', (done) => {
+      chai.request(app)
+        .post('/api/v1/meetups/1/rsvps')
+        .type('form')
+        .send({
+          'user': 2,
+          'response': 'yes',
+        })
+        .end((err, res) => {
+          res.should.have.status(201);
+          res.body.data.should.be.a('array');
+          res.body.data[0].should.be.a('object');
+          done();
+        });
+    });
   });
 }
 
