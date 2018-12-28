@@ -4,6 +4,7 @@ import QuestionController from '../Controllers/QuestionController';
 const questionRouter = Router();
 
 questionRouter.get('/', QuestionController.list);
+questionRouter.get('/:id', QuestionController.retrieve);
 questionRouter.post('/', QuestionController.create);
 questionRouter.patch('/:id/upvote', QuestionController.upVote);
 questionRouter.patch('/:id/downvote', QuestionController.downVote);
