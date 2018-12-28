@@ -8,7 +8,7 @@ import app from '../../app';
 chai.use(chaiHttp);
 chai.should();
 
-const testMeetup = () => {
+const meetupTest = () => {
   describe('Test case for Meetup route', () => {
     it('GET /meetups/ should return an array of all meetups', (done) => {
       chai.request(app)
@@ -72,4 +72,4 @@ const testMeetup = () => {
   });
 }
 
-export default testMeetup;
+export default meetupTest;
