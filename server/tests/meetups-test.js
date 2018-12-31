@@ -29,6 +29,15 @@ const meetupTest = () => {
           done();
         });
     });
+    it('GET /meetups/:id with wrong id should return error message', (done) => {
+      chai.request(app)
+        .get('/api/v1/meetups/0')
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.error.should.be.a('string');
+          done();
+        });
+    });
     it('POST /meetups/', (done) => {
       chai.request(app)
         .post('/api/v1/meetups/')

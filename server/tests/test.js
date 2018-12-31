@@ -5,6 +5,7 @@ import chaiHttp from 'chai-http';
 import { describe, it } from 'mocha';
 import meetupTest from './meetups-test';
 import questionTest from './question-test';
+import meetupModelTest from './models/meetup';
 import app from '../../app';
 
 chai.use(chaiHttp);
@@ -45,4 +46,5 @@ describe('Test cases for Questioner API', () => {
 
   meetupTest();
   questionTest();
+  meetupModelTest();
 });

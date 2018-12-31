@@ -36,7 +36,7 @@ class Meetup {
 
   /**
    * Create a new resource
-   * @param {Array} data - an array of the properties for created resource
+   * @param {Object} data - an object containing the properties for created resource
    * @returns {Object} - the new resource created
    */
   static create(data) {
@@ -80,12 +80,12 @@ class Meetup {
   /**
    * Find a list of resources that are connected to another record
    * to attach the actual data to the record
-   * @param {Array} rel - array of the primary keys (id) of the linked resource
+   * @param {Array} ref - array of the primary keys (id) of the linked resource
    * @returns {Array} - and array of the actual resources found by their keys
    */
-  static getFieldRelations(rel) {
+  static getTags(ref) {
     const data = [];
-    rel.forEach((id) => {
+    ref.forEach((id) => {
       const resource = tags.find(tag => tag.id === id);
       data.push(resource);
     });
