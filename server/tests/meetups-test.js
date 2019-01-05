@@ -1,8 +1,7 @@
 /* eslint-disable */
 
-import chai from 'chai';
+import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
-import { describe, it } from 'mocha';
 import app from '../../app';
 
 chai.use(chaiHttp);
@@ -75,6 +74,38 @@ const meetupTest = () => {
           res.should.have.status(201);
           res.body.data.should.be.a('array');
           res.body.data[0].should.be.a('object');
+          done();
+        });
+    });
+  });
+  describe('Error handling for meetup routes', () => {
+    it('GET non-existent meetup should return an error', (done) => {
+      chai.request(app)
+        .get('/api/v1/meetups/30000')
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.body.error.should.equal('Not found');
+          done();
+        });
+    });
+    it('POST /meetups/ without required data should return an error', (done) => {
+      chai.request(app)
+        .post('/api/v1/meetups/')
+        .type('form')
+        .send({})
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.error.should.be.a('string');
+          done();
+        });
+    });
+    it('POST /meetups/:id/rsvps (creating invite response) without required data should return an error', (done) => {
+      chai.request(app)
+        .post('/api/v1/meetups/1/rsvps')
+        .send({})
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.error.should.be.a('string');
           done();
         });
     });

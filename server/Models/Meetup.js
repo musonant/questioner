@@ -1,4 +1,4 @@
-import meetup, { defaultRecord } from '../database/meetups';
+import meetups, { defaultRecord } from '../database/meetups';
 import tags from '../database/tags';
 import rsvps, { rsvpSchema } from '../database/rsvps';
 
@@ -14,7 +14,7 @@ class Meetup {
    * @returns {Array} - An array of all records for the resource
    */
   static getAll() {
-    return meetup;
+    return meetups;
   }
 
   /**
@@ -23,7 +23,7 @@ class Meetup {
    * @returns {Object} - the resource with the specified id
    */
   static getOne(id) {
-    return meetup.find(item => item.id === id);
+    return meetups.find(item => item.id === id);
   }
 
   /**
@@ -31,7 +31,7 @@ class Meetup {
    * @returns {Number} - the id of the last item on the record/table
    */
   static getLastId() {
-    return meetup[(meetup.length - 1)].id;
+    return meetups[(meetups.length - 1)].id;
   }
 
   /**
@@ -55,6 +55,7 @@ class Meetup {
       }
     });
 
+    meetups.push(newResource);
     return newResource;
   }
 

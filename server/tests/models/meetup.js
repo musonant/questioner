@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import chai from 'chai';
+import chai, { expect } from 'chai';
 import Meetup from '../../Models/Meetup';
 
 const meetupModelTests = () => {
@@ -56,6 +56,24 @@ const meetupModelTests = () => {
       result.should.be.a('object');
       result.should.have.property('id');
       result.meetup.should.equal(1);
+      done();
+    });
+  });
+  describe('Test cases for error handling', () => {
+    it('Create(data) without required data should return an error', (done) => {
+      try {
+        const result = Meetup.create({});
+      } catch (err) {
+        expect(err.message.indexOf('Required')).to.not.equal(-1);
+      }
+      done();
+    });
+    it('replyInvite(data) without required data should return an error', (done) => {
+      try {
+        const result = Meetup.replyInvite({});
+      } catch (err) {
+        expect(err.message.indexOf('Required')).to.not.equal(-1);
+      }
       done();
     });
   });

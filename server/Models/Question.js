@@ -1,4 +1,4 @@
-import question, { defaultRecord } from '../database/questions';
+import questions, { defaultRecord } from '../database/questions';
 
 /**
  * This is model of a resource
@@ -12,7 +12,7 @@ class Question {
    * @returns {Array} - An array of all records for the resource
    */
   static getAll() {
-    return question;
+    return questions;
   }
 
   /**
@@ -21,7 +21,7 @@ class Question {
    * @returns {Object} - the resource with the specified id
    */
   static getOne(id) {
-    return question.find(item => item.id === id);
+    return questions.find(item => item.id === id);
   }
 
   /**
@@ -29,7 +29,7 @@ class Question {
    * @returns {Number} - the id of the last item on the record/table
    */
   static getLastId() {
-    return question[(question.length - 1)].id;
+    return questions[(questions.length - 1)].id;
   }
 
   /**
@@ -53,6 +53,7 @@ class Question {
       }
     });
 
+    questions.push(newResource);
     return newResource;
   }
 
@@ -81,7 +82,7 @@ class Question {
    *
    * @param {Object} questionId -
    * @param {Object} userId -
-   * @returns {Object} - updated question object
+   * @returns {Object} - updated questions object
    */
   static downVote(questionId, userId) {
     const specifiedQuestion = Question.getOne(questionId);
@@ -124,6 +125,7 @@ class Question {
         upVoteStatus = true;
       }
     });
+
     specifiedQuestion.downVoters.forEach((item) => {
       if (userId === item) {
         downVoteStatus = true;
