@@ -82,6 +82,90 @@ const questionTest = () => {
         });
     });
   });
+  describe('Error handling for question routes', () => {
+    it('POST /questions/ without required data should return an error', (done) => {
+      chai.request(app)
+        .post('/api/v1/questions')
+        .send({})
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.error.should.be.a('string');
+          done();
+        });
+    });
+    it('PATCH /questions/:id/upvote without required data should return an error', (done) => {
+      chai.request(app)
+        .patch('/api/v1/questions/1/upvote')
+        .send({})
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.error.should.be.a('string');
+          done();
+        });
+    });
+    it('PATCH /questions/:id/downvote without required data should return an error', (done) => {
+      chai.request(app)
+        .patch('/api/v1/questions/1/downvote')
+        .send({})
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.error.should.be.a('string');
+          done();
+        });
+    });
+    describe('Multiple upvoting should return an error', () => {
+      const userId = 4;
+      before(()=> {
+        chai.request(app)
+          .patch('/api/v1/questions/1/upvote')
+          .send({
+            '_method': 'patch',
+            'userId': userId,
+          })
+          .end();
+      });
+      it('PATCH /questions/:id/upvote should return an error', (done) => {
+        chai.request(app)
+          .patch('/api/v1/questions/1/upvote')
+          .type('form')
+          .send({
+            '_method': 'patch',
+            'userId': userId,
+          })
+          .end((req, res) => {
+            res.should.have.status(400);
+            res.body.error.should.equal('multiple voting is not possible');
+            done();
+          });
+      });
+    });
+    describe('Multiple downvoting should return an error', () => {
+      const userId = 4;
+      before(()=> {
+        chai.request(app)
+          .patch('/api/v1/questions/1/downvote')
+          .send({
+            '_method': 'patch',
+            'userId': userId,
+          })
+          .end();
+      });
+      it('PATCH /questions/:id/upvote should return an error', (done) => {
+        chai.request(app)
+          .patch('/api/v1/questions/1/downvote')
+          .type('form')
+          .send({
+            '_method': 'patch',
+            'userId': userId,
+          })
+          .end((req, res) => {
+            res.should.have.status(400);
+            res.body.error.should.equal('multiple voting is not possible');
+            done();
+          });
+      });
+    });
+  });
 }
 
 export default questionTest;

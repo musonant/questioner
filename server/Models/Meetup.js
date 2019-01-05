@@ -1,4 +1,4 @@
-import meetup, { defaultRecord } from '../database/meetups';
+import meetups, { defaultRecord } from '../database/meetups';
 import tags from '../database/tags';
 import rsvps, { rsvpSchema } from '../database/rsvps';
 
@@ -14,7 +14,7 @@ class Meetup {
    * @returns {Array} - An array of all records for the resource
    */
   static getAll() {
-    return meetup;
+    return meetups;
   }
 
   /**
@@ -23,7 +23,7 @@ class Meetup {
    * @returns {Object} - the resource with the specified id
    */
   static getOne(id) {
-    return meetup.find(item => item.id === id);
+    return meetups.find(item => item.id === id);
   }
 
   /**
@@ -31,12 +31,12 @@ class Meetup {
    * @returns {Number} - the id of the last item on the record/table
    */
   static getLastId() {
-    return meetup[(meetup.length - 1)].id;
+    return meetups[(meetups.length - 1)].id;
   }
 
   /**
    * Create a new resource
-   * @param {Array} data - an array of the properties for created resource
+   * @param {Object} data - an object containing the properties for created resource
    * @returns {Object} - the new resource created
    */
   static create(data) {
@@ -55,6 +55,7 @@ class Meetup {
       }
     });
 
+    meetups.push(newResource);
     return newResource;
   }
 
@@ -80,12 +81,12 @@ class Meetup {
   /**
    * Find a list of resources that are connected to another record
    * to attach the actual data to the record
-   * @param {Array} rel - array of the primary keys (id) of the linked resource
+   * @param {Array} ref - array of the primary keys (id) of the linked resource
    * @returns {Array} - and array of the actual resources found by their keys
    */
-  static getFieldRelations(rel) {
+  static getTags(ref) {
     const data = [];
-    rel.forEach((id) => {
+    ref.forEach((id) => {
       const resource = tags.find(tag => tag.id === id);
       data.push(resource);
     });

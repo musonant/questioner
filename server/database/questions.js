@@ -6,8 +6,8 @@ export const defaultRecord = {
   authorName: undefined,
   title: null,
   body: undefined,
-  upVoters: null,
-  downVoters: null,
+  upVoters: [],
+  downVoters: [],
   updatedOn: null,
 };
 

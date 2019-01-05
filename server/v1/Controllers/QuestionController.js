@@ -68,6 +68,13 @@ class QuestionController {
     const questionId = Number(req.params.id);
     const userId = Number(req.body.userId);
 
+    if (!req.body.userId) {
+      return res.status(400).send({
+        status: 400,
+        error: 'No user id provided',
+      });
+    }
+
     try {
       const updatedResource = Question.upVote(questionId, userId);
 
@@ -92,6 +99,13 @@ class QuestionController {
   static downVote(req, res) {
     const questionId = Number(req.params.id);
     const userId = Number(req.body.userId);
+
+    if (!req.body.userId) {
+      return res.status(400).send({
+        status: 400,
+        error: 'No user id provided',
+      });
+    }
 
     try {
       const updatedResource = Question.downVote(questionId, userId);

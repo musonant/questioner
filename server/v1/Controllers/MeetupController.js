@@ -20,7 +20,7 @@ class MeetupController {
     }
 
     const data = records.map((item) => {
-      const tags = Meetup.getFieldRelations(item.tags);
+      const tags = Meetup.getTags(item.tags);
       const resource = Object.assign({}, item);
       resource.tags = tags.map(tag => tag.name);
       return resource;
@@ -41,10 +41,25 @@ class MeetupController {
   static retrieve(req, res) {
     const id = parseInt(req.params.id, 10);
     const resource = Meetup.getOne(id);
-    res.status(200).send({
-      status: 200,
-      data: resource,
-    });
+
+    if (id <= 0 || isNaN(id)) {
+      return res.status(400).send({
+        status: 400,
+        error: 'Bad or incorrect request',
+      });
+    }
+
+    if (!resource) {
+      res.status(404).send({
+        status: 404,
+        error: 'Not found',
+      });
+    } else {
+      res.status(200).send({
+        status: 200,
+        data: resource,
+      });
+    }
   }
 
   /**
