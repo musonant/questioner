@@ -51,6 +51,9 @@ a {
   text-decoration: none;
   color: inherit;
 }
+a:hover {
+  color: #668e8e;
+}
 
 .row {
   display: flex;
@@ -274,7 +277,15 @@ textarea:focus {
 .menu-option:hover {
   background: #efefef;
 }
-
+.horizontal-nav {
+  flex-direction: row;
+  display: flex;
+  list-style-type: none;
+  margin-right: 30px;
+}
+.horizontal-nav .item {
+  margin-left: 10px;
+}
 
 
 
@@ -283,7 +294,7 @@ textarea:focus {
 /* ----------------------- */
 #sign-page .page-background {
   background-image: url('../img/background-img.png');
-  background: #61dada;
+  background: #eaeaea;
 }
 
 .page-background {
@@ -310,6 +321,7 @@ textarea:focus {
   max-width: 500px;
   margin: auto;
   margin-top: 70px;
+  padding: 0px 20px;
 }
 .sign-toggle {
   height: 40px;
@@ -381,7 +393,7 @@ textarea:focus {
   height: 180px;
 }
 #signup-form.active {
-  height: 315px;
+  height: 383px;
 }
 
 
