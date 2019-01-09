@@ -80,8 +80,27 @@ a:hover {
 .grey-color {
   color: grey;
 }
+.caps {
+  text-transform: uppercase;
+}
+.all-unset {
+  all: unset !important;
+}
+.display-none {
+  display: none !important;
+}
+.hover-pointer:hover {
+  cursor: pointer;
+}
 
-input {
+.btn-like-text {
+  color: grey;
+  background: #fff !important;
+  text-align: left;
+  margin: 0 !important;
+}
+
+input, .input {
   padding: 10px 20px;
   background: transparent;
   border: 1px solid #efeeee;
@@ -117,17 +136,26 @@ input[type="submit"], .submit-btn {
 input[type="submit"]:hover, .submit-btn:hover {
   background: #2d6565;
   cursor: pointer;
+  /* color: #fff; */
 }
 
 input[type="submit"]:active, .submit-btn:active {
   background: linear-gradient(90deg, #2d6565, #264444, #2d6565);
 }
 
+input.simple, textarea.simple {
+  border: 1px solid #5a5a5a;
+  outline: none;
+}
 .main-title {
   font-size: 20px;
   text-align: center;
-  color: #7aadad;
+  color: #4d7979;
   margin: 20px 0px;
+}
+
+.main-title.small {
+  font-size: 18px;
 }
 
 .sub-title {
@@ -151,9 +179,19 @@ label .required {
   color: #7aadad;
 }
 
+.center {
+  text-align: center;
+}
+
 label.text-key {
   margin: 0;
   text-transform: lowercase;
+}
+label.middle {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  color: #5d5d5d;
 }
 
 .menu-btn.fa {
@@ -165,8 +203,15 @@ label.text-key {
   padding: 10px 20px;
   text-align: center;
   margin-bottom: 0px;
-  color: black;
+  color: #a5a5a5;
   border-top: 0.5px solid #aaaaaa7a;
+}
+
+label.with-underline {
+  margin-bottom: 30px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+  display: block;
 }
 
 input[type="date"], input[type="time"] {
@@ -193,6 +238,22 @@ textarea:focus {
 }
 .fine-text p {
   margin-bottom: 15px;
+}
+
+
+
+  /* ------------------------- */
+ /* -- LANDING PAGE STYLES -- */
+/* ------------------------- */
+#landing-page .main-banner {
+  background-image: url('../img/landing-banner.jpg');
+}
+.main-banner {
+  height: 500px;
+  width: 100%;
+  background-size: cover;
+  background-position: center -80px;
+  background-repeat: no-repeat;
 }
 
 
@@ -322,6 +383,7 @@ textarea:focus {
   margin: auto;
   margin-top: 70px;
   padding: 0px 20px;
+  margin-bottom: 70px;
 }
 .sign-toggle {
   height: 40px;
@@ -364,6 +426,7 @@ textarea:focus {
 }
 .sign-toggle .bar.up.active {
   right: 0;
+  cursor: default;
 }
 
 .sign-toggle .up {
@@ -553,6 +616,7 @@ textarea:focus {
 .meetup-card.for-preview .info {
   overflow: hidden;
   padding: 30px;
+  height: 100%;
 }
 .meetup-card.for-preview .details {
   justify-content: space-between;
@@ -564,6 +628,10 @@ textarea:focus {
   padding: 20px;
   height: 100%;
   background: #0000009e;
+}
+
+.img-uploader:hover {
+  cursor: pointer;
 }
 
 .img-placeholder {
@@ -578,6 +646,60 @@ textarea:focus {
   color: #fff;
   font-size: 18px;
   font-weight: normal;
+}
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  visibility: hidden;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 300ms ease;
+}
+
+.modal-container .content {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  max-width: 500px;
+  margin: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: auto;
+  max-height: 100%;
+  position: relative;
+}
+
+.modal-container .overlay {
+  background-color: #000000b0;
+  height: 100%;
+  width: 100%;
+}
+
+.modal-container input, .modal-container textarea {
+  font-size: 16px !important;
+}
+.modal-container input[type="submit"] {
+  margin-top: 15px;
+}
+.modal-container .close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  line-height: 25px;
+  font-size: 50px;
+}
+.modal-container .close:hover {
+  cursor: pointer;
+  color: #e63d3d;
+}
+.modal-container.show {
+  visibility: visible;
+  opacity: 1;
 }
 
 
@@ -715,7 +837,6 @@ textarea:focus {
   cursor: pointer;
 }
 .question-card .vote-num {
-  font-size: 18px;
   font-family: sans-serif;
 }
 .downvotes {
@@ -739,7 +860,7 @@ textarea:focus {
   background: #fff;
 }
 .question-card .comment-list {
-  margin-left: 20px;
+  margin-left: 30px;
 }
 .main-question {
   padding: 20px;
@@ -747,6 +868,14 @@ textarea:focus {
   border-left: 4px solid #ccc;
   margin-bottom: 20px;
 }
+.modal-question-form {
+  background: #fff;
+  padding: 20px;
+  position: relative;
+  overflow: auto;
+  max-height: 100%;
+}
+
 
 
   /* ------------------- */
