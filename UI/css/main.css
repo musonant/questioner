@@ -724,7 +724,7 @@ textarea:focus {
   font-weight: bold;
 }
 #account-page label {
-  color: #7aadad;
+  color: #323232;
 }
 .log-item {
   margin-top: 20px;
@@ -733,6 +733,86 @@ textarea:focus {
   padding: 0px 30px;
 }
 
+#account-info .basic {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+#account-info .profile-image {
+  background-color: #fff;
+  height: 130px;
+  width: 130px;
+  border-radius: 50%;
+}
+#account-info .profile-image .icon {
+  font-size: 130px;
+}
+#account-info .basic .text {
+  padding-left: 20px;
+  /* padding-right: 25px; */
+}
+
+.sliced-bg {
+  background: #dadada;
+  height: 70px;
+  position: absolute;
+  z-index: -9;
+  width: 100%;
+  left: 15px;
+  border-radius: 50px;
+  padding-left: 110px;
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+}
+
+label.sub {
+  text-transform: lowercase;
+  font-weight: normal;
+  overflow-wrap: break-word;
+}
+
+.sliced-bg .before, .sliced-bg .after {
+  content: "";
+  width: 65px;
+  height: 100px;
+  position: absolute;
+  background: #fff;
+  display: inline-block;
+  transform: rotate(30deg);
+  top: -25px;
+  width: 35px;
+}
+.sliced-bg .before {
+  left: -9px;
+}
+.sliced-bg .after {
+  right: -9px;
+  transform: rotate(-30deg);
+}
+
+#account-page #schedulled-meetups .meetup {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+#account-page .question-card {
+  margin: 0;
+}
+
+label.tag {
+  background: #d5e6e6;
+  padding: 5px;
+  border-radius: 15px;
+  text-transform: capitalize;
+  font-size: 12px;
+  margin: auto;
+  display: block;
+  text-align: center;
+  width: 115px;
+}
 
 
   /* ------------------------ */
@@ -785,7 +865,7 @@ textarea:focus {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 150px;
+  height: 125px;
   position: sticky;
   top: 0;
 }
@@ -826,7 +906,7 @@ textarea:focus {
   height: 1px;
   background: #828282;
   width: 20px;
-  margin: 15px 0px;
+  margin: 10px 0px;
 }
 .question-card p {
   margin: 0;
