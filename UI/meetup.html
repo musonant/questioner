@@ -41,6 +41,9 @@
                   <a href="account.html#schedulled-meetups">
                     <li class="menu-option">Schedulled Meetups</li>
                   </a>
+                  <a href="login.html">
+                    <li class="menu-option">Logout</li>
+                  </a>
                 </ul>
               </div>
             </div>
@@ -89,13 +92,14 @@
             <p>
               <a href="" class="underline">Emmanuel Osuh</a>
             </p>
-            <button class="action-btn">
+            <button class="action-btn open-modal" lang="question-modal">
               <label style="color: #fff;">Ask a question</label>
             </button>
           </div>
         </div>
         <div class="col-sm-12 col-lg-7 container">
           <div class="question-list">
+            <label class="with-underline">Questions</label>
             <div class="row question-card">
               <div class="counter">
                 <p class="vote-num upvotes">97</p>
@@ -151,9 +155,6 @@
                   </p>
                 </div>
                 <div class="comment-list">
-                  <!-- <div class="comment">
-                    
-                  </div> -->
                   <form action="" class="question-form">
                     <input type="text" placeholder="Enter your comment">
                   </form>
@@ -165,17 +166,24 @@
           <hr>
           
           <form action="" class="question-form">
-            <input type="text" placeholder="Enter your question">
-            <!-- <input type="submit" value="POST"> -->
-            <button class="action-btn">
-              <a href="">
-                <label style="color: #fff;">POST</label>
-              </a>
-            </button>
+            <button class="input btn-like-text open-modal" lang="question-modal">Enter your question</button>
           </form>
         </div>
       </div>
 
+    </div>
+
+    <div class="modal-container" id="question-modal">
+      <div class="overlay close-modal" lang="question-modal"></div>
+      <div class="content">
+        <form action="" class="modal-question-form">
+          <span class="close close-modal" lang="question-modal">×</span>
+          <label class="with-underline center middle">Ask a question</label>
+          <input type="text" class="simple" placeholder="Title">
+          <textarea class="simple" id="" cols="30" rows="10" placeholder="Your question..."></textarea>
+          <input type="submit">
+        </form>
+      </div>
     </div>
     
     <footer>
@@ -184,7 +192,7 @@
           <a href="meetups.html">All Meetups</a>
         </div>
         <div class="links row">
-          <div class="col-sm-12 col-md-6 col-lg-3">
+          <div class="flex-1">
             <div class="content">
               <ul>
                 <li class="key">Your Account</li>
@@ -195,7 +203,7 @@
               </ul>
             </div>
           </div>
-          <div class="col-sm-12 col-md-6 col-lg-3">
+          <div class="flex-1">
             <div class="content">
               <ul>
                 <li class="key">Tags</li>
@@ -205,20 +213,14 @@
               </ul>
             </div>
           </div>
-          <div class="col-sm-12 col-md-6 col-lg-3">
+          <div class="flex-1">
             <div class="content">
               <ul>
                 <li class="key">Meetup</li>
                 <li><a href="create-meetup.html">Create Meetup</a></li>
-                <li><a href=""></a></li>
+                <li><a href="">View all meetups</a></li>
                 <li><a href=""></a></li>
               </ul>
-            </div>
-          </div>
-          <div class="col-sm-12 col-md-6 col-lg-3">
-            <div class="content">
-              <input type="text" placeholder="Find a Meetup">
-              <input type="text" placeholder="Search a tag">
             </div>
           </div>
         </div>
@@ -234,4 +236,5 @@
 </body>
 <script src="js/menu.js"></script>
 <script src="js/main.js"></script>
+<script src="js/modal.js"></script>
 </html>

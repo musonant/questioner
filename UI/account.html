@@ -26,8 +26,10 @@
             <a href="create-meetup.html">
               <li class="menu-option">Create Meetup</li>
             </a>
-            <div class="menu-toggle">
-              <li class="menu-btn menu-option">Account Settings</li>
+            <div class="menu-toggle with-arrow">
+              <li class="menu-btn menu-option">Account Settings
+                <i class="fa fa-caret-down menu-arrow"></i>
+              </li>
               <div class="menu-content">
                 <ul class="menu-list">
                   <a href="account.html#account-info">
@@ -39,6 +41,9 @@
                   <a href="account.html#schedulled-meetups">
                     <li class="menu-option">Schedulled Meetups</li>
                   </a>
+                  <a href="login.html">
+                    <li class="menu-option">Logout</li>
+                  </a>
                 </ul>
               </div>
             </div>
@@ -46,22 +51,26 @@
         </div>
       </div>
     </header>
-    <div class="main-title">
-      <i class="fa fa-user-circle" style="font-size: 120px;"></i>
+    <div class="main-title small caps">
       <h1 class="title">My Account</h1>
     </div>
 
     <div class="page-body">
       <section id="account-info">
-        <div class="sub-title">
-          <h1 class="title">Account Information</h1>
+        <div class="basic">
+          <div class="sliced-bg">
+              <div class="text">
+                  <label>Emmanuel Osuh</label> <br>
+                  <label class="sub">mrmusonant@gmail.com</label>
+                </div>
+          </div>
+          <label for="profile-image">
+            <div class="profile-image">
+              <i class="fa fa-user-circle icon"></i>
+            </div>
+            <input type="file" id="profile-image" hidden>
+          </label>
         </div>
-        <form action="" class="info">
-          <label for="">Name</label>
-          <input type="text" value="Emmanuel Osuh">
-          <label for="">Email</label>
-          <input type="email" disabled value="mrmusonant@gmail.com">
-        </form>
       </section>
       <section id="account-log">
         <div class="sub-title">
@@ -82,8 +91,63 @@
         <div class="sub-title">
           <h1 class="title">Schedulled Meetups</h1>
         </div>
-        <div class="info">
+        <div class="meetups">
+          <div class="meetup">
+            <div class="top">
+              <label class="with-underline center">The Global Javascript Developers Conference, Alabama</label>
+            </div>
+            <label class="tag">Top question</label>
+            <div class="row question-card">
+              <div class="counter">
+                <p class="vote-num upvotes">97</p>
+                  <button class="voter-btn upvote">
+                    <i class="fa fa-caret-up icon"></i>
+                  </button>
 
+                <div class="divide"></div>
+
+                <button class="voter-btn downvote">
+                  <i class="fa fa-caret-down icon"></i>
+                </button>
+                <p class="vote-num downvotes">14</p>
+              </div>
+              <div class="body flex-1">
+                <div class="fine-text main-question" style="border-width: 1px; border-color: #ddd;">
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequuntur nostrum eos obcaecati praesentium temporibus quidem, sit tenetur sapiente ipsa! Voluptatem praesentium earum officia quam itaque voluptas explicabo similique quod et!
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="meetup">
+            <div class="top">
+              <label class="with-underline center">The Global Javascript Developers Conference, Alabama</label>
+            </div>
+            <label class="tag">Top question</label>
+            <div class="row question-card">
+              <div class="counter">
+                <p class="vote-num upvotes">97</p>
+                  <button class="voter-btn upvote">
+                    <i class="fa fa-caret-up icon"></i>
+                  </button>
+
+                <div class="divide"></div>
+
+                <button class="voter-btn downvote">
+                  <i class="fa fa-caret-down icon"></i>
+                </button>
+                <p class="vote-num downvotes">14</p>
+              </div>
+              <div class="body flex-1">
+                <div class="fine-text main-question" style="border-width: 1px; border-color: #ddd;">
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequuntur nostrum eos obcaecati praesentium temporibus quidem, sit tenetur sapiente ipsa! Voluptatem praesentium earum officia quam itaque voluptas explicabo similique quod et!
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>
@@ -94,7 +158,7 @@
           <a href="meetups.html">All Meetups</a>
         </div>
         <div class="links row">
-          <div class="col-sm-12 col-md-6 col-lg-3">
+          <div class="flex-1">
             <div class="content">
               <ul>
                 <li class="key">Your Account</li>
@@ -105,7 +169,7 @@
               </ul>
             </div>
           </div>
-          <div class="col-sm-12 col-md-6 col-lg-3">
+          <div class="flex-1">
             <div class="content">
               <ul>
                 <li class="key">Tags</li>
@@ -115,20 +179,14 @@
               </ul>
             </div>
           </div>
-          <div class="col-sm-12 col-md-6 col-lg-3">
+          <div class="flex-1">
             <div class="content">
               <ul>
                 <li class="key">Meetup</li>
                 <li><a href="create-meetup.html">Create Meetup</a></li>
-                <li><a href=""></a></li>
+                <li><a href="">View all meetups</a></li>
                 <li><a href=""></a></li>
               </ul>
-            </div>
-          </div>
-          <div class="col-sm-12 col-md-6 col-lg-3">
-            <div class="content">
-              <input type="text" placeholder="Find a Meetup">
-              <input type="text" placeholder="Search a tag">
             </div>
           </div>
         </div>
