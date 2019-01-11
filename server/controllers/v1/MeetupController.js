@@ -1,4 +1,5 @@
 import Meetup from '../../Models/Meetup';
+import Response from '../../helpers/response';
 
 /**
  * @exports
@@ -26,10 +27,7 @@ class MeetupController {
       return resource;
     });
 
-    res.status(200).send({
-      status: 200,
-      data,
-    });
+    Response.success(res, data);
   }
 
   /**
@@ -42,23 +40,10 @@ class MeetupController {
     const id = parseInt(req.params.id, 10);
     const resource = Meetup.getOne(id);
 
-    if (id <= 0 || isNaN(id)) {
-      return res.status(400).send({
-        status: 400,
-        error: 'Bad or incorrect request',
-      });
-    }
-
     if (!resource) {
-      res.status(404).send({
-        status: 404,
-        error: 'Not found',
-      });
+      Response.notFound(req, res);
     } else {
-      res.status(200).send({
-        status: 200,
-        data: resource,
-      });
+      Response.success(res, resource);
     }
   }
 
@@ -73,15 +58,9 @@ class MeetupController {
     try {
       const createdResource = Meetup.create(data);
 
-      res.status(201).send({
-        status: 201,
-        data: [createdResource],
-      });
+      Response.created(res, [createdResource]);
     } catch (err) {
-      res.status(400).send({
-        status: 400,
-        error: err.message,
-      });
+      Response.customError(res, err.message, 400);
     }
   }
 
@@ -97,15 +76,9 @@ class MeetupController {
 
     try {
       const createdResponse = Meetup.replyInvite(req.body);
-      res.status(201).send({
-        status: 201,
-        data: [createdResponse],
-      });
+      Response.created(res, [createdResponse]);
     } catch (err) {
-      res.status(400).send({
-        status: 400,
-        error: err.message,
-      });
+      Response.customError(res, err.message, 400);
     }
   }
 }

@@ -4,7 +4,8 @@
   "env": {
     "node": true,
     "es6": true,
-    "mocha": true
+    "mocha": true,
+    "browser": true
   },
   "globals": {
     "_": true
@@ -33,6 +34,8 @@
             "MethodDefinition": true,
             "ClassDeclaration": true
         }
-    }]
+    }],
+    "no-restricted-syntax": 0,
+    "no-restricted-globals": 0
   }
 }
