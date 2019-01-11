@@ -246,14 +246,34 @@ textarea:focus {
  /* -- LANDING PAGE STYLES -- */
 /* ------------------------- */
 #landing-page .main-banner {
+  position: relative;
   background-image: url('../img/landing-banner.jpg');
+  z-index: -60;
+}
+#landing-page .main-banner .content {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  flex-direction: column;
+  padding: 0 20%;
+  text-align: center;
+}
+.main-banner .title {
+  text-transform: capitalize;
+  font-size: 60px;
+}
+.main-banner .description {
+  font-size: 23px;
 }
 .main-banner {
-  height: 500px;
+  height: 400px;
   width: 100%;
-  background-size: cover;
-  background-position: center -80px;
-  background-repeat: no-repeat;
+}
+.main-banner .overlay {
+  background-color: #10101096;
 }
 
 
@@ -280,7 +300,6 @@ textarea:focus {
 .menu-toggle {
   position: relative;
   height: 50px;
-  /* overflow: hidden; */
 }
 .menu-toggle:hover, .menu-toggle.show {
   cursor: pointer;
@@ -359,7 +378,7 @@ textarea:focus {
 }
 
 .page-background {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
@@ -958,6 +977,36 @@ label.tag {
 
 
 
+  /* -------------------------- */
+ /* -- ADMIN MEETUPS STYLES -- */
+/* -------------------------- */
+.meetup-card .menu-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: white;
+  font-size: 20px;
+  box-shadow: 0px 0px 1px 1px #868686;
+  color: #444444;
+}
+.meetup-card .options {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.meetup-card .menu-toggle {
+  background-color: transparent;
+}
+.meetup-card .menu-option {
+  padding: 10px;
+  padding-left: 20px;
+}
+.meetup-card .menu-content {
+  width: 140px;
+}
+
+
+
   /* ------------------- */
  /* -- FOOTER STYLES -- */
 /* ------------------- */
@@ -1163,5 +1212,19 @@ footer input {
   }
   .copyright {
     padding: 20px 90px;
+  }
+
+  .meetup-card .menu-toggle {
+    visibility: hidden;
+  }
+  .meetup-card:hover .menu-toggle {
+    visibility: visible;
+  }
+  .meetup-card .menu-toggle.show {
+    visibility: visible !important;
+  }
+
+  .main-banner {
+    height: 500px;
   }
 }
