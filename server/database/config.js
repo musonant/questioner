@@ -1,6 +1,6 @@
 
 import { Pool } from 'pg';
-// import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import { DB_URL } from '../../db';
 
@@ -67,15 +67,9 @@ class DB {
         createdOn TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
         updatedOn TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
       );
-      CREATE TABLE IF NOT EXISTS rsvps (
-        id SERIAL PRIMARY KEY NOT NULL,
-        meetup INT REFERENCES meetups(id) NOT NULL,
-        user INT NOT NULL REFERENCES users(id),
-        response BOOLEAN NOT NULL
-      );
       CREATE TABLE IF NOT EXISTS questions (
         id SERIAL PRIMARY KEY NOT NULL,
-        createdBy INT NOT NULL,
+        createdBy INT NOT NULL REFERENCES users(id),
         meetup INT REFERENCES meetups(id) NOT NULL,
         authorName varchar(100),
         title varchar(100),
@@ -95,11 +89,11 @@ class DB {
    * seedTables
    */
   async seedTables() {
-    // const saltRounds = 10;
+    const saltRounds = 10;
     const queryText = `
-      INSERT INTO users (firstname, lastname, othername, email, phoneNumber, username, isAdmin, password) VALUES ('Emmanuel', 'Osuh', 'Cheng', 'mrmusonant@gmail.com', 08091497695, 'musonant', 'true', 'newPass');
-      INSERT INTO users (firstname, lastname, email, phoneNumber, username, isAdmin, password) VALUES ('Johnny', 'Drille', 'johnnydrille@gmail.com', 09055545221, 'driller', 'false', 'someOtherPass');
-      INSERT INTO users (firstname, lastname, email, phoneNumber, username, isAdmin, password) VALUES ('Steve', 'Jobs', 'stevejobs@gmail.com', 09055545221, 'steve', 'false', 'someNewPass');
+      INSERT INTO users (firstname, lastname, othername, email, phoneNumber, username, isAdmin, password) VALUES ('Emmanuel', 'Osuh', 'Cheng', 'mrmusonant@gmail.com', 08091497695, 'musonant', 'true', '${bcrypt.hashSync('emmanuel', saltRounds)}');
+      INSERT INTO users (firstname, lastname, email, phoneNumber, username, isAdmin, password) VALUES ('Johnny', 'Drille', 'johnnydrille@gmail.com', 09055545221, 'driller', 'false', '${bcrypt.hashSync('johnny', saltRounds)}');
+      INSERT INTO users (firstname, lastname, email, phoneNumber, username, isAdmin, password) VALUES ('Steve', 'Jobs', 'stevejobs@gmail.com', 09055545221, 'steve', 'false', '${bcrypt.hashSync('steve', saltRounds)}');
     
       INSERT INTO tags (name) VALUES ('Software Engineering');
       INSERT INTO tags (name) VALUES ('Finding Solutions');
@@ -111,17 +105,12 @@ class DB {
       
       INSERT INTO questions (createdBy, meetup, authorName, title, body) VALUES (2, 1, 'Johnny Drille', 'concerning the progress of the project', 'Are there any things I need to learn first?');
       INSERT INTO questions (createdBy, meetup, authorName, title, body) VALUES (2, 2, 'Johnny Drille', 'concerning the progress of the project', 'Are there any things I need to learn first?');
-
-      INSERT INTO rsvps (meetup, user, response) VALUES (1, 2, 'yes');
-      INSERT INTO rsvps (meetup, user, response) VALUES (1, 3, 'no');
     `;
 
     await this.connection.query(queryText);
     await this.connection.end();
   }
 }
-
-// "${bcrypt.hashSync('emmanuel', saltRounds)}"
 
 const db = new DB();
 
