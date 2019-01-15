@@ -17,7 +17,6 @@ debug(`NODE_ENV: "${currentEnv}"`);
 
 export const DB_URL = dbConfig[currentEnv];
 
-
 const client = new Pool({
   connectionString: DB_URL,
 });

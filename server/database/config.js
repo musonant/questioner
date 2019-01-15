@@ -70,7 +70,7 @@ class DB {
       CREATE TABLE IF NOT EXISTS rsvps (
         id SERIAL PRIMARY KEY NOT NULL,
         meetup INT REFERENCES meetups(id) NOT NULL,
-        user INT REFERENCES users(id) NOT NULL,
+        user INT NOT NULL REFERENCES users(id),
         response BOOLEAN NOT NULL
       );
       CREATE TABLE IF NOT EXISTS questions (
