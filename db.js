@@ -13,10 +13,10 @@ const dbConfig = {
 };
 
 const currentEnv = process.env.NODE_ENV;
+debug(`NODE_ENV: "${currentEnv}"`);
 
 export const DB_URL = dbConfig[currentEnv];
 
-debug(`NODE_ENV: "${currentEnv}"`);
 
 const client = new Pool({
   connectionString: DB_URL,
