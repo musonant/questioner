@@ -8,7 +8,7 @@
     "start:dev": "nodemon --exec babel-node app.js",
     "migrate": "babel-node ./server/database/config.js",
     "lint": "eslint app.js",
-    "test": "set PORT=4000&& set NODE_ENV=test&& nyc mocha ./server/tests/test --timeout 300000 --exit",
+    "test": "PORT=4000&& NODE_ENV=test&& nyc mocha ./server/tests/test --timeout 300000 --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {

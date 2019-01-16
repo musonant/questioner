@@ -1,6 +1,7 @@
-import Meetup from '../../Models/Meetup';
+import MeetupModel from '../../Models/Meetup';
 import Response from '../../helpers/response';
 
+const Meetup = new MeetupModel();
 /**
  * @exports
  * @class MeetupController
@@ -12,22 +13,25 @@ class MeetupController {
    * @param {Object} res - response to be given
    * @returns {Object} - response
    */
-  static list(req, res) {
+  static async list(req, res) {
     let records = [];
     if (req.query.scope === 'upcoming') {
-      records = Meetup.listUpcoming();
+      records = await Meetup.listUpcoming();
     } else {
-      records = Meetup.getAll();
+      records = await Meetup.getAll();
     }
 
-    const data = records.map((item) => {
-      const tags = Meetup.getTags(item.tags);
-      const resource = Object.assign({}, item);
-      resource.tags = tags.map(tag => tag.name);
-      return resource;
+    const addTags = async (tags) => {
+      if (tags) {
+        await Meetup.getTags(tags);
+      }
+    };
+
+    records.forEach((item) => {
+      item.tags = addTags(item.tags);
     });
 
-    Response.success(res, data);
+    return Response.success(res, records);
   }
 
   /**
@@ -36,15 +40,14 @@ class MeetupController {
    * @param {Object} res - response to be given
    * @returns {Object} - response
    */
-  static retrieve(req, res) {
+  static async retrieve(req, res) {
     const id = parseInt(req.params.id, 10);
-    const resource = Meetup.getOne(id);
+    const resource = await Meetup.getOne(id);
 
     if (!resource) {
-      Response.notFound(req, res);
-    } else {
-      Response.success(res, resource);
+      return Response.notFound(req, res);
     }
+    return Response.success(res, resource);
   }
 
   /**
@@ -53,14 +56,13 @@ class MeetupController {
    * @param {Object} res - response to be given
    * @returns {Object} - the response
    */
-  static create(req, res) {
+  static async create(req, res) {
     const data = req.body;
     try {
-      const createdResource = Meetup.create(data);
-
-      Response.created(res, [createdResource]);
+      const createdResource = await Meetup.create(data);
+      return Response.created(res, [createdResource]);
     } catch (err) {
-      Response.customError(res, err.message, 400);
+      return Response.customError(res, err.message, 400);
     }
   }
 
@@ -70,15 +72,15 @@ class MeetupController {
    * @param {Object} res - response to be given
    * @returns {Object} - response
    */
-  static replyInvite(req, res) {
+  static async replyInvite(req, res) {
     const data = req.body;
     data.meetup = parseInt(req.params.id, 10);
 
     try {
-      const createdResponse = Meetup.replyInvite(req.body);
-      Response.created(res, [createdResponse]);
+      const createdResponse = await Meetup.replyInvite(req.body);
+      return Response.created(res, [createdResponse]);
     } catch (err) {
-      Response.customError(res, err.message, 400);
+      return Response.customError(res, err.message, 400);
     }
   }
 }
