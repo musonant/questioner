@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import apiRouter from './server/v1/routes';
+import apiRouter from './server/routes';
 
 require('dotenv').config();
 

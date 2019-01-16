@@ -1,4 +1,5 @@
 import Question from '../../Models/Question';
+import Response from '../../helpers/response';
 
 /**
  * @exports
@@ -13,11 +14,7 @@ class QuestionController {
    */
   static list(req, res) {
     const data = Question.getAll();
-
-    res.status(200).send({
-      status: 200,
-      data,
-    });
+    Response.success(res, data);
   }
 
   /**
@@ -29,10 +26,7 @@ class QuestionController {
   static retrieve(req, res) {
     const id = parseInt(req.params.id, 10);
     const resource = Question.getOne(id);
-    res.status(200).send({
-      status: 200,
-      data: resource,
-    });
+    Response.success(res, resource);
   }
 
   /**
@@ -45,16 +39,9 @@ class QuestionController {
     const data = req.body;
     try {
       const createdResource = Question.create(data);
-
-      res.status(201).send({
-        status: 201,
-        data: [createdResource],
-      });
+      Response.created(res, [createdResource]);
     } catch (err) {
-      res.status(400).send({
-        status: 400,
-        error: err.message,
-      });
+      Response.customError(res, err.message, 400);
     }
   }
 
@@ -69,24 +56,14 @@ class QuestionController {
     const userId = Number(req.body.userId);
 
     if (!req.body.userId) {
-      return res.status(400).send({
-        status: 400,
-        error: 'No user id provided',
-      });
+      return Response.customError(res, 'No user id provided', 400);
     }
 
     try {
       const updatedResource = Question.upVote(questionId, userId);
-
-      res.status(200).send({
-        status: 200,
-        data: [updatedResource],
-      });
+      Response.success(res, [updatedResource]);
     } catch (err) {
-      res.status(400).send({
-        status: 400,
-        error: err.message,
-      });
+      Response.customError(res, err.message, 400);
     }
   }
 
@@ -101,24 +78,14 @@ class QuestionController {
     const userId = Number(req.body.userId);
 
     if (!req.body.userId) {
-      return res.status(400).send({
-        status: 400,
-        error: 'No user id provided',
-      });
+      return Response.customError(res, 'No user id provided', 400);
     }
 
     try {
       const updatedResource = Question.downVote(questionId, userId);
-
-      res.status(200).send({
-        status: 200,
-        data: [updatedResource],
-      });
+      Response.success(res, [updatedResource]);
     } catch (err) {
-      res.status(400).send({
-        status: 400,
-        error: err.message,
-      });
+      Response.customError(res, err.message, 400);
     }
   }
 }
