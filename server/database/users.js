@@ -7,9 +7,9 @@ const users = [
     email: 'jacksparrow@user.com',
     phoneNumber: '',
     username: '',
+    registered: new Date(),
     isAdmin: true,
     password: 'jack',
-    createdOn: new Date(),
   },
   {
     id: 2,
