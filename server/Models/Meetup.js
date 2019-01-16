@@ -1,6 +1,5 @@
-import meetups, { defaultRecord } from '../database/meetups';
-import tags from '../database/tags';
-import rsvps, { rsvpSchema } from '../database/rsvps';
+import connection from '../../db';
+import Model from './Model';
 
 /**
  * This is model of a resource
@@ -9,29 +8,15 @@ import rsvps, { rsvpSchema } from '../database/rsvps';
  * @export
  * @class Model
  */
-class Meetup {
+class Meetup extends Model {
   /**
-   * @returns {Array} - An array of all records for the resource
+   * constructor
+   * @param {string} table - name of database table
    */
-  static getAll() {
-    return meetups;
-  }
-
-  /**
-   * Function to get a single resource with the given id
-   * @param {Number} id - the primary key of the resource to be found
-   * @returns {Object} - the resource with the specified id
-   */
-  static getOne(id) {
-    return meetups.find(item => item.id === id);
-  }
-
-  /**
-   * Get the id of the last resource on the table
-   * @returns {Number} - the id of the last item on the record/table
-   */
-  static getLastId() {
-    return meetups[(meetups.length - 1)].id;
+  constructor(
+    table = 'meetups'
+  ) {
+    super(table);
   }
 
   /**
@@ -39,32 +24,36 @@ class Meetup {
    * @param {Object} data - an object containing the properties for created resource
    * @returns {Object} - the new resource created
    */
-  static create(data) {
-    const lastId = Meetup.getLastId();
+  async create(data) {
+    const text = `INSERT INTO
+      meetups("createdBy", location, images, topic, "happeningOn", tags, description)
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
+      returning *`;
 
-    const fields = Object.keys(defaultRecord);
-    const newResource = { id: (lastId + 1) };
-    fields.forEach((field) => {
-      if (field !== 'id') {
-        newResource[field] = field === 'createdOn' ? new Date() : data[field] || defaultRecord[field];
-      }
+    const values = [
+      Number(data.createdBy),
+      data.location,
+      data.images,
+      data.topic,
+      data.happeningOn,
+      data.tags,
+      data.descriptions
+    ];
 
-      // Verify that all required fields have been provided
-      if (newResource[field] === undefined) {
-        throw new Error(`Required field, ${field} not provided`);
-      }
-    });
-
-    meetups.push(newResource);
-    return newResource;
+    try {
+      const { rows } = await connection.query(text, values);
+      return rows[0];
+    } catch (err) {
+      throw err;
+    }
   }
 
   /**
    * Get all upcoming meetups
    * @returns {Array} - array of all upcoming meetups
    */
-  static listUpcoming() {
-    const allResources = Meetup.getAll();
+  async listUpcoming() {
+    const allResources = await Meetup.getAll();
     const currentTimestamp = Date.now();
     const upcoming = [];
 
@@ -84,10 +73,18 @@ class Meetup {
    * @param {Array} ref - array of the primary keys (id) of the linked resource
    * @returns {Array} - and array of the actual resources found by their keys
    */
-  static getTags(ref) {
+  async getTags(ref) {
     const data = [];
-    ref.forEach((id) => {
-      const resource = tags.find(tag => tag.id === id);
+    const queryText = 'SELECT * FROM tags';
+    let tagsResult = [];
+    try {
+      tagsResult = await connection.query(queryText);
+    } catch (err) {
+      console.log(err.stack);
+    }
+
+    await ref.forEach((id) => {
+      const resource = tagsResult.rows.find(tag => tag.id === Number(id));
       data.push(resource);
     });
 
@@ -99,23 +96,24 @@ class Meetup {
    * @param {Array} data - an array of the properties
    * @returns {Object} - created resource
    */
-  static replyInvite(data) {
-    const lastId = rsvps[rsvps.length - 1].id;
-    const newResource = { id: lastId + 1, };
-    const fields = Object.keys(rsvpSchema);
+  async replyInvite(data) {
+    const text = `INSERT INTO
+      rsvps("meetup", "user", "response")
+      VALUES ($1, $2, $3)
+      returning *`;
 
-    fields.forEach((field) => {
-      if (field !== 'id') {
-        newResource[field] = data[field];
-      }
+    const values = [
+      Number(data.meetup),
+      Number(data.user),
+      data.response,
+    ];
 
-      // Verify that all required fields have been provided
-      if (newResource[field] === undefined) {
-        throw new Error(`Required field, ${field} not provided`);
-      }
-    });
-
-    return newResource;
+    try {
+      const { rows } = await connection.query(text, values);
+      return rows[0];
+    } catch (err) {
+      throw err;
+    }
   }
 }
 
