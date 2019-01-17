@@ -61,14 +61,30 @@ class User extends Model {
     try {
       const { rows } = await connection.query(text, [data.email]);
       if (!rows[0]) {
-        return Response.incorrectCred(res, err);
+        throw new Error('credenctials not found');
       }
       if (!userHelper.comparePassword(rows[0].password, data.password)) {
-        return Response.incorrectCred(res, err);
+        throw new Error('Email or password incorrect');
       }
       const token = userHelper.generateToken(rows[0].id);
       return token;
     } catch (err) {
+      throw err;
+    }
+  }
+
+  async delete(userId) {
+    const queryText = 'DELETE FROM users WHERE id=$1';
+    
+    try {
+      const { rows } = await connection.query(queryText, [userId]);
+      console.log(rows);
+      
+      if(!rows[0]) {
+        throw new Error('user not found');
+      }
+      return true;
+    } catch(err) {
       throw err;
     }
   }

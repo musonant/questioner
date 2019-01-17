@@ -70,7 +70,7 @@ class DB {
       );
       CREATE TABLE IF NOT EXISTS questions (
         "id" SERIAL PRIMARY KEY NOT NULL,
-        "createdBy" INT NOT NULL REFERENCES users(id),
+        "createdBy" INT NOT NULL,
         "meetup" INT REFERENCES meetups(id) NOT NULL,
         "title" varchar(100),
         "body" varchar(1000),
@@ -82,7 +82,7 @@ class DB {
       CREATE TABLE IF NOT EXISTS rsvps (
         "id" SERIAL PRIMARY KEY NOT NULL,
         "meetup" INT REFERENCES meetups(id) NOT NULL,
-        "user" INT REFERENCES users(id) NOT NULL,
+        "user" INT REFERENCES users(id) ON DELETE CASCADE NOT NULL,
         "response" BOOLEAN NOT NULL
       );
     `;

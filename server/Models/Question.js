@@ -1,6 +1,5 @@
 import Model from './Model';
 import connection from '../database/db';
-import questions, { defaultRecord } from '../database/questions';
 
 /**
  * This is model of a resource

@@ -77,7 +77,7 @@ class UserController {
 
     try {
       const result = await User.login(req.body);
-      return Response.success(res, result);
+      return Response.success(res, {token: result});
     } catch (err) {
       console.log(err);
       return Response.customError(res, err.message, 400);
@@ -92,12 +92,12 @@ class UserController {
    */
   static async delete(req, res) {
     try {
-      const result = await User.delete(req.user.id);
+      const result = await User.delete(Number(req.body.userId));
       if (result) {
         Response.deleted(req, res);
       }
     } catch (err) {
-      return res.status(400).send(err);
+      return Response.customError(res, err.message, 400);
     }
   }
 }

@@ -12,7 +12,7 @@ const userHelper = {
   },
 
   comparePassword(hashPassword, password) {
-    return bcrypt.compareSync(hashPassword, password);
+    return bcrypt.compareSync(password, hashPassword);
   },
 
   isValidEmail(email) {
