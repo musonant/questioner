@@ -20,33 +20,6 @@ class Question extends Model {
   }
 
   /**
-   * Create a new resource
-   * @param {Object} data - an object containing the properties for created resource
-   * @returns {Object} - the new resource created
-   */
-  async create(data) {
-    const text = `INSERT INTO
-      questions("createdBy", meetup, title, body)
-      VALUES ($1, $2, $3, $4)
-      returning *`;
-
-    const values = [
-      Number(data.createdBy),
-      Number(data.meetup),
-      data.title,
-      data.body,
-    ];
-
-    try {
-      const { rows } = await connection.query(text, values);
-      return rows[0];
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  /**
-   *
    * @param {Object} questionId -
    * @param {Object} userId -
    * @returns {Object} - updated question object

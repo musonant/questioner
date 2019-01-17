@@ -1,7 +1,5 @@
 import Model from './Model';
 import connection from '../database/db';
-import loginHelper from '../helpers/user';
-import Response from '../helpers/response';
 import userHelper from '../helpers/user';
 
 /**
@@ -14,40 +12,6 @@ class User extends Model {
    */
   constructor(table = 'users') {
     super(table);
-  }
-
-  /**
-   * Create a new resource
-   * @param {Object} data - an object containing the properties for created resource
-   * @returns {Object} - the new resource created
-   */
-  async create(data) {
-    const hashedPassword = loginHelper.hashPassword(data.password);
-
-    const text = `INSERT INTO
-      users(firstname, lastname, othername, email, "phoneNumber", username, "isAdmin", password)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-      returning *`;
-
-    const values = [
-      data.firstname,
-      data.lastname,
-      data.othername,
-      data.email,
-      data.phoneNumber,
-      data.username,
-      false,
-      hashedPassword
-    ];
-
-    try {
-      const { rows } = await connection.query(text, values);
-      const token = loginHelper.generateToken(rows[0].id);
-      return token;
-    } catch (err) {
-      console.log(err);
-      throw err;
-    }
   }
 
   /**
@@ -69,22 +33,6 @@ class User extends Model {
       const token = userHelper.generateToken(rows[0].id);
       return token;
     } catch (err) {
-      throw err;
-    }
-  }
-
-  async delete(userId) {
-    const queryText = 'DELETE FROM users WHERE id=$1';
-    
-    try {
-      const { rows } = await connection.query(queryText, [userId]);
-      console.log(rows);
-      
-      if(!rows[0]) {
-        throw new Error('user not found');
-      }
-      return true;
-    } catch(err) {
       throw err;
     }
   }

@@ -3,14 +3,13 @@
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
-import { DB_URL } from '../database/db';
+import { DB_URL } from './db';
 
 const debug = require('debug')('config');
 
 dotenv.config();
 
-// debug('NODE_ENV', process.env.NODE_ENV);
-console.log('NODE_ENV', process.env.NODE_ENV);
+debug('NODE_ENV', process.env.NODE_ENV);
 
 /**
  * class DB
@@ -27,13 +26,18 @@ class DB {
 
   /**
    * createTables
+   * @returns {Resource} - created tables
    */
   async createTables() {
-    console.log('CONNECTING TO DATABASE: DATABASE URL', DB_URL);
+    debug('CONNECTING TO DATABASE: DATABASE URL', DB_URL);
     this.connection.on('connect', () => {
-      console.log('CONNECTED TO DATABASE');
+      debug('CONNECTED TO DATABASE');
+    });
+    this.connection.on('error', () => {
+
     });
     const queryText = `
+      DROP TABLE IF EXISTS comments;
       DROP TABLE IF EXISTS rsvps;
       DROP TABLE IF EXISTS questions;
       DROP TABLE IF EXISTS meetups;
@@ -85,6 +89,14 @@ class DB {
         "user" INT REFERENCES users(id) ON DELETE CASCADE NOT NULL,
         "response" BOOLEAN NOT NULL
       );
+      CREATE TABLE IF NOT EXISTS comments (
+        "id" SERIAL PRIMARY KEY NOT NULL,
+        "createdBy" INT NOT NULL,
+        "questionId" INT REFERENCES questions(id) ON DELETE CASCADE NOT NULL,
+        "body" varchar(1000) NOT NULL,
+        "createdOn" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        "updatedOn" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+      );
     `;
 
     await this.connection.query(queryText);
@@ -93,6 +105,7 @@ class DB {
 
   /**
    * seedTables
+   * @returns {Resource} - data inserted into database tables
    */
   async seedTables() {
     const saltRounds = 10;
@@ -122,6 +135,5 @@ class DB {
 }
 
 const db = new DB();
-
 
 db.createTables();

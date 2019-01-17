@@ -1,7 +1,8 @@
 import UserModel from '../../Models/User';
 import Response from '../../helpers/response';
-import connection from '../../database/db';
 import userHelper from '../../helpers/user';
+
+// const debug = require('debug')('UserController');
 
 const User = new UserModel();
 /**
@@ -52,7 +53,8 @@ class UserController {
 
     try {
       const createdResource = await User.create(req.body);
-      return Response.created(res, [createdResource]);
+      const token = userHelper.generateToken(createdResource.id);
+      return Response.created(res, [token]);
     } catch (err) {
       if (err.routine === '_bt_check_unique') {
         return Response.customError(res, 'This EMAIL has been registered by another user', 400);
@@ -77,9 +79,8 @@ class UserController {
 
     try {
       const result = await User.login(req.body);
-      return Response.success(res, {token: result});
+      return Response.success(res, { token: result });
     } catch (err) {
-      console.log(err);
       return Response.customError(res, err.message, 400);
     }
   }

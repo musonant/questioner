@@ -20,35 +20,6 @@ class Meetup extends Model {
   }
 
   /**
-   * Create a new resource
-   * @param {Object} data - an object containing the properties for created resource
-   * @returns {Object} - the new resource created
-   */
-  async create(data) {
-    const text = `INSERT INTO
-      meetups("createdBy", location, images, topic, "happeningOn", tags, description)
-      VALUES ($1, $2, $3, $4, $5, $6, $7)
-      returning *`;
-
-    const values = [
-      Number(data.createdBy),
-      data.location,
-      data.images,
-      data.topic,
-      data.happeningOn,
-      data.tags,
-      data.descriptions
-    ];
-
-    try {
-      const { rows } = await connection.query(text, values);
-      return rows[0];
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  /**
    * Get all upcoming meetups
    * @returns {Array} - array of all upcoming meetups
    */

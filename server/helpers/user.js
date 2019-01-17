@@ -3,10 +3,9 @@ import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
 
 dotenv.config();
-
 const saltRounds = 10;
-const userHelper = {
 
+const userHelper = {
   hashPassword(password) {
     return bcrypt.hashSync(password, saltRounds);
   },

@@ -53,6 +53,13 @@ const Response = {
       status: 400,
       error
     });
+  },
+
+  invalidToken: (req, res) => {
+    res.status(400).send({
+      status: 400,
+      error: 'Invalid token'
+    });
   }
 };
 

@@ -1,5 +1,4 @@
 import connection from '../database/db';
-import Response from '../helpers/response';
 
 /**
  * This is model of a resource
@@ -17,6 +16,37 @@ class Model {
   }
 
   /**
+   * Create a new resource
+   * @param {Object} data - an object containing the properties for created resource
+   * @returns {Object} - the new resource created
+   */
+  async create(data) {
+    const keys = Object.keys(data);
+    const values = [];
+    let fields = '';
+    let placeholders = '';
+
+    keys.forEach((key, i) => {
+      values.push(data[key]);
+      fields += i > 0 ? `, "${key}"` : `"${key}"`;
+      placeholders += i > 0 ? `, $${i + 1}` : `$${i + 1}`;
+    });
+
+    const text = `INSERT INTO
+      ${this.table} (${fields})
+      VALUES (${placeholders})
+      returning *`;
+
+    try {
+      const { rows } = await connection.query(text, values);
+      return rows[0];
+    } catch (err) {
+      throw err;
+    }
+  }
+
+
+  /**
    * @returns {Array} - An array of all records for the resource
    */
   async getAll() {
@@ -25,7 +55,7 @@ class Model {
       const result = await connection.query(queryText);
       return result.rows;
     } catch (err) {
-      return err.stack;
+      throw err;
     }
   }
 
@@ -40,21 +70,22 @@ class Model {
       const result = await connection.query(queryText);
       return result.rows[0];
     } catch (err) {
-      console.log(err.stack);
-      return err.stack;
+      throw err;
     }
   }
 
   /**
-   *
-   * @param {*} id
+   * @param {Number} id
+   * @returns {Boolean} -
    */
   async delete(id) {
-    const deleteQuery = `DELETE FROM ${this.table} WHERE id=$1 returning *`;
+    const queryText = `DELETE FROM ${this.table} WHERE id=$1`;
+    const singleItem = this.table.slice(0, -1);
+
     try {
-      const { rows } = await db.query(deleteQuery, [id]);
+      const { rows } = await connection.query(queryText, [id]);
       if (!rows[0]) {
-        return Response.customError(res, 'User not found', 404);
+        throw new Error(`${singleItem} not found`);
       }
       return true;
     } catch (err) {
