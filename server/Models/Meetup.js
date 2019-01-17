@@ -1,4 +1,4 @@
-import connection from '../../db';
+import connection from '../database/db';
 import Model from './Model';
 
 /**

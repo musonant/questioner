@@ -1,5 +1,5 @@
 import Model from './Model';
-import connection from '../../db';
+import connection from '../database/db';
 import loginHelper from '../helpers/user';
 import Response from '../helpers/response';
 import userHelper from '../helpers/user';

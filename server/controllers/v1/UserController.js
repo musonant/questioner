@@ -1,6 +1,6 @@
 import UserModel from '../../Models/User';
 import Response from '../../helpers/response';
-import connection from '../../../db';
+import connection from '../../database/db';
 import userHelper from '../../helpers/user';
 
 const User = new UserModel();

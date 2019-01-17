@@ -1,4 +1,4 @@
-import connection from '../../db';
+import connection from '../database/db';
 import Response from '../helpers/response';
 
 /**
@@ -25,7 +25,6 @@ class Model {
       const result = await connection.query(queryText);
       return result.rows;
     } catch (err) {
-      console.log(err.stack);
       return err.stack;
     }
   }

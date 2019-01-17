@@ -3,7 +3,7 @@
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
-import { DB_URL } from '../../db';
+import { DB_URL } from '../database/db';
 
 const debug = require('debug')('config');
 

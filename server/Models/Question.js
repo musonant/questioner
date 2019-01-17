@@ -1,5 +1,5 @@
 import Model from './Model';
-import connection from '../../db';
+import connection from '../database/db';
 import questions, { defaultRecord } from '../database/questions';
 
 /**
