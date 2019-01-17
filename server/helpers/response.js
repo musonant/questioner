@@ -6,6 +6,13 @@ const Response = {
     });
   },
 
+  deleted: (req, res) => {
+    res.status(204).send({
+      status: 204,
+      error: 'deleted',
+    });
+  },
+
   invalidParams: (err, res) => {
     res.status(400).send({
       status: 400,
@@ -37,6 +44,13 @@ const Response = {
   customError: (res, error, status) => {
     res.status(status).send({
       status,
+      error
+    });
+  },
+
+  incorrectCred: (res, error) => {
+    res.status(400).send({
+      status: 400,
       error
     });
   }

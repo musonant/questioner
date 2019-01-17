@@ -1,4 +1,5 @@
 import connection from '../../db';
+import Response from '../helpers/response';
 
 /**
  * This is model of a resource
@@ -42,6 +43,23 @@ class Model {
     } catch (err) {
       console.log(err.stack);
       return err.stack;
+    }
+  }
+
+  /**
+   *
+   * @param {*} id
+   */
+  async delete(id) {
+    const deleteQuery = `DELETE FROM ${this.table} WHERE id=$1 returning *`;
+    try {
+      const { rows } = await db.query(deleteQuery, [id]);
+      if (!rows[0]) {
+        return Response.customError(res, 'User not found', 404);
+      }
+      return true;
+    } catch (err) {
+      throw err;
     }
   }
 }

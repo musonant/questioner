@@ -45,7 +45,7 @@ class DB {
         "firstname" varchar(20) NOT NULL,
         "lastname" varchar(20) NOT NULL,
         "othername" varchar(20),
-        "email" varchar(100) NOT NULL,
+        "email" varchar(100) UNIQUE NOT NULL,
         "phoneNumber" varchar(20),
         "username" varchar(40),
         "isAdmin" BOOLEAN NOT NULL,

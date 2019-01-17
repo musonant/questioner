@@ -1,7 +1,9 @@
 /* eslint-disable */
 
 import chai, { expect } from 'chai';
-import Meetup from '../../Models/Meetup';
+import MeetupModel from '../../Models/Meetup';
+
+const Meetup = new MeetupModel;
 
 const meetupModelTests = () => {
   describe('Test cases for meetup model', () => {

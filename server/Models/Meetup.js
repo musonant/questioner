@@ -53,7 +53,7 @@ class Meetup extends Model {
    * @returns {Array} - array of all upcoming meetups
    */
   async listUpcoming() {
-    const allResources = await Meetup.getAll();
+    const allResources = await this.getAll();
     const currentTimestamp = Date.now();
     const upcoming = [];
 

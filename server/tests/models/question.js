@@ -1,7 +1,9 @@
 /* eslint-disable */
 
 import chai, { expect } from 'chai';
-import Question from '../../Models/Question';
+import QuestionModel from '../../Models/Question';
+
+const Question = QuestionModel;
 
 const questionModelTests = () => {
   describe('Test cases for question model', () => {
