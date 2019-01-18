@@ -51,6 +51,8 @@ class UserController {
       return Response.customError(res, 'Please enter a valid email address', 400);
     }
 
+    req.body.isAdmin = false;
+
     try {
       const createdResource = await User.create(req.body);
       const token = userHelper.generateToken(createdResource.id);

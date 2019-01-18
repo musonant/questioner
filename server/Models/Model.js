@@ -1,4 +1,5 @@
 import connection from '../database/db';
+import userHelper from '../helpers/user';
 
 /**
  * This is model of a resource
@@ -27,7 +28,12 @@ class Model {
     let placeholders = '';
 
     keys.forEach((key, i) => {
-      values.push(data[key]);
+      if (key === 'password') {
+        const hashedPassword = userHelper.hashPassword(data[key]);
+        values.push(hashedPassword);
+      } else {
+        values.push(data[key]);
+      }
       fields += i > 0 ? `, "${key}"` : `"${key}"`;
       placeholders += i > 0 ? `, $${i + 1}` : `$${i + 1}`;
     });

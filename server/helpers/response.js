@@ -13,6 +13,13 @@ const Response = {
     });
   },
 
+  unAuthorised: (res) => {
+    res.status(403).send({
+      status: 403,
+      error: 'You need to be an admin to access this route'
+    });
+  },
+
   invalidParams: (err, res) => {
     res.status(400).send({
       status: 400,

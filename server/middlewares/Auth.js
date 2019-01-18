@@ -16,16 +16,13 @@ const Auth = {
   */
 
   async verifyToken(req, res, next) {
-    process.env.SECRET = 'RWeV4amcLR7d8bLGrDQ3';
-
-    const token = req.headers['x-access-token'];
+    const token = req.headers['x-access-token'] || req.query.token;
 
     if (!token) {
       return Response.customError(res, 'Token is not provided', 400);
     }
-    console.log(process.env.SECRET);
     try {
-      const decoded = await jwt.verify(token, process.env.SECRET);
+      const decoded = await jwt.verify(token, process.env.JWT_SECRET);
       const text = 'SELECT * FROM users WHERE id = $1';
       const { rows } = await connection.query(text, [decoded.userId]);
       if (!rows[0]) {
@@ -37,9 +34,22 @@ const Auth = {
     } catch (err) {
       return Response.customError(res, err, 400);
     }
+  },
+
+  async isAdmin(req, res, next) {
+    const { id } = req.user;
+
+    try {
+      const text = `SELECT * FROM users WHERE id = ${id}`;
+      const { rows } = await connection.query(text);
+      if (rows[0].isAdmin === false) {
+        return Response.unAuthorised(res);
+      }
+      next();
+    } catch (err) {
+      return Response.customError(res, err.msg, 400);
+    }
   }
-
-
 };
 
 export default Auth;
