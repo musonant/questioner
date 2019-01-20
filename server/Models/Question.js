@@ -1,4 +1,5 @@
-import questions, { defaultRecord } from '../database/questions';
+import Model from './Model';
+import connection from '../database/db';
 
 /**
  * This is model of a resource
@@ -7,96 +8,44 @@ import questions, { defaultRecord } from '../database/questions';
  * @export
  * @class Model
  */
-class Question {
+class Question extends Model {
   /**
-   * @returns {Array} - An array of all records for the resource
+   * constructor
+   * @param {string} table - name of database table
    */
-  static getAll() {
-    return questions;
+  constructor(
+    table = 'questions'
+  ) {
+    super(table);
   }
 
   /**
-   * Function to get a single resource with the given id
-   * @param {Number} id - the primary key of the resource to be found
-   * @returns {Object} - the resource with the specified id
-   */
-  static getOne(id) {
-    return questions.find(item => item.id === id);
-  }
-
-  /**
-   * Get the id of the last resource on the table
-   * @returns {Number} - the id of the last item on the record/table
-   */
-  static getLastId() {
-    return questions[(questions.length - 1)].id;
-  }
-
-  /**
-   * Create a new resource
-   * @param {Array} data - an array of the properties for created resource
-   * @returns {Object} - the new resource created
-   */
-  static create(data) {
-    const lastId = Question.getLastId();
-
-    const fields = Object.keys(defaultRecord);
-    const newResource = { id: (lastId + 1) };
-    fields.forEach((field) => {
-      if (field !== 'id') {
-        newResource[field] = field === 'createdOn' ? new Date() : data[field] || defaultRecord[field];
-      }
-
-      // Verify that all required fields have been provided
-      if (newResource[field] === undefined) {
-        throw new Error(`Required field, ${field} not provided`);
-      }
-    });
-
-    questions.push(newResource);
-    return newResource;
-  }
-
-  /**
-   *
    * @param {Object} questionId -
    * @param {Object} userId -
    * @returns {Object} - updated question object
    */
-  static upVote(questionId, userId) {
-    const specifiedQuestion = Question.getOne(questionId);
-    const { upVoteStatus, downVoteStatus } = Question.voteExists(questionId, userId);
+  async upVote(questionId, userId) {
+    let downVoters = [];
+    const question = await this.getOne(questionId);
+
+    const { upVoteStatus, downVoteStatus } = this.voteExists(question, userId);
 
     if (upVoteStatus === true) {
       throw new Error('multiple voting is not possible');
     }
     if (downVoteStatus === true) {
-      specifiedQuestion.downVoters = Question.removeVote(specifiedQuestion.downVoters, userId);
+      downVoters = this.removeVote(question.downVoters, userId);
     }
+    const upVoters = this.addVote(question.upVoters, userId);
+    const preparedUpVoters = this.prepareVoteText(upVoters);
+    const preparedDownVoters = this.prepareVoteText(downVoters);
 
-    specifiedQuestion.upVoters.push(userId);
-    return specifiedQuestion;
-  }
-
-  /**
-   *
-   * @param {Object} questionId -
-   * @param {Object} userId -
-   * @returns {Object} - updated questions object
-   */
-  static downVote(questionId, userId) {
-    const specifiedQuestion = Question.getOne(questionId);
-    const { upVoteStatus, downVoteStatus } = Question.voteExists(questionId, userId);
-
-    if (downVoteStatus === true) {
-      throw new Error('multiple voting is not possible');
-    }
-    if (upVoteStatus === true) {
-      specifiedQuestion.upVoters = Question.removeVote(specifiedQuestion.upVoters, userId);
-    }
-
-    specifiedQuestion.downVoters.push(userId);
-    return specifiedQuestion;
+    const result = await connection.query(`UPDATE questions SET "upVoters"='${preparedUpVoters}', "downVoters"='${preparedDownVoters}' WHERE id=${questionId}`, (err) => {
+      if (err) {
+        // throw new Error('Unexpected error:', err);
+      }
+    });
+    return result;
   }
 
   /**
@@ -105,28 +54,86 @@ class Question {
    * @param {Number} userId -
    * @returns {Array} - modified array of voters
    */
-  static removeVote(voters, userId) {
-    return voters.filter(item => item !== userId);
+  addVote(voters, userId) {
+    const array = [...voters];
+    array.push(userId);
+    return array;
   }
 
   /**
    *
    * @param {Object} questionId -
    * @param {Object} userId -
+   * @returns {Object} - updated questions object
+   */
+  async downVote(questionId, userId) {
+    let upVoters = [];
+    const question = await this.getOne(questionId);
+
+    const { upVoteStatus, downVoteStatus } = this.voteExists(question, userId);
+
+    if (downVoteStatus === true) {
+      throw new Error('multiple voting is not possible');
+    }
+    if (upVoteStatus === true) {
+      upVoters = this.removeVote(question.upVoters, userId);
+    }
+    const downVoters = this.addVote(question.upVoters, userId);
+    const preparedDownVoters = this.prepareVoteText(downVoters);
+    const preparedUpVoters = this.prepareVoteText(upVoters);
+
+    const result = await connection.query(`UPDATE questions SET "upVoters"='${preparedDownVoters}', "downVoters"='${preparedUpVoters}' WHERE id=${questionId}`);
+    return result;
+  }
+
+  /**
+   * Prepare voters array for query
+   * @param {Array} voters - Array of voters
+   * @returns {String} preparedVoters - string ready for query
+   */
+  prepareVoteText(voters) {
+    let preparedVoters = '{';
+    for (let i = 0; i < voters.length; i++) {
+      const num = voters[i];
+      preparedVoters += i > 0 ? `, ${num}` : `${num}`;
+    }
+    preparedVoters += '}';
+
+    return preparedVoters;
+  }
+
+  /**
+   * Remove specified voter from an array of voters
+   * @param {Array} voters -
+   * @param {Number} userId -
+   * @returns {Array} - modified array of voters
+   */
+  removeVote(voters, userId) {
+    const array = [...voters];
+    array.filter(item => item !== userId);
+    return array;
+  }
+
+  /**
+   *
+   * @param {Object} question -
+   * @param {Object} userId -
    * @returns {Boolean} -
    */
-  static voteExists(questionId, userId) {
-    const specifiedQuestion = Question.getOne(questionId);
+  voteExists(question, userId) {
     let upVoteStatus = false;
     let downVoteStatus = false;
 
-    specifiedQuestion.upVoters.forEach((item) => {
-      if (userId === item) {
+    question.upVoters = question.upVoters || [];
+    question.downVoters = question.upVoters || [];
+
+    question.upVoters.forEach((item) => {
+      if (userId === Number(item)) {
         upVoteStatus = true;
       }
     });
 
-    specifiedQuestion.downVoters.forEach((item) => {
+    question.downVoters.forEach((item) => {
       if (userId === item) {
         downVoteStatus = true;
       }
