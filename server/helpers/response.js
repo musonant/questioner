@@ -6,10 +6,24 @@ const Response = {
     });
   },
 
+  deleted: (req, res) => {
+    res.status(204).send({
+      status: 204,
+      error: 'deleted',
+    });
+  },
+
+  unAuthorised: (res) => {
+    res.status(403).send({
+      status: 403,
+      error: 'You need to be an admin to access this route'
+    });
+  },
+
   invalidParams: (err, res) => {
     res.status(400).send({
       status: 400,
-      error: 'parameters are invalid',
+      error: 'this request contains an invalid parameter',
     });
   },
 
@@ -38,6 +52,20 @@ const Response = {
     res.status(status).send({
       status,
       error
+    });
+  },
+
+  incorrectCred: (res, error) => {
+    res.status(400).send({
+      status: 400,
+      error
+    });
+  },
+
+  invalidToken: (req, res) => {
+    res.status(400).send({
+      status: 400,
+      error: 'Invalid token'
     });
   }
 };
