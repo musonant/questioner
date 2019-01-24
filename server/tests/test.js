@@ -47,6 +47,7 @@ describe('Test cases for Questioner API', () => {
 
   meetupTest();
   questionTest();
-  meetupModelTest();
-  questionModelTest();
+
+  // meetupModelTest();
+  // questionModelTest();
 });
