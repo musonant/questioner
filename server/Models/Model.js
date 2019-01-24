@@ -47,8 +47,7 @@ class Model {
       const { rows } = await connection.query(text, values);
       return rows[0];
     } catch (err) {
-      // throw err;
-      // console.log(err.message);
+      throw err;
     }
   }
 

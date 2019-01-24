@@ -1,15 +1,15 @@
 
+
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
-import { DB_URL } from '../../db';
+import { DB_URL } from './db';
 
 const debug = require('debug')('config');
 
 dotenv.config();
 
-// debug('NODE_ENV', process.env.NODE_ENV);
-console.log('NODE_ENV', process.env.NODE_ENV);
+debug('NODE_ENV', process.env.NODE_ENV);
 
 /**
  * class DB
@@ -26,13 +26,18 @@ class DB {
 
   /**
    * createTables
+   * @returns {Resource} - created tables
    */
   async createTables() {
-    console.log('CONNECTING TO DATABASE: DATABASE URL', DB_URL);
+    debug('CONNECTING TO DATABASE: DATABASE URL', DB_URL);
     this.connection.on('connect', () => {
       console.log('CONNECTED TO DATABASE');
     });
+    this.connection.on('error', (err) => {
+      console.log(err);
+    });
     const queryText = `
+      DROP TABLE IF EXISTS comments;
       DROP TABLE IF EXISTS rsvps;
       DROP TABLE IF EXISTS questions;
       DROP TABLE IF EXISTS meetups;
@@ -44,7 +49,7 @@ class DB {
         "firstname" varchar(20) NOT NULL,
         "lastname" varchar(20) NOT NULL,
         "othername" varchar(20),
-        "email" varchar(100) NOT NULL,
+        "email" varchar(100) UNIQUE NOT NULL,
         "phoneNumber" varchar(20),
         "username" varchar(40),
         "isAdmin" BOOLEAN NOT NULL,
@@ -69,9 +74,8 @@ class DB {
       );
       CREATE TABLE IF NOT EXISTS questions (
         "id" SERIAL PRIMARY KEY NOT NULL,
-        "createdBy" INT NOT NULL REFERENCES users(id),
+        "createdBy" INT NOT NULL,
         "meetup" INT REFERENCES meetups(id) NOT NULL,
-        "authorName" varchar(100),
         "title" varchar(100),
         "body" varchar(1000),
         "upVoters" TEXT [],
@@ -82,8 +86,16 @@ class DB {
       CREATE TABLE IF NOT EXISTS rsvps (
         "id" SERIAL PRIMARY KEY NOT NULL,
         "meetup" INT REFERENCES meetups(id) NOT NULL,
-        "user" INT REFERENCES users(id) NOT NULL,
+        "user" INT REFERENCES users(id) ON DELETE CASCADE NOT NULL,
         "response" BOOLEAN NOT NULL
+      );
+      CREATE TABLE IF NOT EXISTS comments (
+        "id" SERIAL PRIMARY KEY NOT NULL,
+        "createdBy" INT NOT NULL,
+        "questionId" INT REFERENCES questions(id) ON DELETE CASCADE NOT NULL,
+        "body" varchar(1000) NOT NULL,
+        "createdOn" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        "updatedOn" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
       );
     `;
 
@@ -93,6 +105,7 @@ class DB {
 
   /**
    * seedTables
+   * @returns {Resource} - data inserted into database tables
    */
   async seedTables() {
     const saltRounds = 10;
@@ -106,12 +119,12 @@ class DB {
       INSERT INTO tags (name) VALUES ('Andela');
 
       INSERT INTO meetups ("createdBy", location, topic, description, tags) VALUES (1, '235, Ikorodu Road', 'Project Management, Andela', 'any new thing worth learning should be learned', '{1, 3}');
-      INSERT INTO meetups ("createdBy", location, topic, description) VALUES (1, '5, West Drive, California', 'Calibrating our globe', 'any new thing worth learning should be learned');
+      INSERT INTO meetups ("createdBy", location, topic, "happeningOn", description) VALUES (1, '5, West Drive, California', 'Calibrating our globe', '2020-01-16T07:18:28.094Z', 'any new thing worth learning should be learned');
       INSERT INTO meetups ("createdBy", location, topic, description) VALUES (1, 'EPIC Tower', 'Andela Bootcamp', 'any new thing worth learning should be learned');
       
-      INSERT INTO questions ("createdBy", meetup, "authorName", title, body) VALUES (2, 1, 'Johnny Drille', 'concerning the progress of the project', 'Are there any things I need to learn first?');
-      INSERT INTO questions ("createdBy", meetup, "authorName", title, body) VALUES (2, 2, 'Johnny Drille', 'concerning the progress of the project', 'Are there any things I need to learn first?');
-
+      INSERT INTO questions ("createdBy", meetup, title, body) VALUES (2, 1, 'concerning the progress of the project', 'Are there any things I need to learn first?');
+      INSERT INTO questions ("createdBy", meetup, title, body) VALUES (2, 2, 'concerning the progress of the project', 'Are there any things I need to learn first?');
+      
       INSERT INTO rsvps ("meetup", "user", "response") VALUES (1, 2, true);
       INSERT INTO rsvps ("meetup", "user", "response") VALUES (1, 3, true);
     `;
