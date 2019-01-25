@@ -1,12 +1,12 @@
-import MeetupModel from '../../Models/Meetup';
+import CommentModel from '../../Models/Comment';
 import Response from '../../helpers/response';
 
-const Meetup = new MeetupModel();
+const Comment = new CommentModel();
+
 /**
- * @exports
- * @class MeetupController
+ * CommentController
  */
-class MeetupController {
+class CommentController {
   /**
    * List all the resources on the table
    * @param {Object} req - request made
@@ -14,23 +14,7 @@ class MeetupController {
    * @returns {Object} - response
    */
   static async list(req, res) {
-    let records = [];
-    if (req.query.scope === 'upcoming') {
-      records = await Meetup.listUpcoming();
-    } else {
-      records = await Meetup.getAll();
-    }
-
-    const addTags = async (tags) => {
-      if (tags) {
-        await Meetup.getTags(tags);
-      }
-    };
-
-    records.forEach((item) => {
-      item.tags = addTags(item.tags);
-    });
-
+    const records = await Comment.getAll();
     return Response.success(res, records);
   }
 
@@ -42,12 +26,12 @@ class MeetupController {
    */
   static async retrieve(req, res) {
     const id = parseInt(req.params.id, 10);
-    const resource = await Meetup.getOne(id);
+    const resource = await Comment.getOne(id);
 
     if (!resource) {
       return Response.notFound(req, res);
     }
-    return Response.success(res, [resource]);
+    return Response.success(res, resource);
   }
 
   /**
@@ -59,8 +43,13 @@ class MeetupController {
   static async create(req, res) {
     const data = req.body;
     data.createdBy = req.user.id;
+
+    if (!data.createdBy || !data.questionId || !data.body) {
+      return Response.customError(res, 'Some values are missing', 400);
+    }
+
     try {
-      const createdResource = await Meetup.create(data);
+      const createdResource = await Comment.create(data);
       return Response.created(res, [createdResource]);
     } catch (err) {
       return Response.customError(res, err.message, 400);
@@ -68,23 +57,21 @@ class MeetupController {
   }
 
   /**
-   * Respond to a meetup invitation
-   * @param {Object} req - request made
-   * @param {Object} res - response to be given
-   * @returns {Object} - response
+   * Delete A Comment
+   * @param {object} req
+   * @param {object} res
+   * @returns {void} return status code 204
    */
-  static async replyInvite(req, res) {
-    const data = { response: req.body.response };
-    data.meetup = parseInt(req.params.id, 10);
-    data.user = req.user.id;
-
+  static async delete(req, res) {
     try {
-      const createdResponse = await Meetup.replyInvite(data);
-      return Response.created(res, [createdResponse]);
+      const result = await Comment.delete(Number(req.body.commentId));
+      if (result) {
+        Response.deleted(req, res);
+      }
     } catch (err) {
       return Response.customError(res, err.message, 400);
     }
   }
 }
 
-export default MeetupController;
+export default CommentController;

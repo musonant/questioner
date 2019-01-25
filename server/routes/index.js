@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import meetupRouter from './meetups';
 import questionRouter from './questions';
+import authRouter from './auth';
 
 const apiRouter = Router();
 
@@ -13,5 +14,7 @@ apiRouter.get('/', (req, res) => {
 
 apiRouter.use('/meetups', meetupRouter);
 apiRouter.use('/questions', questionRouter);
+apiRouter.use('/auth', authRouter);
+// apiRouter.use('/comments', commentsRouter);
 
 export default apiRouter;

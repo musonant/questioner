@@ -1,5 +1,7 @@
-import Question from '../../Models/Question';
+import QuestionModel from '../../Models/Question';
 import Response from '../../helpers/response';
+
+const Question = new QuestionModel();
 
 /**
  * @exports
@@ -12,9 +14,9 @@ class QuestionController {
    * @param {Object} res - response to be given
    * @returns {Object} - response
    */
-  static list(req, res) {
-    const data = Question.getAll();
-    Response.success(res, data);
+  static async list(req, res) {
+    const records = await Question.getAll();
+    return Response.success(res, records);
   }
 
   /**
@@ -23,10 +25,14 @@ class QuestionController {
    * @param {Object} res - response to be given
    * @returns {Object} - response
    */
-  static retrieve(req, res) {
+  static async retrieve(req, res) {
     const id = parseInt(req.params.id, 10);
-    const resource = Question.getOne(id);
-    Response.success(res, resource);
+    const resource = await Question.getOne(id);
+
+    if (!resource) {
+      return Response.notFound(req, res);
+    }
+    return Response.success(res, resource);
   }
 
   /**
@@ -35,13 +41,15 @@ class QuestionController {
    * @param {Object} res - response to be given
    * @returns {Object} - the response
    */
-  static create(req, res) {
+  static async create(req, res) {
     const data = req.body;
+    data.createdBy = req.user.id;
+
     try {
-      const createdResource = Question.create(data);
-      Response.created(res, [createdResource]);
+      const createdResource = await Question.create(data);
+      return Response.created(res, [createdResource]);
     } catch (err) {
-      Response.customError(res, err.message, 400);
+      return Response.customError(res, err.message, 400);
     }
   }
 
@@ -51,19 +59,15 @@ class QuestionController {
    * @param {Object} res - response to be returned
    * @returns {Object} - response object
    */
-  static upVote(req, res) {
+  static async upVote(req, res) {
     const questionId = Number(req.params.id);
-    const userId = Number(req.body.userId);
-
-    if (!req.body.userId) {
-      return Response.customError(res, 'No user id provided', 400);
-    }
+    const userId = Number(req.user.id);
 
     try {
-      const updatedResource = Question.upVote(questionId, userId);
-      Response.success(res, [updatedResource]);
+      const updatedResource = await Question.upVote(questionId, userId);
+      return Response.success(res, [updatedResource]);
     } catch (err) {
-      Response.customError(res, err.message, 400);
+      return Response.customError(res, err.message, 400);
     }
   }
 
@@ -75,11 +79,7 @@ class QuestionController {
    */
   static downVote(req, res) {
     const questionId = Number(req.params.id);
-    const userId = Number(req.body.userId);
-
-    if (!req.body.userId) {
-      return Response.customError(res, 'No user id provided', 400);
-    }
+    const userId = Number(req.user.id);
 
     try {
       const updatedResource = Question.downVote(questionId, userId);

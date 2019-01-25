@@ -1,7 +1,7 @@
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
 
-const debug = require('debug')('database');
+const debug = require('debug')('db');
 
 dotenv.config();
 
