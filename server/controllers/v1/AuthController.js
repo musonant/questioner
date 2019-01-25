@@ -1,13 +1,11 @@
-import UserModel from '../../Models/Auth';
+import AuthModel from '../../Models/Auth';
 import Response from '../../helpers/response';
 import userHelper from '../../helpers/user';
 
-// const debug = require('debug')('UserController');
-
-const User = new UserModel();
+const Auth = new AuthModel();
 /**
  * @exports
- * @class UserController
+ * @class AuthController
  */
 class AuthController {
   /**
@@ -17,7 +15,7 @@ class AuthController {
    * @returns {Object} - response
    */
   static async list(req, res) {
-    const records = await User.getAll();
+    const records = await Auth.getAll();
     return Response.success(res, records);
   }
 
@@ -29,7 +27,7 @@ class AuthController {
    */
   static async retrieve(req, res) {
     const id = parseInt(req.params.id, 10);
-    const resource = await User.getOne(id);
+    const resource = await Auth.getOne(id);
 
     if (!resource) {
       return Response.notFound(req, res);
@@ -54,8 +52,8 @@ class AuthController {
     req.body.isAdmin = false;
 
     try {
-      const createdResource = await User.create(req.body);
-      const token = userHelper.generateToken(createdResource.id);
+      const createdResource = await Auth.create(req.body);
+      const token = userHelper.generateToken(createdResource.id, createdResource.email);
       return Response.created(res, [token]);
     } catch (err) {
       if (err.routine === '_bt_check_unique') {
@@ -80,22 +78,22 @@ class AuthController {
     }
 
     try {
-      const result = await User.login(req.body);
-      return Response.success(res, { token: result });
+      const result = await Auth.login(req.body);
+      return Response.success(res, [{ token: result }]);
     } catch (err) {
       return Response.customError(res, err.message, 400);
     }
   }
 
   /**
-   * Delete A User
+   * Delete A Auth
    * @param {object} req
    * @param {object} res
    * @returns {void} return status code 204
    */
   static async delete(req, res) {
     try {
-      const result = await User.delete(Number(req.body.userId));
+      const result = await Auth.delete(Number(req.body.userId));
       if (result) {
         Response.deleted(req, res);
       }

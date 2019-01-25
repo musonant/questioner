@@ -24,15 +24,15 @@ const Auth = {
     try {
       const decoded = await jwt.verify(token, process.env.JWT_SECRET);
       const text = 'SELECT * FROM users WHERE id = $1';
-      const { rows } = await connection.query(text, [decoded.userId]);
+      const { rows } = await connection.query(text, [decoded.id]);
       if (!rows[0]) {
         return Response.invalidToken(req, res);
       }
 
-      req.user = { id: decoded.userId };
+      req.user = { id: decoded.id };
       next();
     } catch (err) {
-      return Response.customError(res, err, 400);
+      return Response.customError(res, err.msg, 400);
     }
   },
 
@@ -47,7 +47,7 @@ const Auth = {
       }
       next();
     } catch (err) {
-      return Response.customError(res, err.msg, 400);
+      return Response.customError(res, err, 400);
     }
   }
 };

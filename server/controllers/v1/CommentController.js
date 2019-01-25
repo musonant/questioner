@@ -41,12 +41,15 @@ class CommentController {
    * @returns {Object} - the response
    */
   static async create(req, res) {
-    if (!req.body.createdBy || !req.body.questionId || !req.body.body) {
+    const data = req.body;
+    data.createdBy = req.user.id;
+
+    if (!data.createdBy || !data.questionId || !data.body) {
       return Response.customError(res, 'Some values are missing', 400);
     }
 
     try {
-      const createdResource = await Comment.create(req.body);
+      const createdResource = await Comment.create(data);
       return Response.created(res, [createdResource]);
     } catch (err) {
       return Response.customError(res, err.message, 400);

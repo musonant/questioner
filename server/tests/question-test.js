@@ -48,7 +48,6 @@ const questionTest = () => {
         .send({
           'createdBy': 2,
           'meetup': 1,
-          'authorName': 'James Jones',
           'body': 'What are the applications of asynchronous operations?',
         })
         .end((err, res) => {

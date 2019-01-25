@@ -43,6 +43,8 @@ class QuestionController {
    */
   static async create(req, res) {
     const data = req.body;
+    data.createdBy = req.user.id;
+
     try {
       const createdResource = await Question.create(data);
       return Response.created(res, [createdResource]);
@@ -59,11 +61,7 @@ class QuestionController {
    */
   static async upVote(req, res) {
     const questionId = Number(req.params.id);
-    const userId = Number(req.body.userId);
-
-    if (!req.body.userId) {
-      return Response.customError(res, 'Field userId not provided', 400);
-    }
+    const userId = Number(req.user.id);
 
     try {
       const updatedResource = await Question.upVote(questionId, userId);
@@ -81,11 +79,7 @@ class QuestionController {
    */
   static downVote(req, res) {
     const questionId = Number(req.params.id);
-    const userId = Number(req.body.userId);
-
-    if (!req.body.userId) {
-      return Response.customError(res, 'No user id provided', 400);
-    }
+    const userId = Number(req.user.id);
 
     try {
       const updatedResource = Question.downVote(questionId, userId);

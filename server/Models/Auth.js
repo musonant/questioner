@@ -25,12 +25,12 @@ class Auth extends Model {
     try {
       const { rows } = await connection.query(text, [data.email]);
       if (!rows[0]) {
-        throw new Error('credenctials not found');
+        throw new Error('credentials not found');
       }
       if (!userHelper.comparePassword(rows[0].password, data.password)) {
         throw new Error('Email or password incorrect');
       }
-      const token = userHelper.generateToken(rows[0].id);
+      const token = userHelper.generateToken(rows[0].id, rows[0].email);
       return token;
     } catch (err) {
       throw err;

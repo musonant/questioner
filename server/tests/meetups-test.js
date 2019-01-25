@@ -2,10 +2,7 @@
 
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
-import supertest from 'supertest';
 import app from '../../app';
-
-const request = supertest(app);
 
 chai.use(chaiHttp);
 chai.should();

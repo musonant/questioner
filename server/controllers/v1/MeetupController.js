@@ -47,7 +47,7 @@ class MeetupController {
     if (!resource) {
       return Response.notFound(req, res);
     }
-    return Response.success(res, resource);
+    return Response.success(res, [resource]);
   }
 
   /**
@@ -58,6 +58,7 @@ class MeetupController {
    */
   static async create(req, res) {
     const data = req.body;
+    data.createdBy = req.user.id;
     try {
       const createdResource = await Meetup.create(data);
       return Response.created(res, [createdResource]);
@@ -73,11 +74,12 @@ class MeetupController {
    * @returns {Object} - response
    */
   static async replyInvite(req, res) {
-    const data = req.body;
+    const data = { response: req.body.response };
     data.meetup = parseInt(req.params.id, 10);
+    data.user = req.user.id;
 
     try {
-      const createdResponse = await Meetup.replyInvite(req.body);
+      const createdResponse = await Meetup.replyInvite(data);
       return Response.created(res, [createdResponse]);
     } catch (err) {
       return Response.customError(res, err.message, 400);
