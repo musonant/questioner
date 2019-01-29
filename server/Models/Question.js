@@ -40,12 +40,12 @@ class Question extends Model {
     const preparedUpVoters = this.prepareVoteText(upVoters);
     const preparedDownVoters = this.prepareVoteText(downVoters);
 
-    const result = await connection.query(`UPDATE questions SET "upVoters"='${preparedUpVoters}', "downVoters"='${preparedDownVoters}' WHERE id=${questionId}`, (err) => {
-      if (err) {
-        // throw new Error('Unexpected error:', err);
-      }
-    });
-    return result;
+    try {
+      const result = await connection.query(`UPDATE questions SET "upVoters"='${preparedUpVoters}', "downVoters"='${preparedDownVoters}' WHERE id=${questionId} returning *`);
+      return result.rows;
+    } catch (err) {
+      throw new Error('Unexpected error:', err);
+    }
   }
 
   /**
@@ -55,6 +55,7 @@ class Question extends Model {
    * @returns {Array} - modified array of voters
    */
   addVote(voters, userId) {
+    voters = voters === null ? [] : voters;
     const array = [...voters];
     array.push(userId);
     return array;
@@ -69,7 +70,6 @@ class Question extends Model {
   async downVote(questionId, userId) {
     let upVoters = [];
     const question = await this.getOne(questionId);
-
     const { upVoteStatus, downVoteStatus } = this.voteExists(question, userId);
 
     if (downVoteStatus === true) {
@@ -78,12 +78,17 @@ class Question extends Model {
     if (upVoteStatus === true) {
       upVoters = this.removeVote(question.upVoters, userId);
     }
-    const downVoters = this.addVote(question.upVoters, userId);
+    const downVoters = this.addVote(question.downVoters, userId);
+
     const preparedDownVoters = this.prepareVoteText(downVoters);
     const preparedUpVoters = this.prepareVoteText(upVoters);
 
-    const result = await connection.query(`UPDATE questions SET "upVoters"='${preparedDownVoters}', "downVoters"='${preparedUpVoters}' WHERE id=${questionId}`);
-    return result;
+    try {
+      const result = await connection.query(`UPDATE questions SET "upVoters"='${preparedUpVoters}', "downVoters"='${preparedDownVoters}' WHERE id=${questionId} returning *`);
+      return result.rows;
+    } catch (err) {
+      throw new Error('Unexpected error:', err);
+    }
   }
 
   /**
@@ -109,8 +114,8 @@ class Question extends Model {
    * @returns {Array} - modified array of voters
    */
   removeVote(voters, userId) {
-    const array = [...voters];
-    array.filter(item => item !== userId);
+    let array = [...voters];
+    array = array.filter(item => Number(item) !== userId);
     return array;
   }
 
@@ -124,17 +129,17 @@ class Question extends Model {
     let upVoteStatus = false;
     let downVoteStatus = false;
 
-    question.upVoters = question.upVoters || [];
-    question.downVoters = question.upVoters || [];
+    const upVoters = question.upVoters || [];
+    const downVoters = question.downVoters || [];
 
-    question.upVoters.forEach((item) => {
+    upVoters.forEach((item) => {
       if (userId === Number(item)) {
         upVoteStatus = true;
       }
     });
 
-    question.downVoters.forEach((item) => {
-      if (userId === item) {
+    downVoters.forEach((item) => {
+      if (userId === Number(item)) {
         downVoteStatus = true;
       }
     });

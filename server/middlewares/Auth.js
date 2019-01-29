@@ -32,7 +32,7 @@ const Auth = {
       req.user = { id: decoded.id };
       next();
     } catch (err) {
-      return Response.customError(res, err.msg, 400);
+      return Response.customError(res, err, 400);
     }
   },
 

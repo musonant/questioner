@@ -65,7 +65,7 @@ class QuestionController {
 
     try {
       const updatedResource = await Question.upVote(questionId, userId);
-      return Response.success(res, [updatedResource]);
+      return Response.success(res, updatedResource);
     } catch (err) {
       return Response.customError(res, err.message, 400);
     }
@@ -77,15 +77,15 @@ class QuestionController {
    * @param {Object} res - response to be returned
    * @returns {Object} - response object
    */
-  static downVote(req, res) {
+  static async downVote(req, res) {
     const questionId = Number(req.params.id);
     const userId = Number(req.user.id);
 
     try {
-      const updatedResource = Question.downVote(questionId, userId);
-      Response.success(res, [updatedResource]);
+      const updatedResource = await Question.downVote(questionId, userId);
+      return Response.success(res, updatedResource);
     } catch (err) {
-      Response.customError(res, err.message, 400);
+      return Response.customError(res, err.message, 400);
     }
   }
 }
