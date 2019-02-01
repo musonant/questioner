@@ -145,10 +145,11 @@ const questionTest = () => {
           });
       });
       describe('Multiple voting', () => {
-        const questionId = 2;
-        before(()=> {
+        const upQuestionId = 1;
+        const downQuestionId = 2;
+        before((done)=> {
           chai.request(app)
-            .patch(`/api/v1/questions/${questionId}/upvote`)
+            .patch(`/api/v1/questions/${upQuestionId}/upvote`)
             .set('x-access-token', userToken)
             .send({
               '_method': 'patch',
@@ -156,16 +157,18 @@ const questionTest = () => {
             .end();
 
           chai.request(app)
-            .patch(`/api/v1/questions/${questionId}/downvote`)
+            .patch(`/api/v1/questions/${downQuestionId}/downvote`)
             .set('x-access-token', userToken)
             .send({
               '_method': 'patch',
             })
-            .end();
+            .end((err, res) => {
+              done();
+            });
         });
         it('Attempting multiple UPVOTE should return an error', (done) => {
           chai.request(app)
-            .patch(`/api/v1/questions/${questionId}/upvote`)
+            .patch(`/api/v1/questions/${upQuestionId}/upvote`)
             .set('x-access-token', userToken)
             .send({
               '_method': 'patch',
@@ -178,7 +181,7 @@ const questionTest = () => {
         });
         it('Attempting multiple DOWNVOTE should return an error', (done) => {
           chai.request(app)
-            .patch(`/api/v1/questions/${questionId}/downvote`)
+            .patch(`/api/v1/questions/${downQuestionId}/downvote`)
             .set('x-access-token', userToken)
             .send({
               '_method': 'patch',
