@@ -29,7 +29,10 @@ const Auth = {
         return Response.invalidToken(req, res);
       }
 
-      req.user = { id: decoded.id };
+      req.user = {
+        id: decoded.id,
+        email: decoded.email
+      };
       next();
     } catch (err) {
       return Response.customError(res, err, 400);

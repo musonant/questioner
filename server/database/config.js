@@ -75,7 +75,7 @@ class DB {
       CREATE TABLE IF NOT EXISTS questions (
         "id" SERIAL PRIMARY KEY NOT NULL,
         "createdBy" INT NOT NULL,
-        "meetup" INT REFERENCES meetups(id) NOT NULL,
+        "meetup" INT REFERENCES meetups(id) ON DELETE CASCADE NOT NULL,
         "title" varchar(100),
         "body" varchar(1000),
         "upVoters" TEXT [],
@@ -85,7 +85,7 @@ class DB {
       );
       CREATE TABLE IF NOT EXISTS rsvps (
         "id" SERIAL PRIMARY KEY NOT NULL,
-        "meetup" INT REFERENCES meetups(id) NOT NULL,
+        "meetup" INT REFERENCES meetups(id) ON DELETE CASCADE NOT NULL,
         "user" INT REFERENCES users(id) ON DELETE CASCADE NOT NULL,
         "response" BOOLEAN NOT NULL
       );
@@ -127,6 +127,8 @@ class DB {
       
       INSERT INTO rsvps ("meetup", "user", "response") VALUES (1, 2, true);
       INSERT INTO rsvps ("meetup", "user", "response") VALUES (1, 3, true);
+
+      INSERT INTO comments ("createdBy", "questionId", "body") VALUES (2, 1, 'I believe that this question deserves a comprehensive response');
     `;
 
     await this.connection.query(queryText);

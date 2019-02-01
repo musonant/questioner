@@ -85,7 +85,7 @@ class Model {
    * @returns {Boolean} -
    */
   async delete(id) {
-    const queryText = `DELETE FROM ${this.table} WHERE id=$1`;
+    const queryText = `DELETE FROM ${this.table} WHERE id=$1 returning *`;
     const singleItem = this.table.slice(0, -1);
 
     try {

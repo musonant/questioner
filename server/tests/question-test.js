@@ -4,7 +4,11 @@ import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import { describe, it } from 'mocha';
 import app from '../../app';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import { log } from 'util';
 
+dotenv.config();
 chai.use(chaiHttp);
 chai.should();
 
@@ -46,7 +50,6 @@ const questionTest = () => {
         .post('/api/v1/questions')
         .set('x-access-token', userToken)
         .send({
-          'createdBy': 2,
           'meetup': 1,
           'body': 'What are the applications of asynchronous operations?',
         })
@@ -59,42 +62,54 @@ const questionTest = () => {
           done();
         });
     });
-    it('PATCH /questions/:id/upvote', (done) => {
-      const userId = 2;
-      chai.request(app)
-        .patch('/api/v1/questions/1/upvote')
-        .set('x-access-token', userToken)
-        .send({
-          '_method': 'patch',
-          'userId': userId,
-        })
-        .end((req, res) => {
-          res.should.have.status(200);
-          res.body.data.should.be.a('array');
-          res.body.data[0].should.be.a('object');
-          expect(res.body.data[0].upVoters.find(item => item === userId)).to.equal(userId);
-          expect(res.body.data[0].downVoters.find(item => item === userId)).to.equal(undefined);
-          done();
-        });
-    });
-    it('PATCH /questions/:id/downvote', (done) => {
-      const userId = 2;
-      chai.request(app)
-        .patch('/api/v1/questions/1/downvote')
-        .set('x-access-token', userToken)        
-        .send({
-          '_method': 'patch',
-          'userId': userId,
-        })
-        .end((req, res) => {
-          res.should.have.status(200);
-          res.body.data.should.be.a('array');
-          res.body.data[0].should.be.a('object');
-          expect(res.body.data[0].downVoters.find(item => item === userId)).to.equal(userId);
-          expect(res.body.data[0].upVoters.find(item => item === userId)).to.equal(undefined);
-          done();
-        });
-    });
+    describe('Upvoting and downvoting', () => {
+      const questionId = 1;
+      let decoded = {};
+      before(async () => {
+        try {
+          decoded = await jwt.verify(userToken, process.env.JWT_SECRET);
+        } catch (err) { throw err; }
+      })
+      it('PATCH /questions/:id/upvote', (done) => {
+        
+        chai.request(app)
+          .patch(`/api/v1/questions/${questionId}/upvote`)
+          .set('x-access-token', userToken)
+          .send({
+            '_method': 'patch',
+          })
+          .end((req, res) => {
+            res.should.have.status(200);
+            res.body.data.should.be.a('array');
+            res.body.data[0].should.be.a('object');
+            res.body.data[0].id.should.equal(questionId);
+            expect(res.body.data[0].upVoters.find(item => Number(item) === decoded.id)).to.equal(String(decoded.id));
+            expect(res.body.data[0].downVoters.find(item => Number(item) === decoded.id)).to.equal(undefined);
+            done();
+          });
+      });
+      it('PATCH /questions/:id/downvote', (done) => {
+        chai.request(app)
+          .patch(`/api/v1/questions/${questionId}/downvote`)
+          .set('x-access-token', userToken)        
+          .send({
+            '_method': 'patch',
+          })
+          .end((req, res) => {
+            setTimeout(() => {
+              console.log(res.body);
+            }, 2000)
+            
+            res.should.have.status(200);
+            res.body.data.should.be.a('array');
+            res.body.data[0].should.be.a('object');
+            res.body.data[0].id.should.equal(questionId);
+            expect(res.body.data[0].upVoters.find(item => Number(item) === decoded.id)).to.equal(undefined);
+            expect(res.body.data[0].downVoters.find(item => Number(item) === decoded.id)).to.equal(String(decoded.id));
+            done();
+          });
+      });
+    })
     it('GET /questions/ should return an array of all questions', (done) => {
       chai.request(app)
         .get('/api/v1/questions/')
@@ -129,48 +144,31 @@ const questionTest = () => {
             done();
           });
       });
-      it('PATCH /questions/:id/upvote without required data should return an error', (done) => {
-        chai.request(app)
-          .patch('/api/v1/questions/1/upvote')
-          .set('x-access-token', userToken)
-          .send({})
-          .end((err, res) => {
-            res.should.have.status(400);
-            res.body.error.should.be.a('string');
-            done();
-          });
-      });
-      it('PATCH /questions/:id/downvote without required data should return an error', (done) => {
-        chai.request(app)
-          .patch('/api/v1/questions/1/downvote')
-          .set('x-access-token', userToken)
-          .send({})
-          .end((err, res) => {
-            res.should.have.status(400);
-            res.body.error.should.be.a('string');
-            done();
-          });
-      });
-      describe('Multiple upvoting should return an error', () => {
-        const userId = 4;
+      describe('Multiple voting', () => {
+        const questionId = 2;
         before(()=> {
           chai.request(app)
-            .patch('/api/v1/questions/1/upvote')
+            .patch(`/api/v1/questions/${questionId}/upvote`)
             .set('x-access-token', userToken)
             .send({
               '_method': 'patch',
-              'userId': userId,
+            })
+            .end();
+
+          chai.request(app)
+            .patch(`/api/v1/questions/${questionId}/downvote`)
+            .set('x-access-token', userToken)
+            .send({
+              '_method': 'patch',
             })
             .end();
         });
-        it('PATCH /questions/:id/upvote should return an error', (done) => {
+        it('Attempting multiple UPVOTE should return an error', (done) => {
           chai.request(app)
-            .patch('/api/v1/questions/1/upvote')
-            .type('form')
+            .patch(`/api/v1/questions/${questionId}/upvote`)
             .set('x-access-token', userToken)
             .send({
               '_method': 'patch',
-              'userId': userId,
             })
             .end((req, res) => {
               res.should.have.status(400);
@@ -178,27 +176,12 @@ const questionTest = () => {
               done();
             });
         });
-      });
-      describe('Multiple downvoting should return an error', () => {
-        const userId = 4;
-        before(()=> {
+        it('Attempting multiple DOWNVOTE should return an error', (done) => {
           chai.request(app)
-            .patch('/api/v1/questions/1/downvote')
+            .patch(`/api/v1/questions/${questionId}/downvote`)
             .set('x-access-token', userToken)
             .send({
               '_method': 'patch',
-              'userId': userId,
-            })
-            .end();
-        });
-        it('PATCH /questions/:id/upvote should return an error', (done) => {
-          chai.request(app)
-            .patch('/api/v1/questions/1/downvote')
-            .set('x-access-token', userToken)
-            .type('form')
-            .send({
-              '_method': 'patch',
-              'userId': userId,
             })
             .end((req, res) => {
               res.should.have.status(400);
