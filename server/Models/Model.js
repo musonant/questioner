@@ -81,6 +81,29 @@ class Model {
   }
 
   /**
+   * Find a resource by a specified attribute
+   * @param {Object} attribute - attribute to find resource by
+   * @returns {Object} resource - the resource found
+   */
+  async findByAttribute(attribute) {
+    let values = '';
+    let props = '';
+    const keys = Object.keys(attribute);
+    keys.forEach((key, i) => {
+      props += i === 0 ? `"${key}"` : `, "${key}"`;
+      values += i === 0 ? `'${attribute[key]}'` : `, '${attribute[key]}'`;
+    });
+
+    try {
+      const queryText = `SELECT * FROM ${this.table} WHERE ( ${props} ) = ( ${values} )`;
+      const { rows } = await connection.query(queryText);
+      return rows[0];
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  /**
    * @param {Number} id
    * @returns {Boolean} -
    */
