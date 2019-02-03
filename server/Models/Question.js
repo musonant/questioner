@@ -44,7 +44,7 @@ class Question extends Model {
       const result = await connection.query(`UPDATE questions SET "upVoters"='${preparedUpVoters}', "downVoters"='${preparedDownVoters}' WHERE id=${questionId} returning *`);
       return result.rows;
     } catch (err) {
-      throw new Error('Unexpected error:', err);
+      throw new Error(`Unexpected error: ${err.message}`);
     }
   }
 
@@ -87,7 +87,7 @@ class Question extends Model {
       const result = await connection.query(`UPDATE questions SET "upVoters"='${preparedUpVoters}', "downVoters"='${preparedDownVoters}' WHERE id=${questionId} returning *`);
       return result.rows;
     } catch (err) {
-      throw new Error('Unexpected error:', err);
+      throw new Error(`Unexpected error: ${err.message}`);
     }
   }
 

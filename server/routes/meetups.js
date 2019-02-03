@@ -8,6 +8,7 @@ const meetupRouter = Router();
 meetupRouter.get('/', MeetupController.list);
 meetupRouter.get('/:id', validateParams, MeetupController.retrieve);
 meetupRouter.post('/', Auth.verifyToken, Auth.isAdmin, MeetupController.create);
+meetupRouter.delete('/:id', validateParams, Auth.verifyToken, Auth.isAdmin, MeetupController.delete);
 meetupRouter.post('/:id/rsvps', validateParams, Auth.verifyToken, MeetupController.replyInvite);
 
 export default meetupRouter;
