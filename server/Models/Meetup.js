@@ -44,22 +44,24 @@ class Meetup extends Model {
    * @param {Array} ref - array of the primary keys (id) of the linked resource
    * @returns {Array} - and array of the actual resources found by their keys
    */
-  async getTags(ref) {
-    const data = [];
-    const queryText = 'SELECT * FROM tags';
-    let tagsResult = [];
-    try {
-      tagsResult = await connection.query(queryText);
-    } catch (err) {
-      console.log(err.stack);
-    }
+  async attachTags(meetups) {
+    const tagsQuery = await connection.query('SELECT * FROM tags');
+    const actualTags = tagsQuery.rows;
 
-    await ref.forEach((id) => {
-      const resource = tagsResult.rows.find(tag => tag.id === Number(id));
-      data.push(resource);
+    meetups.forEach((meetup) => {
+      const tags = meetup.tags;
+      const tagResult = [];
+      if (tags !== null) {
+        tags.forEach((tagId) => {
+          const singleTag = actualTags.find(tag => tag.id === Number(tagId));
+          singleTag !== undefined ? tagResult.push(singleTag) : null;
+        });
+      }
+
+      meetup.tags = tagResult;
     });
-
-    return data;
+    
+    return meetups;
   }
 
   /**
@@ -81,6 +83,23 @@ class Meetup extends Model {
 
     try {
       const { rows } = await connection.query(text, values);
+      return rows[0];
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  /**
+   * Add tags to a meetup
+   * @param {Number} id - the id of the specified meetup
+   * @param {Array} tags - an array of tags
+   * @returns {Object} - updated resource
+   */
+  async addTags(id, tags) {
+    const meetup = await this.getOne(id);
+    const queryText = `UPDATE meetups SET tags = '{ ${tags} }' WHERE id = ${meetup.id} returning *`;
+    try {
+      const { rows } = await connection.query(queryText);
       return rows[0];
     } catch (err) {
       throw err;

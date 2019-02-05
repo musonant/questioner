@@ -21,16 +21,7 @@ class MeetupController {
       records = await Meetup.getAll();
     }
 
-    const addTags = async (tags) => {
-      if (tags) {
-        await Meetup.getTags(tags);
-      }
-    };
-
-    records.forEach((item) => {
-      item.tags = addTags(item.tags);
-    });
-
+    records = await Meetup.attachTags(records);
     return Response.success(res, records);
   }
 
@@ -42,12 +33,14 @@ class MeetupController {
    */
   static async retrieve(req, res) {
     const id = parseInt(req.params.id, 10);
-    const resource = await Meetup.getOne(id);
+    let resource = await Meetup.getOne(id);
 
     if (!resource) {
       return Response.notFound(req, res);
     }
-    return Response.success(res, [resource]);
+
+    resource = await Meetup.attachTags([resource]);
+    return Response.success(res, resource);
   }
 
   /**
@@ -60,8 +53,9 @@ class MeetupController {
     const data = req.body;
     data.createdBy = req.user.id;
     try {
-      const createdResource = await Meetup.create(data);
-      return Response.created(res, [createdResource]);
+      let resource = await Meetup.create(data);
+      resource = await Meetup.attachTags([resource]);
+      return Response.created(res, resource);
     } catch (err) {
       return Response.customError(res, err.message, 400);
     }
@@ -82,8 +76,42 @@ class MeetupController {
       const createdResponse = await Meetup.replyInvite(data);
       return Response.created(res, [createdResponse]);
     } catch (err) {
-      return Response.customError(res, err.message, 400);
+      return Response.customError(res, err.message);
     }
+  }
+
+  /**
+   * Add tags to a meetup
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} response object
+   */
+  static async addTags(req, res) {
+    const { id } = req.params;
+    const tags = [];
+    const splitTags = req.body.tags.split('');
+
+    splitTags.forEach((item) => {
+      const num = Number(item);
+      if (!isNaN(num) && num !== 0) tags.push(item);
+    });
+
+    try {
+      const response = await Meetup.addTags(id, tags);
+      return Response.success(res, [response]);
+    } catch (err) {
+      return Response.customError(res, err.message);
+    }
+  }
+
+  /**
+   * Add images to a meetup
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object} response object
+   */
+  static async addImages(req, res) {
+
   }
 }
 

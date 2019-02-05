@@ -48,7 +48,7 @@ const Response = {
     });
   },
 
-  customError: (res, error, status) => {
+  customError: (res, error, status = 400) => {
     res.status(status).send({
       status,
       error
