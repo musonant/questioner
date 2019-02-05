@@ -31,6 +31,15 @@ class Model {
       if (key === 'password') {
         const hashedPassword = userHelper.hashPassword(data[key]);
         values.push(hashedPassword);
+      } else if (key === 'tags') {
+        const tags = [];
+        const splitTags = data[key].split('');
+
+        splitTags.forEach((item) => {
+          const num = Number(item);
+          if (!isNaN(num) && num !== 0) tags.push(item);
+        });
+        values.push(`{ ${tags} }`);
       } else {
         values.push(data[key]);
       }

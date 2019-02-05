@@ -97,8 +97,9 @@ class MeetupController {
     });
 
     try {
-      const response = await Meetup.addTags(id, tags);
-      return Response.success(res, [response]);
+      let resource = await Meetup.addTags(id, tags);
+      resource = await Meetup.attachTags([resource]);
+      return Response.success(res, [resource]);
     } catch (err) {
       return Response.customError(res, err.message);
     }

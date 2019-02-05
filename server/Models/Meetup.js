@@ -39,28 +39,29 @@ class Meetup extends Model {
   }
 
   /**
-   * Find a list of resources that are connected to another record
-   * to attach the actual data to the record
-   * @param {Array} ref - array of the primary keys (id) of the linked resource
-   * @returns {Array} - and array of the actual resources found by their keys
+   * Attach tags associated with a meetup
+   * @param {Array} meetups - and array of meetups
+   * @returns {Array} - and array of meetups with the tags attached
    */
   async attachTags(meetups) {
     const tagsQuery = await connection.query('SELECT * FROM tags');
     const actualTags = tagsQuery.rows;
 
     meetups.forEach((meetup) => {
-      const tags = meetup.tags;
+      const { tags } = meetup;
       const tagResult = [];
       if (tags !== null) {
         tags.forEach((tagId) => {
           const singleTag = actualTags.find(tag => tag.id === Number(tagId));
-          singleTag !== undefined ? tagResult.push(singleTag) : null;
+          if (singleTag !== undefined) {
+            tagResult.push(singleTag);
+          }
         });
       }
 
       meetup.tags = tagResult;
     });
-    
+
     return meetups;
   }
 
