@@ -111,7 +111,7 @@ class MeetupController {
    * @returns {Object} response object
    */
   static async addImages(req, res) {
-
+    const img = req.body.image;
   }
 }
 
