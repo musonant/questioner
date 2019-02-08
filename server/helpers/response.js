@@ -6,10 +6,10 @@ const Response = {
     });
   },
 
-  deleted: (req, res) => {
-    res.status(204).send({
-      status: 204,
-      error: 'deleted',
+  deleted: (res) => {
+    res.status(200).send({
+      status: 200,
+      message: 'Deleted',
     });
   },
 

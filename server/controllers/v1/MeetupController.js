@@ -114,6 +114,22 @@ class MeetupController {
   static async addImages(req, res) {
 
   }
+
+  /**
+   * Delete a meetup record
+   * @param {Object} req - request made
+   * @param {Object} res - response to be returned
+   * @returns {Object} - response
+   */
+  static async delete(req, res) {
+    const id = Number(req.params.id);
+    try {
+      const result = await Meetup.delete(id);
+      if (result) return Response.deleted(res);
+    } catch (err) {
+      return Response.customError(res, err.message);
+    }
+  }
 }
 
 export default MeetupController;

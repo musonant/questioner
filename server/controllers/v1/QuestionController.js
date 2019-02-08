@@ -32,7 +32,7 @@ class QuestionController {
     if (!resource) {
       return Response.notFound(req, res);
     }
-    return Response.success(res, resource);
+    return Response.success(res, [resource]);
   }
 
   /**

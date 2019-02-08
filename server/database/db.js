@@ -8,7 +8,7 @@ dotenv.config();
 const dbConfig = {
   staging: process.env.DATABASE_URL,
   development: process.env.DEV_DATABASE_URL,
-  production: process.env.DATABASE_URL,
+  production: process.env.PROD_DATABASE_URL,
   test: process.env.TEST_DATABASE_URL,
 };
 

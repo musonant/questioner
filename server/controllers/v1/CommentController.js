@@ -41,18 +41,22 @@ class CommentController {
    * @returns {Object} - the response
    */
   static async create(req, res) {
-    const data = req.body;
-    data.createdBy = req.user.id;
-
-    if (!data.createdBy || !data.questionId || !data.body) {
-      return Response.customError(res, 'Some values are missing', 400);
+    let data = req.body;
+    if (!data.questionId || !data.body) {
+      return Response.customError(res, 'Please supply all required inputs');
     }
+
+    data = {
+      questionId: Number(req.body.questionId),
+      body: req.body.body,
+      createdBy: req.user.id
+    };
 
     try {
       const createdResource = await Comment.create(data);
       return Response.created(res, [createdResource]);
     } catch (err) {
-      return Response.customError(res, err.message, 400);
+      return Response.customError(res, err.message);
     }
   }
 
@@ -69,7 +73,7 @@ class CommentController {
         Response.deleted(req, res);
       }
     } catch (err) {
-      return Response.customError(res, err.message, 400);
+      return Response.customError(res, err.message);
     }
   }
 }
