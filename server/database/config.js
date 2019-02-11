@@ -122,7 +122,7 @@ class DB {
       INSERT INTO meetups ("createdBy", location, topic, "happeningOn", description) VALUES (1, '5, West Drive, California', 'Calibrating our globe', '2020-01-16T07:18:28.094Z', 'any new thing worth learning should be learned');
       INSERT INTO meetups ("createdBy", location, topic, description) VALUES (1, 'EPIC Tower', 'Andela Bootcamp', 'any new thing worth learning should be learned');
       
-      INSERT INTO questions ["createdBy", meetup, title, body] VALUES (2, 1, 'concerning the progress of the project', 'Are there any things I need to learn first?');
+      INSERT INTO questions ("createdBy", meetup, title, body) VALUES (2, 1, 'concerning the progress of the project', 'Are there any things I need to learn first?');
       INSERT INTO questions ("createdBy", meetup, title, body) VALUES (2, 2, 'concerning the progress of the project', 'Are there any things I need to learn first?');
       
       INSERT INTO rsvps ("meetup", "user", "response") VALUES (1, 2, true);
