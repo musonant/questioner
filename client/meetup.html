@@ -6,12 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Meetup - Questioner</title>
-  <link rel="shortcut icon" href="img/question.png" type="image/png">
-  <link rel="stylesheet" href="css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="shortcut icon" href="assets/img/question.png" type="image/png">
+  <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-  <div class="page-container" id="account-page">
+  <div class="page-container" id="meetup-page">
     <header class="main-header row">
       <div class="header-brand">
         <h3 class="title">Questioner</h3>
@@ -51,52 +51,55 @@
         </div>
       </div>
     </header>
-    <div class="main-title small caps">
-      <h1 class="title">My Account</h1>
+    
+    <div class="meetup-banner row">
+      <div class="col-sm-12 col-lg-8 info">
+        <div class="title">
+          <label>January 01, 2018</label>
+          <h1>Javascript Developers Worldwide Hangout, 2019</h1>
+        </div>
+      </div>
+      <div class="col-sm-12 col-lg-4 attend">
+        <div class="actions">
+          <label>Are you attending?</label>
+          <div class="row" style="justify-content: center;">
+            <span class="col-sm-6" style="padding-right: 5px;">
+              <button class="fa fa-check action-btn"></button>
+            </span>
+            <span class="col-sm-6" style="padding-left: 5px;">
+              <button class="fa fa-close action-btn"></button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <label style="margin-top: 20px; color: #7aadad;">25 questions</label>
     </div>
 
     <div class="page-body">
-      <section id="account-info">
-        <div class="basic">
-          <div class="sliced-bg">
-              <div class="text">
-                  <label>Emmanuel Osuh</label> <br>
-                  <label class="sub">mrmusonant@gmail.com</label>
-                </div>
-          </div>
-          <label for="profile-image">
-            <div class="profile-image">
-              <i class="fa fa-user-circle icon"></i>
-            </div>
-            <input type="file" id="profile-image" hidden>
-          </label>
+      <div class="row main-body">
+        <div class="col-sm-12 col-lg-7 with-back-img featured-image" style="background-color: #d9e6e0; background-image: url('assets/img/one-event.jpg')">
         </div>
-      </section>
-      <section id="account-log">
-        <div class="sub-title">
-          <h1 class="title">Account Log</h1>
-        </div>
-        <div class="info">
-          <div class="log-item">
-            <label for="">Questions You Posted</label>
-            <div class="tablet-bar">693</div>
-          </div>
-          <div class="log-item">
-            <label for="">Questions You Commented On</label>
-            <div class="tablet-bar">23</div>
+        <div class="col-sm-12 col-lg-5 description">
+          <div class="fine-text sticky">
+            <label>description</label>
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut odio obcaecati veniam unde magnam nisi rem quod doloremque molestiae. Explicabo dicta ratione minima perspiciatis laboriosam eum tenetur accusamus, deleniti maxime?
+            </p>
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut odio obcaecati veniam unde magnam nisi rem quod doloremque molestiae. Explicabo dicta ratione minima perspiciatis laboriosam eum tenetur accusamus, deleniti maxime?
+            </p>
+            <label>Author</label>
+            <p>
+              <a href="" class="underline">Emmanuel Osuh</a>
+            </p>
+            <button class="action-btn open-modal" lang="question-modal">
+              <label style="color: #fff;">Ask a question</label>
+            </button>
           </div>
         </div>
-      </section>
-      <section id="schedulled-meetups">
-        <div class="sub-title">
-          <h1 class="title">Schedulled Meetups</h1>
-        </div>
-        <div class="meetups">
-          <div class="meetup">
-            <div class="top">
-              <label class="with-underline center">The Global Javascript Developers Conference, Alabama</label>
-            </div>
-            <label class="tag">Top question</label>
+        <div class="col-sm-12 col-lg-7 container">
+          <div class="question-list">
+            <label class="with-underline">Questions</label>
             <div class="row question-card">
               <div class="counter">
                 <p class="vote-num upvotes">97</p>
@@ -112,22 +115,28 @@
                 <p class="vote-num downvotes">14</p>
               </div>
               <div class="body flex-1">
-                <div class="fine-text main-question" style="border-width: 1px; border-color: #ddd;">
+                <div class="fine-text main-question">
                   <p>
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequuntur nostrum eos obcaecati praesentium temporibus quidem, sit tenetur sapiente ipsa! Voluptatem praesentium earum officia quam itaque voluptas explicabo similique quod et!
                   </p>
                 </div>
+                <div class="comment-list">
+                  <div class="comment">
+                    <div class="fine-text">
+                      <p>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequuntur nostrum eos obcaecati praesentium temporibus quidem, sit tenetur sapiente ipsa! Voluptatem praesentium earum officia quam itaque voluptas explicabo similique quod et!
+                      </p>
+                    </div>
+                  </div>
+                  <form action="" class="question-form">
+                    <input type="text" placeholder="Enter your comment">
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="meetup">
-            <div class="top">
-              <label class="with-underline center">The Global Javascript Developers Conference, Alabama</label>
-            </div>
-            <label class="tag">Top question</label>
             <div class="row question-card">
               <div class="counter">
-                <p class="vote-num upvotes">97</p>
+                <p class="vote-num upvotes">82</p>
                   <button class="voter-btn upvote">
                     <i class="fa fa-caret-up icon"></i>
                   </button>
@@ -137,21 +146,46 @@
                 <button class="voter-btn downvote">
                   <i class="fa fa-caret-down icon"></i>
                 </button>
-                <p class="vote-num downvotes">14</p>
+                <p class="vote-num downvotes">9</p>
               </div>
               <div class="body flex-1">
-                <div class="fine-text main-question" style="border-width: 1px; border-color: #ddd;">
+                <div class="fine-text main-question">
                   <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequuntur nostrum eos obcaecati praesentium temporibus quidem, sit tenetur sapiente ipsa! Voluptatem praesentium earum officia quam itaque voluptas explicabo similique quod et!
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequuntur nostrum eos obcaecati praesentium temporibus quidem, sit tenetur sapiente ipsa!
                   </p>
+                </div>
+                <div class="comment-list">
+                  <form action="" class="question-form">
+                    <input type="text" placeholder="Enter your comment">
+                  </form>
                 </div>
               </div>
             </div>
           </div>
+
+          <hr>
+          
+          <form action="" class="question-form">
+            <button class="input btn-like-text open-modal" lang="question-modal">Enter your question</button>
+          </form>
         </div>
-      </section>
+      </div>
+
     </div>
 
+    <div class="modal-container" id="question-modal">
+      <div class="overlay close-modal" lang="question-modal"></div>
+      <div class="content">
+        <form action="" class="modal-question-form">
+          <span class="close close-modal" lang="question-modal">×</span>
+          <label class="with-underline center middle">Ask a question</label>
+          <input type="text" class="simple" placeholder="Title">
+          <textarea class="simple" id="" cols="30" rows="10" placeholder="Your question..."></textarea>
+          <input type="submit">
+        </form>
+      </div>
+    </div>
+    
     <footer>
       <div class="top">
         <div class="first-link">
@@ -195,13 +229,12 @@
         <p>© Questioner 2018 - Developed by Emmanuel Osuh</p>
       </div>
     </footer>
-  </div>
 
     <!-- <div class="page-background">
       <div class="overlay"></div>
     </div> -->
-  </div>
 </body>
-<script src="js/menu.js"></script>
-<script src="js/main.js"></script>
+<script src="assets/js/menu.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/modal.js"></script>
 </html>
