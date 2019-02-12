@@ -246,17 +246,38 @@ textarea:focus {
  /* -- LANDING PAGE STYLES -- */
 /* ------------------------- */
 #landing-page .main-banner {
+  position: relative;
   background-image: url('../img/landing-banner.jpg');
+  z-index: -60;
 }
-.main-banner {
-  height: 500px;
+#landing-page .main-banner .content {
+  height: 100%;
   width: 100%;
-  background-size: cover;
-  background-position: center -80px;
-  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #fff;
+  flex-direction: column;
+  padding: 0 20%;
+  text-align: center;
+}
+.main-banner .title {
+  text-transform: capitalize;
+  font-size: 60px;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ffffff6b;
+  font-family: "century gothic";
+}
+.main-banner .description {
+  font-size: 23px;
+}
+.main-banner {
+  height: 400px;
+  width: 100%;
+}
+.main-banner .overlay {
+  background-color: #10101096;
 }
 
 
@@ -283,7 +304,6 @@ textarea:focus {
 .menu-toggle {
   position: relative;
   height: 50px;
-  /* overflow: hidden; */
 }
 .menu-toggle:hover, .menu-toggle.show {
   cursor: pointer;
@@ -362,7 +382,7 @@ textarea:focus {
 }
 
 .page-background {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
@@ -662,6 +682,10 @@ textarea:focus {
   opacity: 0;
   overflow: hidden;
   transition: all 300ms ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 15px;
 }
 
 .modal-container .content {
@@ -727,7 +751,7 @@ textarea:focus {
   font-weight: bold;
 }
 #account-page label {
-  color: #7aadad;
+  color: #323232;
 }
 .log-item {
   margin-top: 20px;
@@ -736,6 +760,86 @@ textarea:focus {
   padding: 0px 30px;
 }
 
+#account-info .basic {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+#account-info .profile-image {
+  background-color: #fff;
+  height: 130px;
+  width: 130px;
+  border-radius: 50%;
+}
+#account-info .profile-image .icon {
+  font-size: 130px;
+}
+#account-info .basic .text {
+  padding-left: 20px;
+  /* padding-right: 25px; */
+}
+
+.sliced-bg {
+  background: #dadada;
+  height: 70px;
+  position: absolute;
+  z-index: -9;
+  width: 100%;
+  left: 15px;
+  border-radius: 50px;
+  padding-left: 110px;
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+}
+
+label.sub {
+  text-transform: lowercase;
+  font-weight: normal;
+  overflow-wrap: break-word;
+}
+
+.sliced-bg .before, .sliced-bg .after {
+  content: "";
+  width: 65px;
+  height: 100px;
+  position: absolute;
+  background: #fff;
+  display: inline-block;
+  transform: rotate(30deg);
+  top: -25px;
+  width: 35px;
+}
+.sliced-bg .before {
+  left: -9px;
+}
+.sliced-bg .after {
+  right: -9px;
+  transform: rotate(-30deg);
+}
+
+#account-page #schedulled-meetups .meetup {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+#account-page .question-card {
+  margin: 0;
+}
+
+label.tag {
+  background: #d5e6e6;
+  padding: 5px;
+  border-radius: 15px;
+  text-transform: capitalize;
+  font-size: 12px;
+  margin: auto;
+  display: block;
+  text-align: center;
+  width: 115px;
+}
 
 
   /* ------------------------ */
@@ -788,7 +892,7 @@ textarea:focus {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 150px;
+  height: 125px;
   position: sticky;
   top: 0;
 }
@@ -829,7 +933,7 @@ textarea:focus {
   height: 1px;
   background: #828282;
   width: 20px;
-  margin: 15px 0px;
+  margin: 10px 0px;
 }
 .question-card p {
   margin: 0;
@@ -877,6 +981,36 @@ textarea:focus {
   position: relative;
   overflow: auto;
   max-height: 100%;
+}
+
+
+
+  /* -------------------------- */
+ /* -- ADMIN MEETUPS STYLES -- */
+/* -------------------------- */
+.meetup-card .menu-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: white;
+  font-size: 20px;
+  box-shadow: 0px 0px 1px 1px #868686;
+  color: #444444;
+}
+.meetup-card .options {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.meetup-card .menu-toggle {
+  background-color: transparent;
+}
+.meetup-card .menu-option {
+  padding: 10px;
+  padding-left: 20px;
+}
+.meetup-card .menu-content {
+  width: 140px;
 }
 
 
@@ -1086,5 +1220,19 @@ footer input {
   }
   .copyright {
     padding: 20px 90px;
+  }
+
+  .meetup-card .menu-toggle {
+    visibility: hidden;
+  }
+  .meetup-card:hover .menu-toggle {
+    visibility: visible;
+  }
+  .meetup-card .menu-toggle.show {
+    visibility: visible !important;
+  }
+
+  .main-banner {
+    height: 500px;
   }
 }

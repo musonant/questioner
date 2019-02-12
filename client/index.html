@@ -6,65 +6,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Meetup - Questioner</title>
-  <link rel="shortcut icon" href="img/question.png" type="image/png">
-  <link rel="stylesheet" href="css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="shortcut icon" href="assets/img/question.png" type="image/png">
+  <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-  <div class="page-container" id="meetups-page">
+  <div class="page-container" id="landing-page">
     <header class="main-header row">
       <div class="header-brand">
         <h3 class="title">Questioner</h3>
       </div>
-      <div class="menu-toggle">
-        <i class="menu-btn fa fa-bars"></i>
-        <div class="menu-content">
-          <ul class="menu-list">
-            <a href="meetups.html">
-              <li class="menu-option">Browse Meetups</li>
-            </a>
-            <a href="create-meetup.html">
-              <li class="menu-option">Create Meetup</li>
-            </a>
-            <div class="menu-toggle with-arrow">
-              <li class="menu-btn menu-option">Account Settings
-                <i class="fa fa-caret-down menu-arrow"></i>
-              </li>
-              <div class="menu-content">
-                <ul class="menu-list">
-                  <a href="account.html#account-info">
-                    <li class="menu-option">Account Information</li>
-                  </a>
-                  <a href="account.html#account-log">
-                    <li class="menu-option">Account Log</li>
-                  </a>
-                  <a href="account.html#schedulled-meetups">
-                    <li class="menu-option">Schedulled Meetups</li>
-                  </a>
-                  <a href="login.html">
-                    <li class="menu-option">Logout</li>
-                  </a>
-                </ul>
-              </div>
-            </div>
-          </ul>
-        </div>
-      </div>
+      <ul class="horizontal-nav nav-links">
+        <a class="item" href="login.html">Login</a>
+        <a class="item" href="login.html">Sign Up</a>
+      </ul>
     </header>
+    
+    <div class="main-banner with-back-img">
+      <div class="overlay"></div>
+      <div class="content">
+        <h1 class="title">The Meetup Questioner</h1>
+        <p class="description">
+          Crowd-source questions for a meetup. Questioner helps the meetup organizer prioritize
+          questions to be answered. Other users can vote on asked questions and they bubble to the top
+          or bottom of the log.
+        </p>
+      </div>
+    </div>
 
-    <div class="main-title">
-      <h1 class="title">All Meetups</h1>
-    </div>
-    <div class="search-box">
-      <i class="fa fa-search icon"></i>
-      <input type="text" class="search" placeholder="Search by tag">
-    </div>
     <div class="row all-meetups">
+      <label class="with-underline center middle" style="font-size: 22px; margin-top: 20px;">Trending Meetups</label>
       <div class="col-sm-12 col-md-6 col-lg-4 container">
         <div class="meetup-card">
           <aside class="display">
             <a href="meetup.html" class="">
-              <div class="with-back-img meetup-display-img" style="background-color: #b0e6ce; background-image: url('img/one-event.jpg');"></div>
+              <div class="with-back-img meetup-display-img" style="background-color: #b0e6ce; background-image: url('https://placeimg.com/640/480/nature/sepia');"></div>
+              <div class="cta-btn">
+                <span class="count">20</span>
+                <span>Questions</span>
+              </div>
+            </a>
+          </aside>
+          <main class="info">
+            <div class="date-thumbnail">
+              <p class="month">JAN</p>
+              <p class="day grey-color">30</p>
+            </div>
+            <div class="details row flex-1">
+              <h3 class="title">
+                <a href="meetup.html">
+                  The Musonant Poetry Conference, 2019
+                </a>
+              </h3>
+              <div class="more grey-color">
+                <p class="detail-text" name="date">Sat, Jul 20, 10:00am</p>
+                <p class="detail-text" name="venue">Plot 2&3 Water Corporation Road Victoria Island</p>
+              </div>
+            </div>
+            <div class="cta-btn">
+              <i class="fa fa-reply"></i>
+            </div>
+          </main>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-4 container">
+        <div class="meetup-card">
+          <aside class="display">
+            <a href="meetup.html" class="">
+              <div class="with-back-img meetup-display-img" style="background-color: #b0e6ce; background-image: url('https://placeimg.com/640/480/tech/sepia');"></div>
               <div class="cta-btn">
                 <span class="count">20</span>
                 <span>Questions</span>
@@ -94,67 +103,7 @@
         <div class="meetup-card">
           <aside class="display">
             <a href="meetup.html" class="">
-              <div class="with-back-img meetup-display-img" style="background-color: #b0e6ce; background-image: url('./img/love-event.jpg');"></div>
-              <div class="cta-btn">
-                <span class="count">20</span>
-                <span>Questions</span>
-              </div>
-            </a>
-          </aside>
-          <main class="info">
-            <div class="date-thumbnail">
-              <p class="month">JAN</p>
-              <p class="day grey-color">30</p>
-            </div>
-            <div class="details row flex-1">
-              <h3 class="title">
-                <a href="meetup.html">
-                  The Musonant Poetry Conference, 2019
-                </a>
-              </h3>
-              <div class="more grey-color">
-                <p class="detail-text" name="date">Sat, Jul 20, 10:00am</p>
-                <p class="detail-text" name="venue">Plot 2&3 Water Corporation Road Victoria Island</p>
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>
-      <div class="col-sm-12 col-md-6 col-lg-4 container">
-        <div class="meetup-card">
-          <aside class="display">
-            <a href="meetup.html" class="">
-              <div class="with-back-img meetup-display-img" style="background-color: #b0e6ce; background-image: url('./img/event.jpg');"></div>
-              <div class="cta-btn">
-                <span class="count">20</span>
-                <span>Questions</span>
-              </div>
-            </a>
-          </aside>
-          <main class="info">
-            <div class="date-thumbnail">
-              <p class="month">JAN</p>
-              <p class="day grey-color">30</p>
-            </div>
-            <div class="details row flex-1">
-              <h3 class="title">
-                <a href="meetup.html">
-                  The Musonant Poetry Conference, 2019
-                </a>
-              </h3>
-              <div class="more grey-color">
-                <p class="detail-text" name="date">Sat, Jul 20, 10:00am</p>
-                <p class="detail-text" name="venue">Plot 2&3 Water Corporation Road Victoria Island</p>
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>
-      <div class="col-sm-12 col-md-6 col-lg-4 container">
-        <div class="meetup-card">
-          <aside class="display">
-            <a href="meetup.html" class="">
-              <div class="with-back-img meetup-display-img" style="background-color: #b0e6ce; background-image: url('./img/one-event.jpg');"></div>
+              <div class="with-back-img meetup-display-img" style="background-color: #b0e6ce; background-image: url('https://placeimg.com/640/480/arch/sepia');"></div>
               <div class="cta-btn">
                 <span class="count">20</span>
                 <span>Questions</span>
@@ -181,7 +130,7 @@
         </div>
       </div>
     </div>
-
+    
     <footer>
       <div class="top">
         <div class="first-link">
@@ -214,7 +163,7 @@
               <ul>
                 <li class="key">Meetup</li>
                 <li><a href="create-meetup.html">Create Meetup</a></li>
-                <li><a href="">View all meetups</a></li>
+                <li><a href=""></a></li>
                 <li><a href=""></a></li>
               </ul>
             </div>
@@ -225,12 +174,11 @@
         <p>© Questioner 2018 - Developed by Emmanuel Osuh</p>
       </div>
     </footer>
-  </div>
 
     <!-- <div class="page-background">
       <div class="overlay"></div>
     </div> -->
 </body>
-<script src="js/menu.js"></script>
-<script src="js/main.js"></script>
+<script src="assets/js/menu.js"></script>
+<script src="assets/js/main.js"></script>
 </html>

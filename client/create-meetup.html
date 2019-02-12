@@ -6,12 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Meetup - Questioner</title>
-  <link rel="shortcut icon" href="img/question.png" type="image/png">
-  <link rel="stylesheet" href="css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="shortcut icon" href="assets/img/question.png" type="image/png">
+  <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-  <div class="page-container" id="edit-meetup-page">
+  <div class="page-container" id="create-meetup-page">
     <header class="main-header row">
       <div class="header-brand">
         <h3 class="title">Questioner</h3>
@@ -51,8 +51,8 @@
         </div>
       </div>
     </header>
-    <div class="main-title">
-      <h1 class="title">Edit Meetup</h1>
+    <div class="main-title small caps">
+      <h1 class="title">Create Meetup</h1>
     </div>
 
     <div class="page-body">
@@ -60,8 +60,16 @@
         <label class="main-label">PREVIEW MEETUP</label>
         <div class="row meetup-card for-preview" id="previewer">
             <aside class="col-sm-12 col-md-6 display">
-              <div class="with-back-img meetup-display-img" style="background-color: #efffff; background-image: url('./img/event.jpg');">
-              </div>
+              <label for="imageUpload" class="all-unset hover-pointer">
+                <div class="with-back-img meetup-display-img" style="background-color: #efffff; background-image: url('https://placeimg.com/660/200/nature/sepia');">
+                  <div class="img-uploader">
+                    <div class="img-placeholder">
+                      <label>Click to upload an image</label>
+                    </div>
+                  </div>
+                </div>
+                <input type="file" class="display-none" id="imageUpload" accept=".png, .jpg, .jpeg">
+              </label>
             </aside>
             <main class="col-sm-12 col-md-6 info">
               <div class="date-thumbnail">
@@ -72,7 +80,9 @@
                 <h3 class="title" id="prev-title">UNTITLED</h3>
                 <div class="more grey-color">
                   <p class="detail-text">
-                    <span id="prev-date">January 01, 2018</span> --
+                    <label class="text-key">Date:</label>
+                    <span id="prev-date">January 01, 2018</span>
+                    <label class="text-key">| Time:</label>
                     <span id="prev-time">10:30 AM</span>
                   </p>
                   <p class="detail-text">
@@ -156,7 +166,7 @@
               <ul>
                 <li class="key">Meetup</li>
                 <li><a href="create-meetup.html">Create Meetup</a></li>
-                <li><a href="">View all meetups</a></li>
+                <li><a href="meetups.html">View all meetups</a></li>
                 <li><a href=""></a></li>
               </ul>
             </div>
@@ -174,6 +184,6 @@
     </div> -->
   </div>
 </body>
-<script src="js/menu.js"></script>
-<script src="js/main.js"></script>
+<script src="assets/js/menu.js"></script>
+<script src="assets/js/main.js"></script>
 </html>
