@@ -68,9 +68,9 @@ class CommentController {
    */
   static async delete(req, res) {
     try {
-      const result = await Comment.delete(Number(req.body.commentId));
+      const result = await Comment.delete(Number(req.params.id));
       if (result) {
-        Response.deleted(req, res);
+        Response.deleted(res);
       }
     } catch (err) {
       return Response.customError(res, err.message);
