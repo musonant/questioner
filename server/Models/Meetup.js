@@ -98,6 +98,9 @@ class Meetup extends Model {
    */
   async addTags(id, tags) {
     const meetup = await this.getOne(id);
+
+    if (!meetup) throw new Error('Required meetup does not exist');
+
     const queryText = `UPDATE meetups SET tags = '{ ${tags} }' WHERE id = ${meetup.id} returning *`;
     try {
       const { rows } = await connection.query(queryText);

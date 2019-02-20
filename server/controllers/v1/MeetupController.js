@@ -88,13 +88,11 @@ class MeetupController {
    */
   static async addTags(req, res) {
     const { id } = req.params;
-    const tags = [];
-    const splitTags = req.body.tags.split('');
 
-    splitTags.forEach((item) => {
-      const num = Number(item);
-      if (!isNaN(num) && num !== 0) tags.push(item);
-    });
+    let { tags } = req.body;
+    if (typeof (tags) === 'string') {
+      tags = JSON.parse(req.body.tags);
+    }
 
     try {
       let resource = await Meetup.addTags(id, tags);
