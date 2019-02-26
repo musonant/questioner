@@ -7,7 +7,7 @@ class Api {
    * Api constructor method
    */
   constructor() {
-    this.root = 'http://localhost:8000/api/v1';
+    this.root = 'http://localhost:8090/api/v1';
   }
 
   /**
