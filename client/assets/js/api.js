@@ -276,9 +276,9 @@ const run = async () => {
   //   firstname: 'Peter', lastname: 'James', email: 'peterjames@gmail.com', password: 'peter'
   // });
   // const data = await API.addTags(2, { tags: [1, 4, 5] });
-  const data = await API.downvoteQuestion(1);
+  // const data = await API.getMeetups();
 
-  console.log(data);
+  // console.log(data);
 };
 
 
