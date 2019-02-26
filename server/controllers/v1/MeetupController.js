@@ -52,6 +52,7 @@ class MeetupController {
   static async create(req, res) {
     const data = req.body;
     data.createdBy = req.user.id;
+    data.images = [req.file.path];
     try {
       let resource = await Meetup.create(data);
       resource = await Meetup.attachTags([resource]);
