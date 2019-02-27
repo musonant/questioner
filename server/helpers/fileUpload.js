@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + file.originalname);
   }
 });
-export const imageUpload = multer({
+export const fileUpload = multer({
   storage,
   limits: {
     fileSize: 1024 * 1024 * 5
@@ -23,4 +23,4 @@ export const imageUpload = multer({
   fileFilter
 });
 
-export default imageUpload;
+export default fileUpload;

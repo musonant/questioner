@@ -1,5 +1,6 @@
 import MeetupModel from '../../Models/Meetup';
 import Response from '../../helpers/response';
+import uploadFile from '../../helpers/fileUpload';
 
 const Meetup = new MeetupModel();
 /**
@@ -50,16 +51,22 @@ class MeetupController {
    * @returns {Object} - the response
    */
   static async create(req, res) {
-    const data = req.body;
-    data.createdBy = req.user.id;
-    data.images = [req.file.path];
-    try {
-      let resource = await Meetup.create(data);
-      resource = await Meetup.attachTags([resource]);
-      return Response.created(res, resource);
-    } catch (err) {
-      return Response.customError(res, err.message, 400);
-    }
+    const upload = uploadFile.single('featured-image');
+    upload(req, res, async () => {
+      const data = req.body;
+      data.createdBy = req.user.id;
+
+      if (req.file) {
+        data.images = [req.file.path];
+      }
+      try {
+        let resource = await Meetup.create(data);
+        resource = await Meetup.attachTags([resource]);
+        return Response.created(res, resource);
+      } catch (err) {
+        return Response.customError(res, err.message);
+      }
+    });
   }
 
   /**
