@@ -2,7 +2,7 @@
   "name": "questioner",
   "version": "1.0.0",
   "description": "Crowd-source questions for a meetup. Questioner helps the meetup organizer prioritize questions to be answered. Other users can vote on asked questions and they bubble to the top or bottom of the log.",
-  "main": "app.js",
+  "private": true,
   "scripts": {
     "start": "babel-node app.js",
     "start:dev": "set NODE_ENV=development&& nodemon --exec babel-node app.js",
@@ -10,7 +10,8 @@
     "lint": "eslint app.js",
     "test": "set PORT=4000&& set NODE_ENV=test&& babel-node ./server/database/config.js && nyc mocha ./server/tests/test --timeout 300000 --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "heroku-postbuild": "npm run migrate"
+    "heroku-postbuild": "npm run migrate",
+    "webpack": "npx webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
