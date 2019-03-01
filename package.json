@@ -31,12 +31,8 @@
     "dotenv": "6.2.0",
     "express": "4.16.4",
     "jsonwebtoken": "8.4.0",
-<<<<<<< HEAD
-    "multer": "1.4.1",
-=======
     "moment": "^2.24.0",
     "multer": "^1.4.1",
->>>>>>> 93b7440e036380bdfdddb5e9192a452403f04f74
     "pg": "7.8.0"
   },
   "nyc": {
@@ -64,7 +60,9 @@
     "eslint-plugin-import": "2.13.0",
     "mocha": "5.0.4",
     "nodemon": "1.18.7",
-    "nyc": "13.1.0"
+    "nyc": "13.1.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
   },
   "engines": {
     "node": "8.9.4"

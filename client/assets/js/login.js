@@ -17,7 +17,6 @@ signupToggle.addEventListener('click', (e) => {
   if (e.target.className.indexOf('active') === -1) {
     loginToggle.className = 'bar in col-sm-6';
     e.target.className = 'bar up col-sm-6 active';
-
     loginForm.className = 'form';
     signupForm.className = 'form active';
   }

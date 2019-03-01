@@ -9,10 +9,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 app.use(express.static('client'));
-<<<<<<< HEAD
-=======
 app.use('/assets', express.static('/client/assets'));
->>>>>>> 93b7440e036380bdfdddb5e9192a452403f04f74
 
 app.use(cors());
 app.use(bodyParser.json());
