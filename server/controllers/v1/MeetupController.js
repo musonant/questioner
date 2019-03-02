@@ -1,8 +1,10 @@
 import MeetupModel from '../../Models/Meetup';
 import Response from '../../helpers/response';
 import uploadFile from '../../helpers/fileUpload';
+import QuestionModel from '../../Models/Question';
 
 const Meetup = new MeetupModel();
+const Question = new QuestionModel();
 /**
  * @exports
  * @class MeetupController
@@ -15,15 +17,29 @@ class MeetupController {
    * @returns {Object} - response
    */
   static async list(req, res) {
-    let records = [];
-    if (req.query.scope === 'upcoming') {
-      records = await Meetup.listUpcoming();
-    } else {
-      records = await Meetup.getAll();
-    }
+    try {
+      let records = [];
+      if (req.query.scope === 'upcoming') {
+        records = await Meetup.listUpcoming();
+      } else {
+        records = await Meetup.getAll();
+      }
+      // let data = records;
 
-    records = await Meetup.attachTags(records);
-    return Response.success(res, records);
+      let data = records.map(async (item) => {
+        const meetupId = item.id;
+        const questions = await Question.getAllWhere(`"meetupId" = ${meetupId}`);
+        item.questionsCount = questions.length;
+        return item;
+      });
+
+      data = await Promise.all(data);
+
+      data = await Meetup.attachTags(data);
+      return Response.success(res, data);
+    } catch (error) {
+      return Response.customError(res, error.message);
+    }
   }
 
   /**
@@ -109,16 +125,6 @@ class MeetupController {
     } catch (err) {
       return Response.customError(res, err.message);
     }
-  }
-
-  /**
-   * Add images to a meetup
-   * @param {Object} req
-   * @param {Object} res
-   * @returns {Object} response object
-   */
-  static async addImages(req, res) {
-
   }
 
   /**

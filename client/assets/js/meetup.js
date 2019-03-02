@@ -1,11 +1,10 @@
 /* eslint-disable */
-class Meetup {
+class SingleMeetup {
 
   constructor() {
-    events.subscribe('ALL_MEETUPS_FETCHED', this.meetupDisplay);
-    this.fetchResources();
-
-    
+    events.subscribe('FETCH_SINGLE_MEETUP', this.meetupDisplay);
+    let { meetupId } = parseQuery();
+    this.fetchMeetup(meetupId);
   }
 
   meetupDisplay(data) {
@@ -28,9 +27,10 @@ class Meetup {
     meetupContainer.innerHTML = templateArray.join('');
   };
 
-  async fetchResources() {
-    API.getMeetups().then(data => {
-      events.publish('ALL_MEETUPS_FETCHED', data);
+  async fetchMeetup(id) {
+    API.getMeetups(id).then(data => {
+      events.publish('FETCH_SINGLE_MEETUP', data);
+      console.log(data);
     }).catch(error => {
       console.log('error', error);
     });
@@ -38,5 +38,5 @@ class Meetup {
 
 }
 
-const meetup = new Meetup();
+const meetup = new SingleMeetup();
 

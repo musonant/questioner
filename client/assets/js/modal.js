@@ -2,8 +2,6 @@ const modals = document.querySelectorAll('.modal-container');
 const modalOpeners = document.querySelectorAll('.open-modal');
 const modalClosers = document.querySelectorAll('.close-modal');
 
-console.log(modalOpeners)
-
 for (let trigger of modalOpeners) {
   trigger.addEventListener('click', (e) => {
     e.preventDefault();

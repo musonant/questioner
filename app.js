@@ -9,6 +9,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 app.use(express.static('client'));
+app.use('/uploads', express.static('uploads'));
 app.use('/assets', express.static('/client/assets'));
 
 app.use(cors());

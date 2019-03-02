@@ -20,7 +20,7 @@ class Api {
       method: 'GET',
     })
       .then(res => res.json())
-      .then(res => res);
+      .then(res => res.data);
   }
 
   /**
@@ -41,7 +41,6 @@ class Api {
     })
       .then(res => res.json())
       .then(res => res.data);
-    // .then(res => console.log(res));
   }
 
   /**
@@ -62,8 +61,7 @@ class Api {
       body: JSON.stringify(data),
     })
       .then(res => res.json())
-      // .then(res => res.data);
-      .then(res => console.log(res));
+      .then(res => res.data);
   }
 
   /**
@@ -81,8 +79,7 @@ class Api {
       },
     })
       .then(res => res.json())
-      // .then(res => res.data);
-      .then(res => console.log(res));
+      .then(res => res.data);
   }
 
   /**
@@ -268,19 +265,3 @@ class Api {
 }
 
 const API = new Api();
-
-const run = async () => {
-  // const data = await API.deleteComment(1);
-  // const data = await API.login({ email: 'mrmusonant@gmail.com', password: 'emmanuel' });
-  // const data = await API.signup({
-  //   firstname: 'Peter', lastname: 'James', email: 'peterjames@gmail.com', password: 'peter'
-  // });
-  // const data = await API.addTags(2, { tags: [1, 4, 5] });
-  // const data = await API.getMeetups();
-
-  // console.log(data);
-};
-
-
-// console.log(window.localStorage.token);
-run();
