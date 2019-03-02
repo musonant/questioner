@@ -11,8 +11,7 @@ class Meetup {
   meetupDisplay(data) {
     const meetupContainer = document.querySelector('#meetupList');
     const templateArray = data.map((item) => {
-      console.log(item);
-      const questionCount = 25;
+      const questionsCount = item.questionsCount;
       const { topic } = item;
       const { location } = item;
       const date = item.happeningOn === null ? null : moment(item.happeningOn);
@@ -20,7 +19,7 @@ class Meetup {
   
       return `
       <div class="col-sm-12 col-md-6 col-lg-4 container">
-        ${meetupCard(questionCount, topic, location, date, backgroundImage)}
+        ${meetupCard(questionsCount, topic, location, date, backgroundImage)}
       </div>
       `;
     });

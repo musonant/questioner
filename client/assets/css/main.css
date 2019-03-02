@@ -550,6 +550,19 @@ textarea:focus {
 
 .meetup-card .more {
   font-size: 14px;
+  width: 100%;
+}
+
+.meetup-card .more .detail-text {
+  margin-top: 3px;
+}
+
+.meetup-card .more .icon {
+  width: 20px;
+  color: #478468;
+  font-size: 18px;
+  display: inline-flex;
+  justify-content: center;
 }
 
 .question-count {

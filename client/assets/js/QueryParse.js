@@ -1,7 +1,8 @@
 /* eslint-disable prefer-destructuring */
 // eslint-disable-next-line no-unused-vars
 const parseQuery = () => {
-  let url = window.location.search;
+  const location = Object.assign({}, window.location);
+  let url = location.search;
   url = url.slice(1);
   const strArray = url.split('&');
   const strObj = {};

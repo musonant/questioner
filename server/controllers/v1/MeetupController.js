@@ -24,7 +24,6 @@ class MeetupController {
       } else {
         records = await Meetup.getAll();
       }
-      // let data = records;
 
       let data = records.map(async (item) => {
         const meetupId = item.id;
@@ -55,6 +54,9 @@ class MeetupController {
     if (!resource) {
       return Response.notFound(req, res);
     }
+
+    const questions = await Question.getAllWhere(`"meetupId" = ${id}`);
+    resource.questionsCount = questions.length;
 
     resource = await Meetup.attachTags([resource]);
     return Response.success(res, resource);
