@@ -18,9 +18,14 @@ class Api {
   async getData(path) {
     return fetch(`${this.root}/${path}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': window.localStorage.token,
+      }
     })
       .then(res => res.json())
       .then(res => res.data);
+      // .then(res => console.log(res));
   }
 
   /**
@@ -117,10 +122,20 @@ class Api {
   /**
    * Fetch all questions in database
    * @param {Number|String} sub - the id of the expected resource
-   * @returns {Array} - Array of all meetups
+   * @returns {Array} - Array of meetups
    */
   async getQuestions(sub = '') {
     const resource = await this.getData(`questions/${sub}`);
+    return resource;
+  }
+
+  /**
+   * Fetch all questions in database
+   * @param {Number|String} sub - the id of the expected resource
+   * @returns {Array} - Array of users
+   */
+  async getUsers(sub = '') {
+    const resource = await this.getData(`auth/${sub}`);
     return resource;
   }
 
