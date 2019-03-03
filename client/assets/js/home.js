@@ -1,5 +1,5 @@
 /* eslint-disable */
-class Meetup {
+class Home {
 
   constructor() {
     events.subscribe('ALL_MEETUPS_FETCHED', this.meetupDisplay);
@@ -34,5 +34,5 @@ class Meetup {
   }
 }
 
-const meetup = new Meetup();
+const meetup = new Home();
 

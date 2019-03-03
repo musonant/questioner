@@ -35,9 +35,9 @@ const questionsList = (questions) => {
         </div>
         <div class="comment-list">
           ${getCommentsList(question)}
-          <form action="" class="question-form">
+          <div class="question-form">
             <input type="text" placeholder="Enter your comment">
-          </form>
+          </div>
         </div>
       </div>
     </div>

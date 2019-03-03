@@ -24,8 +24,8 @@ const meetupDetails = (featuredImage = 'assets/img/transparencyLight.png', autho
 
       <hr>
       
-      <form action="" class="question-form">
-        <button class="input btn-like-text open-modal" lang="question-modal">Enter your question</button>
+      <form class="question-form">
+        <div class="input btn-like-text open-modal" lang="question-modal">Enter your question</div>
       </form>
     </div>
   </div>

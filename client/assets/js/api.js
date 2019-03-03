@@ -40,7 +40,9 @@ class Api {
       body: JSON.stringify(data),
     })
       .then(res => res.json())
-      .then(res => res.data);
+      // .then(res => res.data)
+      .then(res => res)
+      .catch(err => console.log(err));
   }
 
   /**
@@ -244,10 +246,14 @@ class Api {
    */
   async login(data) {
     const path = 'auth/login';
-    const resource = await this.createResource(path, data);
-    window.localStorage.setItem('token', resource[0].token);
-
-    return resource;
+    try {
+      const resource = await this.createResource(path, data);
+      const token = resource.data ? resource.data[0].token : '';
+      window.localStorage.setItem('token', token);
+      return resource;
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   /**
@@ -257,10 +263,15 @@ class Api {
    */
   async signup(data) {
     const path = 'auth/signup';
-    const resource = await this.createResource(path, data);
-    window.localStorage.setItem('token', resource[0].token);
+    try {
+      const resource = await this.createResource(path, data);
+      const token = resource.data ? resource.data[0].token : '';
+      window.localStorage.setItem('token', token);
+      return resource;
+    } catch (err) {
+      console.log(err);
+    }
 
-    return resource;
   }
 }
 
