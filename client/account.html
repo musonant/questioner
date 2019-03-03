@@ -5,88 +5,38 @@
   <meta name="author" content="Emmanuel Osuh, mrmusonant@gmail.com">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Meetup - Questioner</title>
+  <title>Meetup ◊ Questioner</title>
   <link rel="shortcut icon" href="assets/img/question.png" type="image/png">
   <link rel="stylesheet" href="assets/css/font-awesome.min.css">
   <link rel="stylesheet" href="assets/css/main.css">
+  <script src="assets/js/components/mainHeader.js"></script>
+  <script>
+    const mainLinks = [];
+    const menuLinks = [
+      { href: 'meetups.html', text: 'Browse Meetups' },
+      { href: 'create-meetup.html', text: 'Create Meetup' },
+      // { href: '', text: '' },
+    ]
+    const getHeader = () => {
+      const headerContainer = document.querySelector('#header-container');
+      console.log(headerContainer)
+    }
+
+    window.onloadend = getHeader();
+    headerContainer.innerHTML = mainHeader(mainLinks, menuLinks);
+  </script>
 </head>
 <body>
   <div class="page-container" id="account-page">
-    <header class="main-header row">
-      <div class="header-brand">
-        <h3 class="title">Questioner</h3>
-      </div>
-      <div class="menu-toggle">
-        <i class="menu-btn fa fa-bars"></i>
-        <div class="menu-content">
-          <ul class="menu-list">
-            <a href="meetups.html">
-              <li class="menu-option">Browse Meetups</li>
-            </a>
-            <a href="create-meetup.html">
-              <li class="menu-option">Create Meetup</li>
-            </a>
-            <div class="menu-toggle with-arrow">
-              <li class="menu-btn menu-option">Account Settings
-                <i class="fa fa-caret-down menu-arrow"></i>
-              </li>
-              <div class="menu-content">
-                <ul class="menu-list">
-                  <a href="account.html#account-info">
-                    <li class="menu-option">Account Information</li>
-                  </a>
-                  <a href="account.html#account-log">
-                    <li class="menu-option">Account Log</li>
-                  </a>
-                  <a href="account.html#schedulled-meetups">
-                    <li class="menu-option">Schedulled Meetups</li>
-                  </a>
-                  <a href="login.html">
-                    <li class="menu-option">Logout</li>
-                  </a>
-                </ul>
-              </div>
-            </div>
-          </ul>
-        </div>
-      </div>
-    </header>
+    <div id="header-container"></div>
+
     <div class="main-title small caps">
       <h1 class="title">My Account</h1>
     </div>
 
     <div class="page-body">
-      <section id="account-info">
-        <div class="basic">
-          <div class="sliced-bg">
-              <div class="text">
-                  <label>Emmanuel Osuh</label> <br>
-                  <label class="sub">mrmusonant@gmail.com</label>
-                </div>
-          </div>
-          <label for="profile-image">
-            <div class="profile-image">
-              <i class="fa fa-user-circle icon"></i>
-            </div>
-            <input type="file" id="profile-image" hidden>
-          </label>
-        </div>
-      </section>
-      <section id="account-log">
-        <div class="sub-title">
-          <h1 class="title">Account Log</h1>
-        </div>
-        <div class="info">
-          <div class="log-item">
-            <label for="">Questions You Posted</label>
-            <div class="tablet-bar">693</div>
-          </div>
-          <div class="log-item">
-            <label for="">Questions You Commented On</label>
-            <div class="tablet-bar">23</div>
-          </div>
-        </div>
-      </section>
+      <section id="account-info"></section>
+      <section id="account-log"></section>
       <section id="schedulled-meetups"></section>
     </div>
 
@@ -143,6 +93,8 @@
 <script src="assets/js/events.js"></script>
 <script src="assets/js/QueryParse.js"></script>
 <script src="assets/js/api.js"></script>
+<script src="assets/js/components/accountInfo.js"></script>
+<script src="assets/js/components/scheduledMeetups.js"></script>
 <script src="assets/js/account.js"></script>
 <script src="assets/js/menu.js"></script>
 <script src="assets/js/main.js"></script>

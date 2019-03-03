@@ -23,6 +23,8 @@ class MeetupController {
       let records = [];
       if (req.query.scope === 'upcoming') {
         records = await Meetup.listUpcoming();
+      } else if (req.query.scheduledBy) {
+        records = await Meetup.listScheduledMeetups(req.query.scheduledBy);
       } else {
         records = await Meetup.getAll();
       }
@@ -30,7 +32,7 @@ class MeetupController {
       let data = records.map(async (item) => {
         const meetupId = item.id;
         const questions = await Question.getAllWhere(`"meetupId" = ${meetupId}`);
-        item.questionsCount = questions.length;
+        item.questions = questions;
         return item;
       });
 

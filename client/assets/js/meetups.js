@@ -9,15 +9,13 @@ class Meetup {
   meetupDisplay(data) {
     const meetupContainer = document.querySelector('#meetupList');
     const templateArray = data.map((item) => {
-      const questionsCount = item.questionsCount;
-      const { topic } = item;
-      const { location } = item;
+      const { topic, location, questions } = item;
       const date = item.happeningOn === null ? null : moment(item.happeningOn);
       const backgroundImage = item.images === null ? '' : item.images[0];
   
       return `
       <div class="col-sm-12 col-md-6 col-lg-4 container">
-        ${meetupCard(item.id, questionsCount, topic, location, date, backgroundImage)}
+        ${meetupCard(item.id, questions.length, topic, location, date, backgroundImage)}
       </div>
       `;
     });

@@ -20,6 +20,22 @@ class Meetup extends Model {
   }
 
   /**
+   * Get the meetups scheduled by a specified user
+   * @param {Number} userId - the id of the user who made scheduled
+   * @returns {Array} - array of meetups scheduled by the user
+   */
+  async listScheduledMeetups(userId) {
+    const queryText = `SELECT * FROM rsvps WHERE rsvps.user = ${userId}`;
+    const { rows } = await connection.query(queryText);
+
+    const promisedMeetups = rows.map(response => this.getOne(response.meetupId));
+    const meetups = await Promise.all(promisedMeetups);
+
+    return meetups;
+  }
+
+
+  /**
    * Get all upcoming meetups
    * @returns {Array} - array of all upcoming meetups
    */

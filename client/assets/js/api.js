@@ -100,12 +100,22 @@ class Api {
   }
 
   /**
-   * Fetch all meetups in database
+   * Fetch all upcoming meetups in database
    * @param {Number|String} sub - the id of the expected resource
    * @returns {Array} - Array of all meetups
    */
   async getUpcomingMeetups() {
     const resource = await this.getData('meetups?scope=upcoming');
+    return resource;
+  }
+
+  /**
+   * Fetch meetups scheduled by a specified user
+   * @param {Number} id - the id of the user
+   * @returns {Array} - Array of meetups
+   */
+  async getScheduledMeetups(id) {
+    const resource = await this.getData(`meetups?scheduledBy=${id}`);
     return resource;
   }
 
@@ -286,7 +296,6 @@ class Api {
     } catch (err) {
       console.log(err);
     }
-
   }
 }
 

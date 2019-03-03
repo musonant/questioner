@@ -11,8 +11,8 @@ class SingleMeetup {
   static displayMeetupHeading(data) {
     const container = document.querySelector('#meetup-heading');
     const meetup = data[0];
-    const { questionsCount, topic, happeningOn } = meetup;
-    const html = meetupHeading(questionsCount, topic, happeningOn);
+    const { questions, topic, happeningOn } = meetup;
+    const html = meetupHeading(questions.length, topic, happeningOn);
   
     container.innerHTML = html;
   };

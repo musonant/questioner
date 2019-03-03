@@ -125,8 +125,9 @@ class DB {
       INSERT INTO questions ("createdBy", "meetupId", title, body) VALUES (2, 1, 'concerning the progress of the project', 'Are there any things I need to learn first?');
       INSERT INTO questions ("createdBy", "meetupId", title, body) VALUES (2, 2, 'concerning the progress of the project', 'Are there any things I need to learn first?');
       
-      INSERT INTO rsvps ("meetupId", "user", "response") VALUES (1, 2, true);
       INSERT INTO rsvps ("meetupId", "user", "response") VALUES (1, 3, true);
+      INSERT INTO rsvps ("meetupId", "user", "response") VALUES (1, 1, true);
+      INSERT INTO rsvps ("meetupId", "user", "response") VALUES (2, 1, true);
 
       INSERT INTO comments ("createdBy", "questionId", "body") VALUES (2, 1, 'I believe that this question deserves a comprehensive response');
     `;
