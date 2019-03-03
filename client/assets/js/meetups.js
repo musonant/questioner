@@ -19,7 +19,7 @@ class Meetup {
   
       return `
       <div class="col-sm-12 col-md-6 col-lg-4 container">
-        ${meetupCard(questionsCount, topic, location, date, backgroundImage)}
+        ${meetupCard(item.id, questionsCount, topic, location, date, backgroundImage)}
       </div>
       `;
     });

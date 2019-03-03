@@ -2,9 +2,11 @@ import MeetupModel from '../../Models/Meetup';
 import Response from '../../helpers/response';
 import uploadFile from '../../helpers/fileUpload';
 import QuestionModel from '../../Models/Question';
+import CommentModel from '../../Models/Comment';
 
 const Meetup = new MeetupModel();
 const Question = new QuestionModel();
+const Comment = new CommentModel();
 /**
  * @exports
  * @class MeetupController
@@ -56,6 +58,13 @@ class MeetupController {
     }
 
     const questions = await Question.getAllWhere(`"meetupId" = ${id}`);
+    const questionsWithCommentsPromise = questions.map(async (question) => {
+      question.comments = await Comment.getAllWhere(`"questionId" = ${question.id}`);
+      return question;
+    });
+
+    const questionsWithComments = await Promise.all(questionsWithCommentsPromise);
+    resource.questions = questionsWithComments;
     resource.questionsCount = questions.length;
 
     resource = await Meetup.attachTags([resource]);

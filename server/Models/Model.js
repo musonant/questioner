@@ -75,6 +75,19 @@ class Model {
   }
 
   /**
+   * @param {String} whereString - the where string
+   * @returns {Array} - array of questions
+   */
+  async getAllWhere(whereString) {
+    try {
+      const result = await connection.query(`SELECT * FROM ${this.table} WHERE ${whereString}`);
+      return result.rows;
+    } catch (err) {
+      throw new Error(`Unexpected error: ${err.message}`);
+    }
+  }
+
+  /**
    * Function to get a single resource with the given id
    * @param {Number} id - the primary key of the resource to be found
    * @returns {Object} - the resource with the specified id

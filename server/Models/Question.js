@@ -120,19 +120,6 @@ class Question extends Model {
   }
 
   /**
-   * @param {String} whereString - the where string
-   * @returns {Array} - array of questions
-   */
-  async getAllWhere(whereString) {
-    try {
-      const result = await connection.query(`SELECT * FROM questions WHERE ${whereString}`);
-      return result.rows;
-    } catch (err) {
-      throw new Error(`Unexpected error: ${err.message}`);
-    }
-  }
-
-  /**
    *
    * @param {Object} question -
    * @param {Object} userId -

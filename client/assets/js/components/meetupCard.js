@@ -1,4 +1,4 @@
-const meetupCard = (questionsCount, topic, location, date, backgroundImage) => {
+const meetupCard = (id, questionsCount, topic, location, date, backgroundImage) => {
   let time = '';
   let day = '';
   let monthShort = '';
@@ -33,7 +33,7 @@ const meetupCard = (questionsCount, topic, location, date, backgroundImage) => {
   const html = `
     <div class="meetup-card">
     <aside class="display">
-      <a href="meetup.html" class="">
+      <a href="meetup.html?meetupId=${id}" class="">
         <div class="with-back-img meetup-display-img" style="background-color: #b0e6ce; background-image: url('${backgroundImage}');"></div>
         <div class="cta-btn">
           <span class="count">${questionsCount}</span>
@@ -47,7 +47,7 @@ const meetupCard = (questionsCount, topic, location, date, backgroundImage) => {
       </div>
       <div class="details row flex-1">
         <h3 class="title">
-          <a href="meetup.html">
+          <a href="meetup.html?meetupId=${id}">
             ${topic}
           </a>
         </h3>

@@ -1,18 +1,20 @@
 const meetupHeading = (questionsCount, topic, date) => {
   let time = '';
   let day = '';
-  // location = location === null ? '' : location;
   questionsCount = questionsCount === 1 ? `${questionsCount} Question` : `${questionsCount} Questions`;
 
   if (date !== null) {
     time = moment(date).format('HH:mm A');
     day = moment(date).format('MMM DD, YYYY');
+    day = `<label>${day}</label>`;
   }
+
+
   const html = `
     <div class="meetup-banner row">
       <div class="col-sm-12 col-lg-8 info">
         <div class="title">
-          <label>${day}</label>
+          ${day}
           <h1>${topic}</h1>
         </div>
       </div>
