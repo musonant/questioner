@@ -82,18 +82,35 @@ class Meetup extends Model {
   }
 
   /**
+   * Attach author object to meetup
+   * @param {Array} meetups - Array of meetups
+   * @returns {Array} - Array of meetups incuding their author object
+   */
+  async attachAuthor(meetups) {
+    const records = meetups.map(async (meetup) => {
+      const { rows } = await connection.query(`SELECT * FROM users WHERE users.id = ${meetup.createdBy}`);
+      // eslint-disable-next-line prefer-destructuring
+      meetup.author = rows[0];
+      return meetup;
+    });
+
+    const meetupsList = await Promise.all(records);
+    return meetupsList;
+  }
+
+  /**
    * Respond to a meetup invitation
    * @param {Array} data - an array of the properties
    * @returns {Object} - created resource
    */
   async replyInvite(data) {
     const text = `INSERT INTO
-      rsvps("meetup", "user", "response")
+      rsvps("meetupId", "user", "response")
       VALUES ($1, $2, $3)
       returning *`;
 
     const values = [
-      Number(data.meetup),
+      Number(data.meetupId),
       Number(data.user),
       data.response,
     ];

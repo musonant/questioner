@@ -29,6 +29,10 @@ class MeetupController {
         records = await Meetup.getAll();
       }
 
+      if (req.query.includeAuthor === 'true') {
+        records = await Meetup.attachAuthor(records);
+      }
+
       let data = records.map(async (item) => {
         const meetupId = item.id;
         const questions = await Question.getAllWhere(`"meetupId" = ${meetupId}`);
@@ -57,6 +61,11 @@ class MeetupController {
 
     if (!resource) {
       return Response.notFound(req, res);
+    }
+
+    if (req.query.includeAuthor === 'true') {
+      const resourceArray = await Meetup.attachAuthor([resource]);
+      [resource] = resourceArray;
     }
 
     const questions = await Question.getAllWhere(`"meetupId" = ${id}`);
@@ -106,7 +115,7 @@ class MeetupController {
    */
   static async replyInvite(req, res) {
     const data = { response: req.body.response };
-    data.meetup = parseInt(req.params.id, 10);
+    data.meetupId = parseInt(req.params.id, 10);
     data.user = req.user.id;
 
     try {

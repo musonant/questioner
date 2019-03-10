@@ -69,6 +69,13 @@ a:hover {
   border: 1px solid #000;
 }
 
+.btn-o {
+  background: transparent !important;
+  color: grey !important;
+  text-transform: uppercase;
+  border-color: grey !important;
+}
+
 .max-img {
   max-width: 100%;
   height: auto;

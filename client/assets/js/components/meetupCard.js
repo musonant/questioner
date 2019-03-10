@@ -13,18 +13,18 @@ const meetupCard = (id, questionsCount, topic, location, date, backgroundImage) 
     dayShort = moment(date).format('DD');
   }
 
-  const dayMarkup = date === null ? '' : `
+  const dayMarkup = date === null || date === '' ? '' : `
     <p class="detail-text" name="date">
       <span class="icon fa fa-calendar"></span> ${day}
     </p>`;
 
-  const timeMarkup = date === null ? '' : `
+  const timeMarkup = date === null || date === '' ? '' : `
     <p class="detail-text" name="time">
     <span class="icon fa fa-clock-o"></span> ${time}
     </p>
     `;
 
-  const locationMarkup = location === null ? '' : `
+  const locationMarkup = location === null || location === '' ? '' : `
     <p class="detail-text" name="time">
     <span class="icon fa fa-map-marker"></span> ${location}
     </p>

@@ -47,7 +47,6 @@ const loginHandler = {
     if (attemptLogin.status === 200) {
       events.publish('LOGIN_SUCCESS', attemptLogin.data);
     }
-    console.log(attemptLogin);
   },
   onSignupSubmit: async (e) => {
     e.preventDefault();

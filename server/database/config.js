@@ -87,7 +87,7 @@ class DB {
         "id" SERIAL PRIMARY KEY NOT NULL,
         "meetupId" INT REFERENCES meetups(id) ON DELETE CASCADE NOT NULL,
         "user" INT REFERENCES users(id) ON DELETE CASCADE NOT NULL,
-        "response" BOOLEAN NOT NULL
+        "response" varchar(10) NOT NULL
       );
       CREATE TABLE IF NOT EXISTS comments (
         "id" SERIAL PRIMARY KEY NOT NULL,
@@ -118,16 +118,16 @@ class DB {
       INSERT INTO tags (name) VALUES ('Finding Solutions');
       INSERT INTO tags (name) VALUES ('Andela');
 
-      INSERT INTO meetups ("createdBy", location, topic, description, tags) VALUES (1, '235, Ikorodu Road', 'Project Management, Andela', 'any new thing worth learning should be learned', '{1, 3}');
-      INSERT INTO meetups ("createdBy", location, topic, "happeningOn", description) VALUES (1, '5, West Drive, California', 'Calibrating our globe', '2020-01-16T07:18:28.094Z', 'any new thing worth learning should be learned');
-      INSERT INTO meetups ("createdBy", location, topic, description) VALUES (1, 'EPIC Tower', 'Andela Bootcamp', 'any new thing worth learning should be learned');
+      INSERT INTO meetups ("createdBy", location, topic, description, tags, images) VALUES (1, '235, Ikorodu Road', 'Project Management, Andela', 'any new thing worth learning should be learned', '{1, 3}', '{"uploads/1551230425705emma.jpg"}');
+      INSERT INTO meetups ("createdBy", location, topic, "happeningOn", description, images) VALUES (1, '5, West Drive, California', 'Calibrating our globe', '2020-01-16T07:18:28.094Z', 'any new thing worth learning should be learned', '{"uploads/1551402286194princess.jpg"}');
+      INSERT INTO meetups ("createdBy", location, topic, description, images) VALUES (1, 'EPIC Tower', 'Andela Bootcamp', 'any new thing worth learning should be learned', '{"uploads/1551638186897JulianTreasure_2013U-embed.jpg"}');
       
       INSERT INTO questions ("createdBy", "meetupId", title, body) VALUES (2, 1, 'concerning the progress of the project', 'Are there any things I need to learn first?');
       INSERT INTO questions ("createdBy", "meetupId", title, body) VALUES (2, 2, 'concerning the progress of the project', 'Are there any things I need to learn first?');
       
-      INSERT INTO rsvps ("meetupId", "user", "response") VALUES (1, 3, true);
-      INSERT INTO rsvps ("meetupId", "user", "response") VALUES (1, 1, true);
-      INSERT INTO rsvps ("meetupId", "user", "response") VALUES (2, 1, true);
+      INSERT INTO rsvps ("meetupId", "user", "response") VALUES (1, 3, 'yes');
+      INSERT INTO rsvps ("meetupId", "user", "response") VALUES (1, 1, 'no');
+      INSERT INTO rsvps ("meetupId", "user", "response") VALUES (2, 1, 'yes');
 
       INSERT INTO comments ("createdBy", "questionId", "body") VALUES (2, 1, 'I believe that this question deserves a comprehensive response');
     `;

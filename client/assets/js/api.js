@@ -100,6 +100,18 @@ class Api {
   }
 
   /**
+   * Get meetups with their author object attached
+   * @param {String} sub - text
+   * @returns {Array} - Array of meetups
+   */
+  async getMeetupsWithAuthor(sub = '') {
+    sub = sub !== '' ? `/${sub}` : '';
+    const path = `meetups${sub}?includeAuthor=true`;
+    const resource = await this.getData(path);
+    return resource;
+  }
+
+  /**
    * Fetch all upcoming meetups in database
    * @param {Number|String} sub - the id of the expected resource
    * @returns {Array} - Array of all meetups

@@ -1,4 +1,4 @@
-const meetupHeading = (questionsCount, topic, date) => {
+const meetupHeading = (meetupId, questionsCount, topic, date) => {
   let time = '';
   let day = '';
   questionsCount = questionsCount === 1 ? `${questionsCount} Question` : `${questionsCount} Questions`;
@@ -19,17 +19,21 @@ const meetupHeading = (questionsCount, topic, date) => {
         </div>
       </div>
       <div class="col-sm-12 col-lg-4 attend">
-        <div class="actions">
+
+        <form class="actions" id="meetup-response-form" name="${meetupId}">
           <label>Are you attending?</label>
           <div class="row" style="justify-content: center;">
-            <span class="col-sm-6" style="padding-right: 5px;">
-              <button class="fa fa-check action-btn"></button>
+            <span class="col-sm-4" style="padding-right: 5px;">
+              <button name="yes" class="fa fa-check action-btn"></button>
             </span>
-            <span class="col-sm-6" style="padding-left: 5px;">
-              <button class="fa fa-close action-btn"></button>
+            <label class="col-sm-4">
+              <button name="" class="fa action-btn btn-o fine-text">Maybe</button>
+            </label>
+            <span class="col-sm-4" style="padding-left: 5px;">
+              <button name="no" class="fa fa-close action-btn"></button>
             </span>
           </div>
-        </div>
+        </form>
       </div>
       <label style="margin-top: 20px; color: #7aadad;">${questionsCount}</label>
     </div>
