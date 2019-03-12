@@ -30,6 +30,8 @@ const loginHandler = {
     loginForm.addEventListener('submit', loginHandler.onLoginSubmit);
     signupForm.addEventListener('submit', loginHandler.onSignupSubmit);
 
+    loginHandler.validateInput();
+
     events.subscribe('LOGIN_SUCCESS', loginHandler.loginRedirect);
     events.subscribe('SIGNUP_SUCCESS', loginHandler.loginRedirect);
   },
@@ -62,8 +64,22 @@ const loginHandler = {
     if (attemptSignup.status === 201) {
       events.publish('SIGNUP_SUCCESS', attemptSignup.data);
     }
-    console.log(attemptSignup);
+  },
+  validateInput: () => {
+
   }
 };
 
 loginHandler.init();
+
+// const rules = {
+//   required: true,
+//   email: true
+// };
+// let result = approve.value('user@domain.com', rules);
+
+// setTimeout(() => {
+//   resu
+// }, 1000)
+
+// console.log(result);
