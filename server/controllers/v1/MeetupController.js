@@ -1,3 +1,4 @@
+import Joi from 'joi';
 import MeetupModel from '../../Models/Meetup';
 import Response from '../../helpers/response';
 import uploadFile from '../../helpers/fileUpload';
@@ -51,6 +52,24 @@ class MeetupController {
    * @returns {Object} - the response
    */
   static async create(req, res) {
+    const meetupSchema = Joi.object().keys({
+      location: Joi.string(),
+      topic: Joi.string(),
+      happeningOn: Joi.string(),
+      tags: Joi.array().items(Joi.number()),
+      description: Joi.string()
+    });
+
+    let validData = Joi.validate(req.body, meetupSchema)
+      .catch((validationError) => {
+        const errMsg = validationError.details.map(d => d.message);
+        return Response.customError(res, errMsg);
+      });
+
+    // validData = Promise.all(validData);
+    // console.log('valid data: ', validData);
+    // meetupSchema.validate(req.body, );
+
     const upload = uploadFile.single('featured-image');
     upload(req, res, async () => {
       const data = req.body;

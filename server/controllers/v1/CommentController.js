@@ -1,5 +1,6 @@
 import CommentModel from '../../Models/Comment';
 import Response from '../../helpers/response';
+import Joi from 'joi';
 
 const Comment = new CommentModel();
 
@@ -40,24 +41,32 @@ class CommentController {
    * @param {Object} res - response to be given
    * @returns {Object} - the response
    */
-  static async create(req, res) {
-    let data = req.body;
-    if (!data.questionId || !data.body) {
-      return Response.customError(res, 'Please supply all required inputs');
-    }
-
-    data = {
+  static create(req, res) {
+    const data = {
       questionId: Number(req.body.questionId),
       body: req.body.body,
-      createdBy: req.user.id
+      createdBy: req.user.id,
     };
 
-    try {
-      const createdResource = await Comment.create(data);
-      return Response.created(res, [createdResource]);
-    } catch (err) {
-      return Response.customError(res, err.message);
-    }
+    const commentSchema = Joi.object().keys({
+      questionId: Joi.number().integer().required(),
+      body: Joi.string().trim().required(),
+      createdBy: Joi.number().integer().required(),
+    });
+
+    commentSchema.validate(data, { abortEarly: false })
+      .then(async (validData) => {
+        try {
+          const createdResource = await Comment.create(validData);
+          return Response.created(res, [createdResource]);
+        } catch (err) {
+          return Response.customError(res, err.message);
+        }
+      })
+      .catch((validationError) => {
+        const errorMessage = validationError.details.map(d => d.message);
+        res.status(400).send(errorMessage);
+      });
   }
 
   /**
