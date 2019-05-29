@@ -20,6 +20,22 @@ class Meetup extends Model {
   }
 
   /**
+   * Get the meetups scheduled by a specified user
+   * @param {Number} userId - the id of the user who made scheduled
+   * @returns {Array} - array of meetups scheduled by the user
+   */
+  async listScheduledMeetups(userId) {
+    const queryText = `SELECT * FROM rsvps WHERE rsvps.user = ${userId}`;
+    const { rows } = await connection.query(queryText);
+
+    const promisedMeetups = rows.map(response => this.getOne(response.meetupId));
+    const meetups = await Promise.all(promisedMeetups);
+
+    return meetups;
+  }
+
+
+  /**
    * Get all upcoming meetups
    * @returns {Array} - array of all upcoming meetups
    */
@@ -66,18 +82,35 @@ class Meetup extends Model {
   }
 
   /**
+   * Attach author object to meetup
+   * @param {Array} meetups - Array of meetups
+   * @returns {Array} - Array of meetups incuding their author object
+   */
+  async attachAuthor(meetups) {
+    const records = meetups.map(async (meetup) => {
+      const { rows } = await connection.query(`SELECT * FROM users WHERE users.id = ${meetup.createdBy}`);
+      // eslint-disable-next-line prefer-destructuring
+      meetup.author = rows[0];
+      return meetup;
+    });
+
+    const meetupsList = await Promise.all(records);
+    return meetupsList;
+  }
+
+  /**
    * Respond to a meetup invitation
    * @param {Array} data - an array of the properties
    * @returns {Object} - created resource
    */
   async replyInvite(data) {
     const text = `INSERT INTO
-      rsvps("meetup", "user", "response")
+      rsvps("meetupId", "user", "response")
       VALUES ($1, $2, $3)
       returning *`;
 
     const values = [
-      Number(data.meetup),
+      Number(data.meetupId),
       Number(data.user),
       data.response,
     ];
@@ -98,6 +131,9 @@ class Meetup extends Model {
    */
   async addTags(id, tags) {
     const meetup = await this.getOne(id);
+
+    if (!meetup) throw new Error('Required meetup does not exist');
+
     const queryText = `UPDATE meetups SET tags = '{ ${tags} }' WHERE id = ${meetup.id} returning *`;
     try {
       const { rows } = await connection.query(queryText);
