@@ -23,15 +23,16 @@ class Auth extends Model {
     const text = 'SELECT * FROM users WHERE email = $1';
 
     try {
-      const { rows } = await connection.query(text, [data.email]);
-      if (!rows[0]) {
+      const { rows: [user] } = await connection.query(text, [data.email]);
+      if (!user) {
         throw new Error('credentials not found');
       }
-      if (!userHelper.comparePassword(rows[0].password, data.password)) {
+      if (!userHelper.comparePassword(user.password, data.password)) {
         throw new Error('Email or password incorrect');
       }
-      const token = userHelper.generateToken(rows[0].id, rows[0].email);
-      return token;
+      delete user.password;
+      const token = userHelper.generateToken(user.id, user.email);
+      return { token, user };
     } catch (err) {
       throw err;
     }
