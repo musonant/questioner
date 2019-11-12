@@ -24,7 +24,7 @@ const meetupTest = () => {
           password: userPassword
         })
         .end((err, res) => {
-          userToken = res.body.data[0].token;
+          userToken = res.body.data.token;
         });
 
       chai.request(app)
@@ -35,7 +35,7 @@ const meetupTest = () => {
           password: adminPassword
         })
         .end((err, res) => {
-          adminToken = res.body.data[0].token;
+          adminToken = res.body.data.token;
           done();
         });
     });
@@ -87,7 +87,7 @@ const meetupTest = () => {
         });
     });
     it('POST /meetups/:id/rsvps', (done) => {
-      const response = true;
+      const response = 'true';
       chai.request(app)
         .post('/api/v1/meetups/1/rsvps')
         .set('x-access-token', userToken)

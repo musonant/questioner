@@ -53,8 +53,9 @@ class AuthController {
 
     try {
       const createdResource = await Auth.create(req.body);
+      delete createdResource.password;
       const token = userHelper.generateToken(createdResource.id, createdResource.email);
-      return Response.created(res, [{ token, user: createdResource }]);
+      return Response.created(res, { token, user: createdResource });
     } catch (err) {
       if (err.routine === '_bt_check_unique') {
         return Response.customError(res, 'This EMAIL has been registered by another user', 400);
@@ -78,9 +79,8 @@ class AuthController {
     }
 
     try {
-      const token = await Auth.login(req.body);
-      const user = await Auth.findByAttribute({ email: req.body.email });
-      return Response.success(res, [{ token, user }]);
+      const loginResult = await Auth.login(req.body);
+      return Response.success(res, loginResult);
     } catch (err) {
       return Response.customError(res, err.message, 400);
     }
