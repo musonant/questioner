@@ -29,7 +29,7 @@ const questionTest = () => {
           password: userPassword
         })
         .end((err, res) => {
-          userToken = res.body.data[0].token;
+          userToken = res.body.data.token;
         });
 
       chai.request(app)
@@ -40,7 +40,7 @@ const questionTest = () => {
           password: adminPassword
         })
         .end((err, res) => {
-          adminToken = res.body.data[0].token;
+          adminToken = res.body.data.token;
           done();
         });
     });
@@ -50,10 +50,11 @@ const questionTest = () => {
         .post('/api/v1/questions')
         .set('x-access-token', userToken)
         .send({
-          'meetup': 1,
+          'meetupId': 1,
           'body': 'What are the applications of asynchronous operations?',
         })
         .end((err, res) => {
+          console.log('errrorrr', err);
           res.should.have.status(201);
           res.body.data.should.be.a('array');
           res.body.data[0].should.be.a('object');
